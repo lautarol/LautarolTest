@@ -1,0 +1,4 @@
+|<span data-ttu-id="0933f-101">Se aplica solo a: Intune en Azure</span><span class="sxs-lookup"><span data-stu-id="0933f-101">Applies to: Intune on Azure</span></span> |
+|--|
+|<span data-ttu-id="0933f-102">¿Busca información sobre Intune en la consola clásica?</span><span class="sxs-lookup"><span data-stu-id="0933f-102">Looking for documentation about Intune in the classic console?</span></span> <span data-ttu-id="0933f-103">Vaya [aquí](/intune/introduction-intune?toc=/intune-classic/toc.json).</span><span class="sxs-lookup"><span data-stu-id="0933f-103">Go to [here](/intune/introduction-intune?toc=/intune-classic/toc.json).</span></span>|
+| |
