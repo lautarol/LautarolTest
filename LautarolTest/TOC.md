@@ -74,7 +74,7 @@
 ### [How to Read and Write to the Site Control File by Using Managed Code](core/understand/how-to-read-and-write-to-the-site-control-file-by-using-managed-code.md) (Jak wykonać operacje odczytu i zapisu w pliku sterowania lokacji przy użyciu kodu zarządzanego)
 ### [How to Read and Write to the Site Control File by Using WMI](core/understand/how-to-read-and-write-to-the-site-control-file-by-using-wmi.md) (Jak wykonać operacje odczytu i zapisu w pliku sterowania lokacji przy użyciu usługi WMI)
 ### [How to Read a Site Control File Embedded Property List](core/understand/how-to-read-a-configuration-manager-site-control-file-embedded-property-list.md) (Jak odczytać listę właściwości osadzonych pliku sterowania lokacji)
-### [How to Deploy a Site System Role (Example:  Fallback Status Point)](core/understand/how-to-deploy-a-site-system-role--example---fallback-status-point-.md) (Jak wdrożyć rolę systemu lokacji [przykład: rezerwowy punkt stanu])
+### [How to Deploy a Site System Role (Example:  Fallback Status Point)](core/understand/how-to-deploy-a-site-system-role--example---fallback-status-point-.md) (Jak wdrożyć rolę systemu lokacji [przykład, rezerwowy punkt stanu])
 ## [Configuration Manager Class Schema](core/understand/configuration-manager-class-schema.md) (Schemat klasy programu Configuration Manager)
 ### [Date and Time Formats](core/understand/date-and-time-formats.md) (Formaty daty i godziny)
 ### [Interpreting Bitfield Properties](core/understand/interpreting-bitfield-properties.md) (Interpretowanie właściwości pól bitowych)
