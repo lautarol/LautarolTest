@@ -128,7 +128,7 @@
 #### [How to Define the Client-side Handler](apps/how-to-define-the-client-side-handler.md) (Jak zdefiniować procedurę obsługi po stronie klienta)
 ### [Installing the Application Management Extension](apps/installing-the-application-management-extension.md) (Instalowanie rozszerzenia zarządzania aplikacjami)
 #### [How to Create the Deployment Type Extension File (*.cmdtx)](apps/how-to-create-the-deployment-type-extension-file-cmdtx.md) (Jak utworzyć plik rozszerzenia typu wdrożenia (.cmdtx))
-#### [How to Create the Windows Installer File (*.msi)](apps/how-to-create-the-windows-installer-file-msi.md) (Jak utworzyć plik Instalatora Windows (*.msi))
+#### [How to Create the Windows Installer File (*.msi)](apps/how-to-create-the-windows-installer-file-msi.md) (Jak utworzyć plik Instalatora Windows (\*.msi))
 ### [Verifying the Application Management Extension](apps/verifying-the-application-management-extension.md) (Weryfikowanie rozszerzenia zarządzania aplikacjami)
 
 # [Asset Intelligence](core/clients/asset-intelligence/asset-intelligence.md) (Analiza zasobów)
