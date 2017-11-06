@@ -4,7 +4,7 @@
 
 ### Case one:
 
-Blah blah **This is a test: *testing***
+Blah blah **This is a test: *testing*.**
 
 ---------
 
