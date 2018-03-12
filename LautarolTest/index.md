@@ -17,13 +17,13 @@ ms.date: 03/21/2017
 
 ## Error message
 
-This error may appear in the Mac Server Log in Visual Studio:
+This error may appear in the *Mac Server Log* in Visual Studio:
 
-Error:  
+```Error:  
 /Developer/MonoTouch/usr/share/doc/MonoTouch/MDocArchiveToMsxDocConverter.exe not found
 rver.BaseCommand.OnRequest (System.Net.HttpListenerContext context, System.Object commandRequestState) [0x00000] in <filename unknown>:0
 at Mtb.Server.Listener.OnRequest (System.Object state) [0x00000] in <filename unknown>:0
-
+```
 
 There are 2 separate issues in this message:
 
@@ -33,4 +33,4 @@ There are 2 separate issues in this message:
 
 2.  `rver.BaseCommand.OnRequest (System.Net.HttpListenerContext context …`
 
-    This error is the real problem. Unfortunately, due to a [limitation](https://bugzilla.xamarin.com/show_bug.cgi?id=22080) this exception stack trace is incomplete. If you notice an incomplete stack trace like this in the Mac Server Log, you can check the `~/Library/Logs/Xamarin/MonoTouchVS/mtbserver.log` file on the Mac build host to find the complete stack trace.
+    This error is the real problem. Unfortunately, due to a [limitation](https://bugzilla.xamarin.com/show_bug.cgi?id=22080) this exception stack trace is *incomplete*. If you notice an incomplete stack trace like this in the Mac Server Log, you can check the `~/Library/Logs/Xamarin/MonoTouchVS/mtbserver.log` file on the Mac build host to find the complete stack trace.
