@@ -1,36 +1,67 @@
 ---
-title: "MDocArchiveToMsxDocConverter.exe not found rver.BaseCommand.OnRequest"
+title: "¿Cuándo y cómo debería presentar un informe de errores?"
 ms.topic: article
 ms.prod: xamarin
-ms.assetid: F5AC6AC4-0E7C-4746-A7CF-872F0E75AFF4
-ms.technology: xamarin-ios
-author: bradumbaugh
-ms.author: brumbaug
-ms.date: 03/21/2017
+ms.assetid: 8AD9CFBF-282A-4C1F-95E9-25F21141B052
+ms.technology: xamarin-cross-platform
+author: asb3993
+ms.author: amburns
+ms.openlocfilehash: 3a57c0843a68b454c8cb21c95b280d2731d064cd
+ms.sourcegitcommit: 6cd40d190abe38edd50fc74331be15324a845a28
+ms.translationtype: MT
+ms.contentlocale: es-ES
+ms.lasthandoff: 02/27/2018
+---
+# <a name="when-and-how-should-i-file-a-bug-report"></a><span data-ttu-id="022aa-102">¿Cuándo y cómo debería presentar un informe de errores?</span><span class="sxs-lookup"><span data-stu-id="022aa-102">When and how should I file a bug report?</span></span>
+
+
+<span data-ttu-id="022aa-103">Informar de errores en el Rastreador de errores de Bugzilla de Xamarin aquí: [https://bugzilla.xamarin.com/enter_bug.cgi?classification=__all](https://bugzilla.xamarin.com/enter_bug.cgi?classification=__all).</span><span class="sxs-lookup"><span data-stu-id="022aa-103">File bugs in Xamarin's Bugzilla bug tracker here: [https://bugzilla.xamarin.com/enter_bug.cgi?classification=__all](https://bugzilla.xamarin.com/enter_bug.cgi?classification=__all).</span></span>
+
+## <a name="file-a-bug-if"></a><span data-ttu-id="022aa-104">Registre un error si...</span><span class="sxs-lookup"><span data-stu-id="022aa-104">File a bug if...</span></span>
+
+
+<span data-ttu-id="022aa-105">Tiene un conjunto de pasos que se cree que los ingenieros de Xamarin podrá usar para reproducir un problema causado por Xamarin.</span><span class="sxs-lookup"><span data-stu-id="022aa-105">You have a set of steps you think the Xamarin engineers will be able to use to reproduce a problem that is caused by Xamarin.</span></span>
+
+<span data-ttu-id="022aa-106">O</span><span class="sxs-lookup"><span data-stu-id="022aa-106">OR</span></span>
+
+<span data-ttu-id="022aa-107">Puede describir cuidadosamente los síntomas visibles del problema, especialmente si también puede describir algunas circunstancias precisas relacionados con el problema. <sup> [[1]](#note-1)</sup></span><span class="sxs-lookup"><span data-stu-id="022aa-107">You can carefully describe the visible symptoms of the problem, especially if you can also describe some precise circumstances related to the problem.<sup>[[1]](#note-1)</sup></span></span>
+
+
+## <a name="best-practices-to-help-xamarin-address-bugs-quickly-and-efficiently"></a><span data-ttu-id="022aa-108">Prácticas recomendadas para ayudar a resolver errores de Xamarin rápida y eficaz</span><span class="sxs-lookup"><span data-stu-id="022aa-108">Best practices to help Xamarin address bugs quickly and efficiently</span></span>
+
+
+1. <span data-ttu-id="022aa-109"><a name="ref-1" />Búsqueda [Bugzilla](https://bugzilla.xamarin.com/query.cgi?format=specific&amp;bug_status=__all__) y la web existentes error en los informes o sugerencias de uso que pueden solucionar el problema directamente.<sup> [[2]](#note-2)</sup><sup>[[3]](#note-3)</sup></span><span class="sxs-lookup"><span data-stu-id="022aa-109"><a name="ref-1" />Search [Bugzilla](https://bugzilla.xamarin.com/query.cgi?format=specific&amp;bug_status=__all__) and the web for existing bug reports or usage suggestions that might address the problem directly.<sup>[[2]](#note-2)</sup><sup>[[3]](#note-3)</sup></span></span>
+
+1. <span data-ttu-id="022aa-110"><a name="ref-2" />Siga el [error escribir instrucciones](https://bugzilla.xamarin.com/page.cgi?id=bug-writing.html) para describir el problema como de forma clara y concisa como sea posible, incluida una descripción de lo que ha ocurrido y se espera que se produzca.</span><span class="sxs-lookup"><span data-stu-id="022aa-110"><a name="ref-2" />Follow the [bug writing guidelines](https://bugzilla.xamarin.com/page.cgi?id=bug-writing.html) to describe the problem as clearly and concisely as possible, including a description of what happened and was expected to happen.</span></span>
+
+1. <span data-ttu-id="022aa-111"><a name="ref-3" />Incluya los seguimientos de pila pertinentes, el texto del mensaje de error, o registros de bloqueo.</span><span class="sxs-lookup"><span data-stu-id="022aa-111"><a name="ref-3" />Include any relevant stack traces, error message text, or crash logs.</span></span> <span data-ttu-id="022aa-112"><sup>[[4]](#note-4)</sup></span><span class="sxs-lookup"><span data-stu-id="022aa-112"><sup>[[4]](#note-4)</sup></span></span>
+
+1. <span data-ttu-id="022aa-113"><a name="ref-4" />Anote los mensajes de error importante que aparecen en pantalla los datos adjuntos como texto sin formato demasiado.</span><span class="sxs-lookup"><span data-stu-id="022aa-113"><a name="ref-4" />Write down any important error messages that appear in screenshot attachments as plain text too.</span></span>
+
+1. <span data-ttu-id="022aa-114"><a name="ref-5" />Incluir un caso de prueba reducido e independiente que reproduzca el error con el código al mínimo posible.</span><span class="sxs-lookup"><span data-stu-id="022aa-114"><a name="ref-5" />Include a small, self-contained test case that reproduces the bug with as little code as possible.</span></span>  <span data-ttu-id="022aa-115">Si no se puede reproducir el problema con un proyecto nuevo (creado mediante una de las plantillas integradas), a continuación, comprima un proyecto que se muestre el problema y adjuntarlo al informe de errores.</span><span class="sxs-lookup"><span data-stu-id="022aa-115">If you cannot reproduce the problem with a brand new project (created using one of the built-in templates), then please zip up a project that demonstrates the problem and attach it to the bug report.</span></span>  <span data-ttu-id="022aa-116">Convertir el proyecto de ejemplo tan simple como sea posible antes de adjuntarlo. <sup> [[5]](#note-5)</sup><sup>[[6]](#note-6)</sup></span><span class="sxs-lookup"><span data-stu-id="022aa-116">Make the example project as simple as possible before attaching it.<sup>[[5]](#note-5)</sup><sup>[[6]](#note-6)</sup></span></span>
+
+1. <span data-ttu-id="022aa-117"><a name="ref-6" />Describir el entorno donde se ha detectado el error, incluido el sistema operativo y [versiones de Xamarin](~/cross-platform/troubleshooting/questions/version-logs.md) y todas las dependencias.</span><span class="sxs-lookup"><span data-stu-id="022aa-117"><a name="ref-6" />Describe the environment where the bug was encountered, including the operating system and [versions of Xamarin](~/cross-platform/troubleshooting/questions/version-logs.md) and any dependencies.</span></span>
+
 ---
 
-# MDocArchiveToMsxDocConverter.exe not found rver.BaseCommand.OnRequest
+## <a name="additional-details"></a><span data-ttu-id="022aa-118">Detalles adicionales</span><span class="sxs-lookup"><span data-stu-id="022aa-118">Additional details</span></span>
 
-> [!IMPORTANT]
-> This issue has been resolved in recent versions of Xamarin. However, if the issue occurs on the latest version of the software, please file a [new bug](~/cross-platform/troubleshooting/questions/howto-file-bug.md) with your full versioning information and full build log output.
+1. <span data-ttu-id="022aa-119"><a name="note-1" />[*^*](#ref-1) Lo ideal es que debe incluir la descripción de los "Síntomas visibles" suficientes detalles para que otros clientes pueden confirmar si ve el mismo problema (mismos mensajes de error, el mismo degradación del rendimiento, el mismo seguimiento de pila del bloqueo, _etcetera._ ).</span><span class="sxs-lookup"><span data-stu-id="022aa-119"><a name="note-1" />[*^*](#ref-1) Ideally the description of the "visible symptoms" should include enough details so that other customers can confirm whether they are seeing the same problem (same error messages, same performance degradation, same stack trace from a crash, _etc._).</span></span> <span data-ttu-id="022aa-120">Para "precisas circunstancias", un buen ejemplo sería si puede aparecer algo como: "normalmente encuentre el problema 75% del tiempo, pero si se cambia este algo, a continuación, puedo evitar el problema completamente."</span><span class="sxs-lookup"><span data-stu-id="022aa-120">For "precise circumstances", one good example would be if you can say something like: "I normally hit the problem 75% of the time, but if I change this one thing then I can avoid the problem completely."</span></span> <span data-ttu-id="022aa-121">Otro ejemplo similar de "circunstancia precisa" es si el problema deja de degradar a una versión anterior de Xamarin.</span><span class="sxs-lookup"><span data-stu-id="022aa-121">Another similar example of a "precise circumstance" is if downgrading to a previous version of Xamarin stops the problem.</span></span>
+
+1. <span data-ttu-id="022aa-122"><a name="note-2" />[*^*](#ref-2) Como cabría esperar, los fragmentos de texto de error (o cualquier otro texto descriptivo de forma exclusiva) son normalmente el mejor término de búsqueda.</span><span class="sxs-lookup"><span data-stu-id="022aa-122"><a name="note-2" />[*^*](#ref-2) As you would expect, snippets of error text (or any other uniquely descriptive text) are usually the best search terms.</span></span> <span data-ttu-id="022aa-123">Si el informe de errores existente está incompleto, son Asistente para agregar los detalles o archivos de un nuevo, mejor el informe de errores.</span><span class="sxs-lookup"><span data-stu-id="022aa-123">If the existing bug report is incomplete, then you are welcome to add details or file a new, better bug report.</span></span>
+
+1. <span data-ttu-id="022aa-124"><a name="note-3" />[*^*](#ref-3) Otra buena pregunta es si el mismo problema se han notificado de cualquier Java Objective-C o aplicaciones Swift.</span><span class="sxs-lookup"><span data-stu-id="022aa-124"><a name="note-3" />[*^*](#ref-3) Another good question is whether the same problem has been reported for any Java, Objective-C, or Swift apps.</span></span> <span data-ttu-id="022aa-125">Si es así, el problema es muy probable que parte de Android o iOS propio en lugar de como parte de Xamarin.</span><span class="sxs-lookup"><span data-stu-id="022aa-125">If so, then the problem is very likely part of Android or iOS itself rather than part of Xamarin.</span></span>
+
+1. <span data-ttu-id="022aa-126"><a name="note-4" />[*^*](#ref-4) Algunos ejemplos de información que desea incluir:</span><span class="sxs-lookup"><span data-stu-id="022aa-126"><a name="note-4" />[*^*](#ref-4) A few examples of information to include:</span></span>
+
+    1. <span data-ttu-id="022aa-127">Para errores que se producen al compilar un proyecto, incluya la sección completa [resultados de la compilación diagnóstico](~/android/troubleshooting/troubleshooting.md#Diagnostic_MSBuild_Output) en el informe de errores.</span><span class="sxs-lookup"><span data-stu-id="022aa-127">For errors that occur when building a project, please include the complete [diagnostic build output](~/android/troubleshooting/troubleshooting.md#Diagnostic_MSBuild_Output) on the bug report.</span></span>
+    
+    1. <span data-ttu-id="022aa-128">Para los errores que se producen al compilar o depurar un proyecto de iOS desde Visual Studio, vuelva a ejecutar _Ayuda > Xamarin > Zip registros_ después de alcanzar el error e incluya el archivo zip resultante en el informe de errores.</span><span class="sxs-lookup"><span data-stu-id="022aa-128">For errors that occur when building or debugging an iOS project from Visual Studio, please run _Help > Xamarin > Zip Logs_ after hitting the error and include the resulting .zip file on the bug report.</span></span>
+    
+    1. <span data-ttu-id="022aa-129">Para las excepciones o se bloquea en aplicaciones de Android o iOS, incluya la correspondiente "[Depurar registros para las aplicaciones Xamarin.Android y Xamarin.iOS](~/cross-platform/troubleshooting/questions/version-logs.md#debug-logs-for-xamarin-apps)."</span><span class="sxs-lookup"><span data-stu-id="022aa-129">For exceptions or crashes in Android or iOS apps, please include the relevant "[Debug logs for Xamarin.Android and Xamarin.iOS apps](~/cross-platform/troubleshooting/questions/version-logs.md#debug-logs-for-xamarin-apps)."</span></span>
+
+1. <span data-ttu-id="022aa-130"><a name="note-5" />[*^*](#ref-5) Si es posible para su problema en particular, es una excelente opción volver a crear el problema agregando un pequeño número de archivos de la solución original en una nueva solución.</span><span class="sxs-lookup"><span data-stu-id="022aa-130"><a name="note-5" />[*^*](#ref-5) If possible for your particular problem, one excellent option is to recreate the problem by adding a small number of files from your original solution into a brand new solution.</span></span> <span data-ttu-id="022aa-131">El equipo de Xamarin a menudo podrá investigar problemas incluso en casos de prueba más grandes (suponiendo que se explican los pasos para reproducir de claramente), pero más sencillo casos de prueba muestra que la mejor oportunidad, que se resolverá el error rápidamente.</span><span class="sxs-lookup"><span data-stu-id="022aa-131">The Xamarin team will often be able to investigate problems even on larger test cases (assuming the steps to reproduce are explained clearly), but simpler test cases give the best chance that the bug will be resolved quickly.</span></span>
 
 
-## Error message
+1. <span data-ttu-id="022aa-132"><a name="note-6" />[*^*](#ref-6) Si es _no_ posibles reproducir el problema mediante la adición de un número reducido de archivos a una solución nueva, a continuación, puede comprimir y adjuntar la carpeta de la solución completa para la aplicación completa.</span><span class="sxs-lookup"><span data-stu-id="022aa-132"><a name="note-6" />[*^*](#ref-6) If it is _not_ possible to reproduce the problem by adding a small number of files to a brand new solution, then you can zip up and attach the whole solution folder for your full app.</span></span> <span data-ttu-id="022aa-133">Elimine la `bin`, `obj`, `Components`, y `packages` carpetas para hacer que el archivo zip de archivos más pequeños.</span><span class="sxs-lookup"><span data-stu-id="022aa-133">Please delete the `bin`, `obj`, `Components`, and `packages` folders to make the zip file smaller.</span></span> <span data-ttu-id="022aa-134">(El IDE y el proceso de compilación se suelen restaurar o volver a crear el contenido de estas carpetas según sea necesario). También puede eliminar tantas código archivos de recursos y del proyecto que desee, siempre y cuando la solución resultante todavía muestre el problema original.</span><span class="sxs-lookup"><span data-stu-id="022aa-134">(The IDE and the build process will usually restore or recreate the contents of these folders as needed.) You can also delete as many code and resource files from the project as you like, as long as the resulting solution still demonstrates the original problem.</span></span>
 
-This error may appear in the *Mac Server Log* in Visual Studio:
-
-```Error:  
-/Developer/MonoTouch/usr/share/doc/MonoTouch/MDocArchiveToMsxDocConverter.exe not found
-rver.BaseCommand.OnRequest (System.Net.HttpListenerContext context, System.Object commandRequestState) [0x00000] in <filename unknown>:0
-  at Mtb.Server.Listener.OnRequest (System.Object state) [0x00000] in <filename unknown>:0
-```
-
-There are 2 separate issues in this message:
-
-1.  `Error: /Developer/MonoTouch/usr/share/doc/MonoTouch/MDocArchiveToMsxDocConverter.exe not found`
-
-    This error is harmless, but it is also misleading. It [will be removed](https://bugzilla.xamarin.com/show_bug.cgi?id=21667) in a future release.
-
-2.  `rver.BaseCommand.OnRequest (System.Net.HttpListenerContext context …`
-
-    This error is the real problem. Unfortunately, due to a [limitation](https://bugzilla.xamarin.com/show_bug.cgi?id=22080) this exception stack trace is *incomplete*. If you notice an incomplete stack trace like this in the Mac Server Log, you can check the `~/Library/Logs/Xamarin/MonoTouchVS/mtbserver.log` file on the Mac build host to find the complete stack trace.
