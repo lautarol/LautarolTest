@@ -33,7 +33,6 @@ ms.author: amburns
     `Xamarin.Forms version:`
 - <span data-ttu-id="f30fa-117">Lists all Xamarin.Forms 1.4.x packages:</span><span class="sxs-lookup"><span data-stu-id="f30fa-117">Lists all Xamarin.Forms 1.4.x packages:</span></span> 
 
-
     `Xamarin.Forms version:1.4`
 
 <span data-ttu-id="f30fa-118">*Note: If you add a space between `version:` & the version number, the search will behave as though no version was specified.*</span><span class="sxs-lookup"><span data-stu-id="f30fa-118">*Note: If you add a space between `version:` & the version number, the search will behave as though no version was specified.*</span></span>
