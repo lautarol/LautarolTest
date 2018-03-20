@@ -74,9 +74,11 @@ ms.date: 03/19/2017
 
 8. <span data-ttu-id="200dd-145">Next, test if the `ssh` client from OpenSSH can connect successfully to the Mac from Windows.</span><span class="sxs-lookup"><span data-stu-id="200dd-145">Next, test if the `ssh` client from OpenSSH can connect successfully to the Mac from Windows.</span></span> <span data-ttu-id="200dd-146">One way to install this program is to install [Git for Windows](https://git-for-windows.github.io/).</span><span class="sxs-lookup"><span data-stu-id="200dd-146">One way to install this program is to install [Git for Windows](https://git-for-windows.github.io/).</span></span> <span data-ttu-id="200dd-147">You can then start a **Git Bash** command prompt and attempt to `ssh` in to the Mac with your username and IP address:</span><span class="sxs-lookup"><span data-stu-id="200dd-147">You can then start a **Git Bash** command prompt and attempt to `ssh` in to the Mac with your username and IP address:</span></span>
 
+    ```
         ssh amyb@10.1.8.95
+    ```
+<a name="stepnine" />
 
-<a name="stepnine" />  
 9. <span data-ttu-id="200dd-148">If **step 8 succeeds**, you can try running a simple command like `ls` over the connection:</span><span class="sxs-lookup"><span data-stu-id="200dd-148">If **step 8 succeeds**, you can try running a simple command like `ls` over the connection:</span></span>
 
         ssh amyb@10.1.8.95 'ls'
