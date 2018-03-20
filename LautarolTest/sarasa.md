@@ -22,21 +22,20 @@ ms.date: 03/18/2017
 
 1. <span data-ttu-id="cd558-109">A location application qualifies as a background-necessary application in iOS.</span><span class="sxs-lookup"><span data-stu-id="cd558-109">A location application qualifies as a background-necessary application in iOS.</span></span> <span data-ttu-id="cd558-110">Register the application as a Location application by editing the **Info.plist** file for the project.</span><span class="sxs-lookup"><span data-stu-id="cd558-110">Register the application as a Location application by editing the **Info.plist** file for the project.</span></span>
 
-   <span data-ttu-id="cd558-111">Under Solution Explorer, double click on the **Info.plist** file to open it, and scroll to the bottom of the list.</span><span class="sxs-lookup"><span data-stu-id="cd558-111">Under Solution Explorer, double click on the **Info.plist** file to open it, and scroll to the bottom of the list.</span></span> <span data-ttu-id="cd558-112">Place a check by both the **Enable Background Modes** and the **Location Updates** checkboxes.</span><span class="sxs-lookup"><span data-stu-id="cd558-112">Place a check by both the **Enable Background Modes** and the **Location Updates** checkboxes.</span></span>
+    <span data-ttu-id="cd558-111">Under Solution Explorer, double click on the **Info.plist** file to open it, and scroll to the bottom of the list.</span><span class="sxs-lookup"><span data-stu-id="cd558-111">Under Solution Explorer, double click on the **Info.plist** file to open it, and scroll to the bottom of the list.</span></span> <span data-ttu-id="cd558-112">Place a check by both the **Enable Background Modes** and the **Location Updates** checkboxes.</span><span class="sxs-lookup"><span data-stu-id="cd558-112">Place a check by both the **Enable Background Modes** and the **Location Updates** checkboxes.</span></span>
 
+    <span data-ttu-id="cd558-113">In Visual Studio for Mac, it will look like something like this:</span><span class="sxs-lookup"><span data-stu-id="cd558-113">In Visual Studio for Mac, it will look like something like this:</span></span>
 
-   <span data-ttu-id="cd558-113">In Visual Studio for Mac, it will look like something like this:</span><span class="sxs-lookup"><span data-stu-id="cd558-113">In Visual Studio for Mac, it will look like something like this:</span></span>
+    <span data-ttu-id="cd558-114">[![](location-walkthrough-images/image7.png "Place a check by both the Enable Background Modes and the Location Updates checkboxes")](location-walkthrough-images/image7.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="cd558-114">[![](location-walkthrough-images/image7.png "Place a check by both the Enable Background Modes and the Location Updates checkboxes")](location-walkthrough-images/image7.png#lightbox)</span></span>
 
-   <span data-ttu-id="cd558-114">[![](location-walkthrough-images/image7.png "Place a check by both the Enable Background Modes and the Location Updates checkboxes")](location-walkthrough-images/image7.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="cd558-114">[![](location-walkthrough-images/image7.png "Place a check by both the Enable Background Modes and the Location Updates checkboxes")](location-walkthrough-images/image7.png#lightbox)</span></span>
+    <span data-ttu-id="cd558-115">In Visual Studio, **Info.plist** needs to be updated manually by adding the following key/value pair:</span><span class="sxs-lookup"><span data-stu-id="cd558-115">In Visual Studio, **Info.plist** needs to be updated manually by adding the following key/value pair:</span></span>
 
-   <span data-ttu-id="cd558-115">In Visual Studio, **Info.plist** needs to be updated manually by adding the following key/value pair:</span><span class="sxs-lookup"><span data-stu-id="cd558-115">In Visual Studio, **Info.plist** needs to be updated manually by adding the following key/value pair:</span></span>
-
-   ```xml  
-   <key>UIBackgroundModes</key>
-   <array>
-       <string>location</string>
-   </array>  
-   ```
+    ```xml
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>location</string>
+    </array>
+    ```
 
 1. <span data-ttu-id="cd558-116">Now that the application is registered, it can get location data from the device.</span><span class="sxs-lookup"><span data-stu-id="cd558-116">Now that the application is registered, it can get location data from the device.</span></span> <span data-ttu-id="cd558-117">In iOS, the `CLLocationManager` class is used to access location information, and can raise events that provide location updates.</span><span class="sxs-lookup"><span data-stu-id="cd558-117">In iOS, the `CLLocationManager` class is used to access location information, and can raise events that provide location updates.</span></span>
 
