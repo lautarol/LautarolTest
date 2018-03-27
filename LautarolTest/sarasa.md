@@ -79,7 +79,6 @@ ms.date: 03/19/2017
     ```bash
     ssh amyb@10.1.8.95
     ```
-    
 <a name="stepnine" />
 9. <span data-ttu-id="601ad-148">If **step 8 succeeds**, you can try running a simple command like `ls` over the connection:</span><span class="sxs-lookup"><span data-stu-id="601ad-148">If **step 8 succeeds**, you can try running a simple command like `ls` over the connection:</span></span>
 
