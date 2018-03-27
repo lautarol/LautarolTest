@@ -1,369 +1,538 @@
 ---
-title: Connection Troubleshooting
-description: 'This guide provides troubleshooting steps for issues that may be encountered using the new connection manager, including connectivity and SSH issues.'
+title: Walkthrough - Working with WCF
+description: This walkthrough covers how a mobile application built with Xamarin can consume a WCF web service using the BasicHttpBinding class.
 ms.topic: article
 ms.prod: xamarin
-ms.assetid: A1508A15-1997-4562-B537-E4A9F3DD1F06
-ms.technology: xamarin-ios
-author: bradumbaugh
-ms.author: brumbaug
-ms.date: 03/19/2017
+ms.assetid: D0E83342-2E79-4D25-BD57-43718F5628C4
+ms.technology: xamarin-cross-platform
+author: asb3993
+ms.author: amburns
+ms.date: 02/17/2018
 ---
 
-# <a name="connection-troubleshooting"></a><span data-ttu-id="601ad-103">Connection Troubleshooting</span><span class="sxs-lookup"><span data-stu-id="601ad-103">Connection Troubleshooting</span></span>
+# <a name="walkthrough---working-with-wcf"></a><span data-ttu-id="cb9d0-103">Walkthrough - Working with WCF</span><span class="sxs-lookup"><span data-stu-id="cb9d0-103">Walkthrough - Working with WCF</span></span>
 
-<span data-ttu-id="601ad-104">_This guide provides troubleshooting steps for issues that may be encountered using the new connection manager, including connectivity and SSH issues._</span><span class="sxs-lookup"><span data-stu-id="601ad-104">_This guide provides troubleshooting steps for issues that may be encountered using the new connection manager, including connectivity and SSH issues._</span></span>
-
-## <a name="log-file-location"></a><span data-ttu-id="601ad-105">Log File Location</span><span class="sxs-lookup"><span data-stu-id="601ad-105">Log File Location</span></span>
-
-- <span data-ttu-id="601ad-106">**Mac** – ~/Library/Logs/Xamarin-[MAJOR.MINOR]</span><span class="sxs-lookup"><span data-stu-id="601ad-106">**Mac** – ~/Library/Logs/Xamarin-[MAJOR.MINOR]</span></span>
-- <span data-ttu-id="601ad-107">**Windows** – %LOCALAPPDATA%\Xamarin\Logs</span><span class="sxs-lookup"><span data-stu-id="601ad-107">**Windows** – %LOCALAPPDATA%\Xamarin\Logs</span></span>
-
-<span data-ttu-id="601ad-108">The log files can be located by browsing to **Help &gt; Xamarin &gt; Zip Logs** in Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="601ad-108">The log files can be located by browsing to **Help &gt; Xamarin &gt; Zip Logs** in Visual Studio.</span></span>
+<span data-ttu-id="cb9d0-104">_This walkthrough covers how a mobile application built with Xamarin can consume a WCF web service using the BasicHttpBinding class._</span><span class="sxs-lookup"><span data-stu-id="cb9d0-104">_This walkthrough covers how a mobile application built with Xamarin can consume a WCF web service using the BasicHttpBinding class._</span></span>
 
 
-## <a name="wheres-the-xamarin-build-host-app"></a><span data-ttu-id="601ad-109">Where's the Xamarin Build Host App?</span><span class="sxs-lookup"><span data-stu-id="601ad-109">Where's the Xamarin Build Host App?</span></span>
+<span data-ttu-id="cb9d0-105">It is a common requirement for mobile applications to be able to communicate with backend systems.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-105">It is a common requirement for mobile applications to be able to communicate with backend systems.</span></span> <span data-ttu-id="cb9d0-106">There are many choices and options for backend frameworks, one of which is [Windows Communication Foundation](http://msdn.microsoft.com/en-us/library/ms731082.aspx) (WCF).</span><span class="sxs-lookup"><span data-stu-id="cb9d0-106">There are many choices and options for backend frameworks, one of which is [Windows Communication Foundation](http://msdn.microsoft.com/en-us/library/ms731082.aspx) (WCF).</span></span> <span data-ttu-id="cb9d0-107">This walkthrough will provide an example of how a Xamarin mobile application can consume a WCF service using the `BasicHttpBinding` class.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-107">This walkthrough will provide an example of how a Xamarin mobile application can consume a WCF service using the `BasicHttpBinding` class.</span></span> <span data-ttu-id="cb9d0-108">The walkthrough includes the following topics:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-108">The walkthrough includes the following topics:</span></span>
 
-<span data-ttu-id="601ad-110">The Xamarin Build Host from older versions of Xamarin.iOS is no longer required.</span><span class="sxs-lookup"><span data-stu-id="601ad-110">The Xamarin Build Host from older versions of Xamarin.iOS is no longer required.</span></span> <span data-ttu-id="601ad-111">Visual Studio now automatically deploys the agent over Remote Login and runs it in the background.</span><span class="sxs-lookup"><span data-stu-id="601ad-111">Visual Studio now automatically deploys the agent over Remote Login and runs it in the background.</span></span> <span data-ttu-id="601ad-112">There is no additional app that will run on either the Mac or Windows machines.</span><span class="sxs-lookup"><span data-stu-id="601ad-112">There is no additional app that will run on either the Mac or Windows machines.</span></span>
+1.  <span data-ttu-id="cb9d0-109">**Create a WCF Service** - In this section we will create a very basic WCF service having two methods.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-109">**Create a WCF Service** - In this section we will create a very basic WCF service having two methods.</span></span> <span data-ttu-id="cb9d0-110">The first method will take a string parameter, while the other method will take a C# object.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-110">The first method will take a string parameter, while the other method will take a C# object.</span></span> <span data-ttu-id="cb9d0-111">This section will also discuss how to configure a developer's workstation to allow remote access to the WCF service.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-111">This section will also discuss how to configure a developer's workstation to allow remote access to the WCF service.</span></span>
+1.  <span data-ttu-id="cb9d0-112">**Create a Xamarin.Android Application** - Once the WCF service has been created, we will create a simple Xamarin.Android application that will use the WCF service.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-112">**Create a Xamarin.Android Application** - Once the WCF service has been created, we will create a simple Xamarin.Android application that will use the WCF service.</span></span> <span data-ttu-id="cb9d0-113">This section will cover how to create a WCF service proxy class to facilitate communication with the WCF service.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-113">This section will cover how to create a WCF service proxy class to facilitate communication with the WCF service.</span></span>
+1.  <span data-ttu-id="cb9d0-114">**Create a Xamarin.iOS Application** - The final part of this tutorial involves creating a simple Xamarin.iOS application that will use the WCF service.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-114">**Create a Xamarin.iOS Application** - The final part of this tutorial involves creating a simple Xamarin.iOS application that will use the WCF service.</span></span>
+
+<a name="Requirements" />
+
+## <a name="requirements"></a><span data-ttu-id="cb9d0-115">Requirements</span><span class="sxs-lookup"><span data-stu-id="cb9d0-115">Requirements</span></span>
+
+<span data-ttu-id="cb9d0-116">This walkthrough assumes that you have some familiarity with creating and using WCF services.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-116">This walkthrough assumes that you have some familiarity with creating and using WCF services.</span></span>
+
+<a name="Creating_a_WCF_Service" />
+
+## <a name="creating-a-wcf-service"></a><span data-ttu-id="cb9d0-117">Creating a WCF Service</span><span class="sxs-lookup"><span data-stu-id="cb9d0-117">Creating a WCF Service</span></span>
+
+<span data-ttu-id="cb9d0-118">The first task before us is to create a WCF service for a mobile applications to communicate with.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-118">The first task before us is to create a WCF service for a mobile applications to communicate with.</span></span>
+
+1. <span data-ttu-id="cb9d0-119">Launch Visual Studio 2017, and create a new project.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-119">Launch Visual Studio 2017, and create a new project.</span></span>
+1. <span data-ttu-id="cb9d0-120">In the **New Project** dialog, select the **WCF > WCF Service Library** template, and name the solution `HelloWorldService`:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-120">In the **New Project** dialog, select the **WCF > WCF Service Library** template, and name the solution `HelloWorldService`:</span></span>
+
+    <span data-ttu-id="cb9d0-121">![](walkthrough-working-with-wcf-images/new-wcf-service.png "Create a new WCF service library")</span><span class="sxs-lookup"><span data-stu-id="cb9d0-121">![](walkthrough-working-with-wcf-images/new-wcf-service.png "Create a new WCF service library")</span></span>
+
+1. <span data-ttu-id="cb9d0-122">In **Solution Explorer**, add a new class named `HelloWorldData` to the project:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-122">In **Solution Explorer**, add a new class named `HelloWorldData` to the project:</span></span>
+
+    ```csharp
+        using System.Runtime.Serialization;
+
+        namespace HelloWorldService
+        {
+            [DataContract]
+            public class HelloWorldData
+            {
+                [DataMember]
+                public bool SayHello { get; set; }
+
+                [DataMember]
+                public string Name { get; set; }
+
+                public HelloWorldData()
+                {
+                    Name = "Hello ";
+                    SayHello = false;
+                }
+            }
+        }
+    ```
 
 
-## <a name="troubleshooting-remote-login"></a><span data-ttu-id="601ad-113">Troubleshooting Remote Login</span><span class="sxs-lookup"><span data-stu-id="601ad-113">Troubleshooting Remote Login</span></span>
+1. <span data-ttu-id="cb9d0-123">In **Solution Explorer**, rename `IService1.cs` to `IHelloWorldService.cs`, and rename `Service1.cs` to `HelloWorldService.cs`.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-123">In **Solution Explorer**, rename `IService1.cs` to `IHelloWorldService.cs`, and rename `Service1.cs` to `HelloWorldService.cs`.</span></span>
+1. <span data-ttu-id="cb9d0-124">In **Solution Explorer**, open `IHelloWorldService.cs` and replace the code with the following code:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-124">In **Solution Explorer**, open `IHelloWorldService.cs` and replace the code with the following code:</span></span>
+
+    ```csharp
+        using System.ServiceModel;
+
+        namespace HelloWorldService
+        {
+            [ServiceContract]
+            public interface IHelloWorldService
+            {
+                [OperationContract]
+                string SayHelloTo(string name);
+
+                [OperationContract]
+                HelloWorldData GetHelloData(HelloWorldData helloWorldData);
+            }
+        }
+    ```
+  
+    <span data-ttu-id="cb9d0-125">This service provides two methods – one that takes a string for a parameter and another that takes a .NET object.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-125">This service provides two methods – one that takes a string for a parameter and another that takes a .NET object.</span></span>
+
+1. <span data-ttu-id="cb9d0-126">In **Solution Explorer**, open `HelloWorldService.cs` and replace the code with the following code:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-126">In **Solution Explorer**, open `HelloWorldService.cs` and replace the code with the following code:</span></span>
+
+    ```csharp
+        using System;
+
+        namespace HelloWorldService
+        {
+            public class HelloWorldService : IHelloWorldService
+            {
+                public HelloWorldData GetHelloData(HelloWorldData helloWorldData)
+                {
+                    if (helloWorldData == null)
+                        throw new ArgumentException("helloWorldData");
+
+                    if (helloWorldData.SayHello)
+                        helloWorldData.Name = "Hello World to {helloWorldData.Name}";
+
+                    return helloWorldData;
+                }
+
+                public string SayHelloTo(string name)
+                {
+                    return "Hello World to you, {name}";
+                }
+            }
+        }
+    ```
+
+1. <span data-ttu-id="cb9d0-127">In **Solution Explorer**, open `App.config`, update the `name` attribute of the `<service>` node, the `contract` attribute of the `<endpoint>` node, and the `baseAddress` attribute of the `<add>` node:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-127">In **Solution Explorer**, open `App.config`, update the `name` attribute of the `<service>` node, the `contract` attribute of the `<endpoint>` node, and the `baseAddress` attribute of the `<add>` node:</span></span>
+
+    ```xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <configuration>
+            ...
+            <services>
+              <service name="HelloWorldService.HelloWorldService">
+                <endpoint address="" binding="basicHttpBinding" contract="HelloWorldService.IHelloWorldService">
+                  <identity>
+                    <dns value="localhost" />
+                  </identity>
+                </endpoint>
+                <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange" />
+                <host>
+                  <baseAddresses>
+                    <add baseAddress="http://localhost:8733/Design_Time_Addresses/HelloWorldService/" />
+                  </baseAddresses>
+                </host>
+              </service>
+            </services>
+            ...
+        </configuration>
+    ```
+
+1. <span data-ttu-id="cb9d0-128">Build and run the WCF service.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-128">Build and run the WCF service.</span></span> <span data-ttu-id="cb9d0-129">The service will be hosted by the WCF test client:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-129">The service will be hosted by the WCF test client:</span></span>
+
+    <span data-ttu-id="cb9d0-130">![](walkthrough-working-with-wcf-images/hosted-wcf-service.png "WCF service running in test client")</span><span class="sxs-lookup"><span data-stu-id="cb9d0-130">![](walkthrough-working-with-wcf-images/hosted-wcf-service.png "WCF service running in test client")</span></span>
+
+1. <span data-ttu-id="cb9d0-131">With the WCF test client running, launch a browser and navigate to the endpoint for the WCF service:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-131">With the WCF test client running, launch a browser and navigate to the endpoint for the WCF service:</span></span>
+
+    <span data-ttu-id="cb9d0-132">![](walkthrough-working-with-wcf-images/wcf-service-browser.png "WCF service browser information page")</span><span class="sxs-lookup"><span data-stu-id="cb9d0-132">![](walkthrough-working-with-wcf-images/wcf-service-browser.png "WCF service browser information page")</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="601ad-114">These troubleshooting steps are primarily intended for problems that happen during the initial setup on a new system.</span><span class="sxs-lookup"><span data-stu-id="601ad-114">These troubleshooting steps are primarily intended for problems that happen during the initial setup on a new system.</span></span>  <span data-ttu-id="601ad-115">If you had previously been using the connection successfully in a particular environment and then the connection suddenly or intermittently stops working, you can (in most cases) skip straight to checking if any of the following helps:</span><span class="sxs-lookup"><span data-stu-id="601ad-115">If you had previously been using the connection successfully in a particular environment and then the connection suddenly or intermittently stops working, you can (in most cases) skip straight to checking if any of the following helps:</span></span> 
->   * <span data-ttu-id="601ad-116">Kill the leftover processes as described below under [Errors due to existing Build Host Processes](#errors).</span><span class="sxs-lookup"><span data-stu-id="601ad-116">Kill the leftover processes as described below under [Errors due to existing Build Host Processes](#errors).</span></span> 
->   * <span data-ttu-id="601ad-117">Clear the agents as described under [Clearing the Broker, IDB, Build, and Designer Agents](#clearing), and then use a wired internet connection and connect directly via the IP address as described under [Couldn't connect to MacBuildHost.local. Please try again.](#tryagain).</span><span class="sxs-lookup"><span data-stu-id="601ad-117">Clear the agents as described under [Clearing the Broker, IDB, Build, and Designer Agents](#clearing), and then use a wired internet connection and connect directly via the IP address as described under [Couldn't connect to MacBuildHost.local. Please try again.](#tryagain).</span></span>  
-> <span data-ttu-id="601ad-118">If none of those options fix the issue, then please follow the instructions in [step 9](#stepnine) to file a new bug report.</span><span class="sxs-lookup"><span data-stu-id="601ad-118">If none of those options fix the issue, then please follow the instructions in [step 9](#stepnine) to file a new bug report.</span></span>
+> <span data-ttu-id="cb9d0-133">The following section is only necessary if you need to accept remote connections on a Windows 10 workstation.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-133">The following section is only necessary if you need to accept remote connections on a Windows 10 workstation.</span></span> <span data-ttu-id="cb9d0-134">The section can be ignored if you have an alternate platform on which to deploy the WCF service.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-134">The section can be ignored if you have an alternate platform on which to deploy the WCF service.</span></span>
 
-1. <span data-ttu-id="601ad-119">Check that you have compatible Xamarin.iOS versions installed on your Mac.</span><span class="sxs-lookup"><span data-stu-id="601ad-119">Check that you have compatible Xamarin.iOS versions installed on your Mac.</span></span> <span data-ttu-id="601ad-120">To do this with Visual Studio 2017 ensure that you are on the **Stable** distribution channel in Visual Studio for Mac.</span><span class="sxs-lookup"><span data-stu-id="601ad-120">To do this with Visual Studio 2017 ensure that you are on the **Stable** distribution channel in Visual Studio for Mac.</span></span> <span data-ttu-id="601ad-121">In Visual Studio 2015 and earlier make sure that you are on the same distribution channel on both IDEs.</span><span class="sxs-lookup"><span data-stu-id="601ad-121">In Visual Studio 2015 and earlier make sure that you are on the same distribution channel on both IDEs.</span></span>
-    * <span data-ttu-id="601ad-122">In Visual Studio for Mac, go to **Visual Studio for Mac > Check for Updates...** to view or change the **Update channel**.</span><span class="sxs-lookup"><span data-stu-id="601ad-122">In Visual Studio for Mac, go to **Visual Studio for Mac > Check for Updates...** to view or change the **Update channel**.</span></span>
-    * <span data-ttu-id="601ad-123">In Visual Studio 2015 and earlier, check the distribution channel under **Tools > Options > Xamarin > Other**.</span><span class="sxs-lookup"><span data-stu-id="601ad-123">In Visual Studio 2015 and earlier, check the distribution channel under **Tools > Options > Xamarin > Other**.</span></span>
+<a name="Allow_Remote_Access_to_IIS_Express" />
 
-2. <span data-ttu-id="601ad-124">Make sure that **Remote Login** is enabled on the Mac.</span><span class="sxs-lookup"><span data-stu-id="601ad-124">Make sure that **Remote Login** is enabled on the Mac.</span></span> <span data-ttu-id="601ad-125">Set access for **Only these users**, and make sure your Mac user is included in the list or group:</span><span class="sxs-lookup"><span data-stu-id="601ad-125">Set access for **Only these users**, and make sure your Mac user is included in the list or group:</span></span>
+## <a name="configuring-remote-access-to-iis-express"></a><span data-ttu-id="cb9d0-135">Configuring Remote Access to IIS Express</span><span class="sxs-lookup"><span data-stu-id="cb9d0-135">Configuring Remote Access to IIS Express</span></span>
 
-    <span data-ttu-id="601ad-126">[![](troubleshooting-images/troubleshooting-image1.png "Set access for Only these users")](troubleshooting-images/troubleshooting-image1.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-126">[![](troubleshooting-images/troubleshooting-image1.png "Set access for Only these users")](troubleshooting-images/troubleshooting-image1.png#lightbox)</span></span>
+<span data-ttu-id="cb9d0-136">Hosting a WCF locally is adequate when connections only come from the local machine.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-136">Hosting a WCF locally is adequate when connections only come from the local machine.</span></span> <span data-ttu-id="cb9d0-137">However, remote devices (such as an Android device or an iPhone) will not have any access to a local WCF service.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-137">However, remote devices (such as an Android device or an iPhone) will not have any access to a local WCF service.</span></span> <span data-ttu-id="cb9d0-138">Therefore, this section explains how to configure Windows 10 and IIS Express to accept remote connections:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-138">Therefore, this section explains how to configure Windows 10 and IIS Express to accept remote connections:</span></span>
 
-3. <span data-ttu-id="601ad-127">Check that your firewall allows incoming connections through port 22 - the default for SSH:</span><span class="sxs-lookup"><span data-stu-id="601ad-127">Check that your firewall allows incoming connections through port 22 - the default for SSH:</span></span>
+1.  <span data-ttu-id="cb9d0-139">**Configure IIS Express to Accept Remote connections** - This step involves editing the config file for IIS Express to accept remote connections on a specific port and then setting up a rule for IIS Express to accept the incoming traffic.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-139">**Configure IIS Express to Accept Remote connections** - This step involves editing the config file for IIS Express to accept remote connections on a specific port and then setting up a rule for IIS Express to accept the incoming traffic.</span></span>
+1.  <span data-ttu-id="cb9d0-140">**Add an Exception to Windows Firewall** - You must open up a port through Windows Firewall that remote applications can use to communicate with the WCF service.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-140">**Add an Exception to Windows Firewall** - You must open up a port through Windows Firewall that remote applications can use to communicate with the WCF service.</span></span>
 
-    <span data-ttu-id="601ad-128">[![](troubleshooting-images/troubleshooting-image2.png "Check that the firewall allows incoming connections through port 22")](troubleshooting-images/troubleshooting-image2.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-128">[![](troubleshooting-images/troubleshooting-image2.png "Check that the firewall allows incoming connections through port 22")](troubleshooting-images/troubleshooting-image2.png#lightbox)</span></span>
+    <span data-ttu-id="cb9d0-141">You will need to know the IP address of your workstation.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-141">You will need to know the IP address of your workstation.</span></span> <span data-ttu-id="cb9d0-142">For the purposes of this example we'll assume that our workstation has the IP address 192.168.1.143.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-142">For the purposes of this example we'll assume that our workstation has the IP address 192.168.1.143.</span></span>
 
-    <span data-ttu-id="601ad-129">If you have disabled **Automatically allow signed software to receive incoming connections**, OS X will present a dialog during the pairing process asking to allow `mono-sgen` or `mono-sgen32` to receive incoming connections.</span><span class="sxs-lookup"><span data-stu-id="601ad-129">If you have disabled **Automatically allow signed software to receive incoming connections**, OS X will present a dialog during the pairing process asking to allow `mono-sgen` or `mono-sgen32` to receive incoming connections.</span></span> <span data-ttu-id="601ad-130">Be sure to click **Allow** on this dialog:</span><span class="sxs-lookup"><span data-stu-id="601ad-130">Be sure to click **Allow** on this dialog:</span></span>
+1. <span data-ttu-id="cb9d0-143">Let's begin by configuring IIS Express to listen for external requests.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-143">Let's begin by configuring IIS Express to listen for external requests.</span></span> <span data-ttu-id="cb9d0-144">We can do this by editing the configuration file for IIS Express at `[solutiondirectory]\.vs\config\applicationhost.config`, as shown in the following screenshot:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-144">We can do this by editing the configuration file for IIS Express at `[solutiondirectory]\.vs\config\applicationhost.config`, as shown in the following screenshot:</span></span>
 
-    <span data-ttu-id="601ad-131">[![](troubleshooting-images/troubleshooting-image4a.png "Click Allow on this dialog")](troubleshooting-images/troubleshooting-image4a.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-131">[![](troubleshooting-images/troubleshooting-image4a.png "Click Allow on this dialog")](troubleshooting-images/troubleshooting-image4a.png#lightbox)</span></span>
-
-4. <span data-ttu-id="601ad-132">Confirm that you are logged in to the user account on that Mac and have an active GUI session.</span><span class="sxs-lookup"><span data-stu-id="601ad-132">Confirm that you are logged in to the user account on that Mac and have an active GUI session.</span></span>
-
-5. <span data-ttu-id="601ad-133">Make sure you are connecting to the Mac with the _username_ rather than the _Full Name_.</span><span class="sxs-lookup"><span data-stu-id="601ad-133">Make sure you are connecting to the Mac with the _username_ rather than the _Full Name_.</span></span> <span data-ttu-id="601ad-134">This avoids a known limitation for full names that include accented characters.</span><span class="sxs-lookup"><span data-stu-id="601ad-134">This avoids a known limitation for full names that include accented characters.</span></span>
-
-    <span data-ttu-id="601ad-135">You can find your _username_ by running the `whoami` command in **Terminal.app**.</span><span class="sxs-lookup"><span data-stu-id="601ad-135">You can find your _username_ by running the `whoami` command in **Terminal.app**.</span></span>
-
-    <span data-ttu-id="601ad-136">For example, from the screenshot below, the account name will be **amyb** and not **Amy Burns**:</span><span class="sxs-lookup"><span data-stu-id="601ad-136">For example, from the screenshot below, the account name will be **amyb** and not **Amy Burns**:</span></span>
-
-    <span data-ttu-id="601ad-137">[![](troubleshooting-images/troubleshooting-image5a.png "Getting the account name from the Terminal app")](troubleshooting-images/troubleshooting-image5a.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-137">[![](troubleshooting-images/troubleshooting-image5a.png "Getting the account name from the Terminal app")](troubleshooting-images/troubleshooting-image5a.png#lightbox)</span></span>
+    <span data-ttu-id="cb9d0-145">[![](walkthrough-working-with-wcf-images/image05.png "We can do this by editing the configuration file for IIS Express at solutiondirectory.vsconfigapplicationhost.config, as shown in this screenshot")](walkthrough-working-with-wcf-images/image05.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="cb9d0-145">[![](walkthrough-working-with-wcf-images/image05.png "We can do this by editing the configuration file for IIS Express at solutiondirectory.vsconfigapplicationhost.config, as shown in this screenshot")](walkthrough-working-with-wcf-images/image05.png#lightbox)</span></span>
 
 
-6. <span data-ttu-id="601ad-138">Check that the IP address you are using for the Mac is correct.</span><span class="sxs-lookup"><span data-stu-id="601ad-138">Check that the IP address you are using for the Mac is correct.</span></span> <span data-ttu-id="601ad-139">You can find the IP address under **System Preferences > Sharing > Remote Login** on the Mac.</span><span class="sxs-lookup"><span data-stu-id="601ad-139">You can find the IP address under **System Preferences > Sharing > Remote Login** on the Mac.</span></span>
+    <span data-ttu-id="cb9d0-146">Locate the `site` element with the name `HelloWorldWcfHost`.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-146">Locate the `site` element with the name `HelloWorldWcfHost`.</span></span> <span data-ttu-id="cb9d0-147">It should look something like the following XML snippet:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-147">It should look something like the following XML snippet:</span></span>
 
-    <span data-ttu-id="601ad-140">[![](troubleshooting-images/troubleshooting-image17.png "The IP address in the System Preferences app")](troubleshooting-images/troubleshooting-image17.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-140">[![](troubleshooting-images/troubleshooting-image17.png "The IP address in the System Preferences app")](troubleshooting-images/troubleshooting-image17.png#lightbox)</span></span>
-
-7. <span data-ttu-id="601ad-141">Once you have confirmed the IP address of the Mac, try a `ping` to that address in `cmd.exe` on Windows:</span><span class="sxs-lookup"><span data-stu-id="601ad-141">Once you have confirmed the IP address of the Mac, try a `ping` to that address in `cmd.exe` on Windows:</span></span>
-
+    ```xml
+        <site name="HelloWorldWcfHost" id="2">
+            <application path="/" applicationPool="Clr4IntegratedAppPool">
+                <virtualDirectory path="/" physicalPath="\\vmware-host\Shared Folders\tom\work\xamarin\code\private-samples\webservices\HelloWorld\HelloWorldWcfHost" />
+            </application>
+            <bindings>
+                <binding protocol="http" bindingInformation="*:8733:localhost" />
+            </bindings>
+        </site>
     ```
-    ping 10.1.8.95
+ 
+    <span data-ttu-id="cb9d0-148">We will need to add another `binding` to open up port 8734 to outside traffic.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-148">We will need to add another `binding` to open up port 8734 to outside traffic.</span></span> <span data-ttu-id="cb9d0-149">Add the following XML to the `bindings` element, replacing the IP address with your own IP address:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-149">Add the following XML to the `bindings` element, replacing the IP address with your own IP address:</span></span>
+
+    ```xml
+    <binding protocol="http" bindingInformation="*:8734:192.168.1.143" />
     ```
     
-    <span data-ttu-id="601ad-142">If the ping fails, then the Mac is not _routable_ from the Windows computer.</span><span class="sxs-lookup"><span data-stu-id="601ad-142">If the ping fails, then the Mac is not _routable_ from the Windows computer.</span></span> <span data-ttu-id="601ad-143">That problem will need to be solved at the level of the local area network configuration between the 2 computers.</span><span class="sxs-lookup"><span data-stu-id="601ad-143">That problem will need to be solved at the level of the local area network configuration between the 2 computers.</span></span> <span data-ttu-id="601ad-144">Ensure that both machines are on the same Local Network.</span><span class="sxs-lookup"><span data-stu-id="601ad-144">Ensure that both machines are on the same Local Network.</span></span>
+    <span data-ttu-id="cb9d0-150">This will configure IIS Express to accept HTTP traffic from any remote IP address on port 8734 on the external IP address of the computer.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-150">This will configure IIS Express to accept HTTP traffic from any remote IP address on port 8734 on the external IP address of the computer.</span></span> <span data-ttu-id="cb9d0-151">This above snippet assumes the IP address of the computer running IIS Express is 192.168.1.143.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-151">This above snippet assumes the IP address of the computer running IIS Express is 192.168.1.143.</span></span> <span data-ttu-id="cb9d0-152">After the changes, the `bindings` element should look like the following:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-152">After the changes, the `bindings` element should look like the following:</span></span>
 
-8. <span data-ttu-id="601ad-145">Next, test if the `ssh` client from OpenSSH can connect successfully to the Mac from Windows.</span><span class="sxs-lookup"><span data-stu-id="601ad-145">Next, test if the `ssh` client from OpenSSH can connect successfully to the Mac from Windows.</span></span> <span data-ttu-id="601ad-146">One way to install this program is to install [Git for Windows](https://git-for-windows.github.io/).</span><span class="sxs-lookup"><span data-stu-id="601ad-146">One way to install this program is to install [Git for Windows](https://git-for-windows.github.io/).</span></span> <span data-ttu-id="601ad-147">You can then start a **Git Bash** command prompt and attempt to `ssh` in to the Mac with your username and IP address:</span><span class="sxs-lookup"><span data-stu-id="601ad-147">You can then start a **Git Bash** command prompt and attempt to `ssh` in to the Mac with your username and IP address:</span></span>
-
-    ```bash
-    ssh amyb@10.1.8.95
+    ```xml
+        <site name="HelloWorldWcfHost" id="2">
+            <application path="/" applicationPool="Clr4IntegratedAppPool">
+                <virtualDirectory path="/" physicalPath="\\vmware-host\Shared Folders\tom\work\xamarin\code\private-samples\webservices\HelloWorld\HelloWorldWcfHost" />
+            </application>
+            <bindings>
+                <binding protocol="http" bindingInformation="*:8733:localhost" />
+                <binding protocol="http" bindingInformation="*:8734:192.168.1.143" />
+            </bindings>
+        </site>
     ```
-<a name="stepnine" />
-9. <span data-ttu-id="601ad-148">If **step 8 succeeds**, you can try running a simple command like `ls` over the connection:</span><span class="sxs-lookup"><span data-stu-id="601ad-148">If **step 8 succeeds**, you can try running a simple command like `ls` over the connection:</span></span>
 
-    ```bash
-    ssh amyb@10.1.8.95 'ls'
-    ```
-    
-    <span data-ttu-id="601ad-149">This should list the contents of your home directory on the Mac.</span><span class="sxs-lookup"><span data-stu-id="601ad-149">This should list the contents of your home directory on the Mac.</span></span> <span data-ttu-id="601ad-150">If the `ls` command works correctly but the Visual Studio connection still fails, you can check the [Known Issues and Limitations](#knownissues) section about complications specific to Xamarin.</span><span class="sxs-lookup"><span data-stu-id="601ad-150">If the `ls` command works correctly but the Visual Studio connection still fails, you can check the [Known Issues and Limitations](#knownissues) section about complications specific to Xamarin.</span></span> <span data-ttu-id="601ad-151">If none of those match your problem, please [file a new bug report](https://bugzilla.xamarin.com/newbug) and attach the logs described under [Check the Verbose Log Files](#verboselogs).</span><span class="sxs-lookup"><span data-stu-id="601ad-151">If none of those match your problem, please [file a new bug report](https://bugzilla.xamarin.com/newbug) and attach the logs described under [Check the Verbose Log Files](#verboselogs).</span></span>
+1. <span data-ttu-id="cb9d0-153">Next, we need to configure IIS Express accept incoming connections on port 8734.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-153">Next, we need to configure IIS Express accept incoming connections on port 8734.</span></span> <span data-ttu-id="cb9d0-154">Startup up an administrative command prompt, and run this command:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-154">Startup up an administrative command prompt, and run this command:</span></span>
 
-10. <span data-ttu-id="601ad-152">If **step 8 fails**, you can run the following command in Terminal on the Mac to see if the SSH server is accepting _any_ connections:</span><span class="sxs-lookup"><span data-stu-id="601ad-152">If **step 8 fails**, you can run the following command in Terminal on the Mac to see if the SSH server is accepting _any_ connections:</span></span>
+    `> netsh http add urlacl url=http://192.168.1.143:9608/ user=everyone`
 
-    ```bash
-    ssh localhost
-    ```
-    
-11. <span data-ttu-id="601ad-153">If step 8 fails but **step 10 succeeds**, then the problem is most likely that port 22 on the Mac build host is not accessible from Windows due to the network configuration.</span><span class="sxs-lookup"><span data-stu-id="601ad-153">If step 8 fails but **step 10 succeeds**, then the problem is most likely that port 22 on the Mac build host is not accessible from Windows due to the network configuration.</span></span> <span data-ttu-id="601ad-154">Possible configuration issues include:</span><span class="sxs-lookup"><span data-stu-id="601ad-154">Possible configuration issues include:</span></span>
+1. <span data-ttu-id="cb9d0-155">The final step is to configure Windows Firewall to permit external traffic on port 8734.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-155">The final step is to configure Windows Firewall to permit external traffic on port 8734.</span></span> <span data-ttu-id="cb9d0-156">From an administrative command prompt, run the following command:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-156">From an administrative command prompt, run the following command:</span></span>
 
-    - <span data-ttu-id="601ad-155">The OS X firewall settings are disallowing the connection.</span><span class="sxs-lookup"><span data-stu-id="601ad-155">The OS X firewall settings are disallowing the connection.</span></span> <span data-ttu-id="601ad-156">Be sure to double-check step 3.</span><span class="sxs-lookup"><span data-stu-id="601ad-156">Be sure to double-check step 3.</span></span>
+    `> netsh advfirewall firewall add rule name="IISExpressXamarin" dir=in protocol=tcp localport=8734 profile=private remoteip=localsubnet action=allow`
 
-        <span data-ttu-id="601ad-157">Occasionally the per-app configuration for the OS X firewall can also end up in an invalid state where the settings shown in System Preferences do not reflect the actual behavior.</span><span class="sxs-lookup"><span data-stu-id="601ad-157">Occasionally the per-app configuration for the OS X firewall can also end up in an invalid state where the settings shown in System Preferences do not reflect the actual behavior.</span></span> <span data-ttu-id="601ad-158">Deleting the configuration file (**/Library/Preferences/com.apple.alf.plist**) and rebooting the computer can help restore the default behavior.</span><span class="sxs-lookup"><span data-stu-id="601ad-158">Deleting the configuration file (**/Library/Preferences/com.apple.alf.plist**) and rebooting the computer can help restore the default behavior.</span></span> <span data-ttu-id="601ad-159">One way to delete the file is to enter **/Library/Preferences** under **Go &gt; Go to Folder** in Finder, and then move the **com.apple.alf.plist** file to the Trash.</span><span class="sxs-lookup"><span data-stu-id="601ad-159">One way to delete the file is to enter **/Library/Preferences** under **Go &gt; Go to Folder** in Finder, and then move the **com.apple.alf.plist** file to the Trash.</span></span>
+    <span data-ttu-id="cb9d0-157">This command will allow incoming traffic on port 8734 from all devices on the same subnet as the Windows 10 workstation.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-157">This command will allow incoming traffic on port 8734 from all devices on the same subnet as the Windows 10 workstation.</span></span>
 
-    - <span data-ttu-id="601ad-160">The firewall settings of one of the routers between the Mac and the Windows computer is blocking the connection.</span><span class="sxs-lookup"><span data-stu-id="601ad-160">The firewall settings of one of the routers between the Mac and the Windows computer is blocking the connection.</span></span>
+<span data-ttu-id="cb9d0-158">You have created a very basic WCF service hosted in IIS Express that will accept incoming connections from other devices or computers on our subnet.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-158">You have created a very basic WCF service hosted in IIS Express that will accept incoming connections from other devices or computers on our subnet.</span></span> <span data-ttu-id="cb9d0-159">You can test this out by running your application and visiting `http://localhost:8733/Design_Time_Addresses/HelloWorldService/` on your workstation and `http://192.168.1.143:8734/Design_Time_Addresses/HelloWorldService/` from another computer on your subnet.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-159">You can test this out by running your application and visiting `http://localhost:8733/Design_Time_Addresses/HelloWorldService/` on your workstation and `http://192.168.1.143:8734/Design_Time_Addresses/HelloWorldService/` from another computer on your subnet.</span></span>
 
-    - <span data-ttu-id="601ad-161">Windows itself is disallowing outbound connections to remote port 22.</span><span class="sxs-lookup"><span data-stu-id="601ad-161">Windows itself is disallowing outbound connections to remote port 22.</span></span> <span data-ttu-id="601ad-162">This would be unusual.</span><span class="sxs-lookup"><span data-stu-id="601ad-162">This would be unusual.</span></span> <span data-ttu-id="601ad-163">It is possible to configure the Windows Firewall to disallow outbound connections, but the default setting is to allow all outbound connections.</span><span class="sxs-lookup"><span data-stu-id="601ad-163">It is possible to configure the Windows Firewall to disallow outbound connections, but the default setting is to allow all outbound connections.</span></span>
+<span data-ttu-id="cb9d0-160">To allow IIS Express to keep running and serving the service, turn off the **Edit and Continue** option in *Project Properties > Web >Debuggers*.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-160">To allow IIS Express to keep running and serving the service, turn off the **Edit and Continue** option in *Project Properties > Web >Debuggers*.</span></span>
 
-    - <span data-ttu-id="601ad-164">The Mac build host is disallowing access to port 22 from all external hosts via a `pfctl` rule.</span><span class="sxs-lookup"><span data-stu-id="601ad-164">The Mac build host is disallowing access to port 22 from all external hosts via a `pfctl` rule.</span></span> <span data-ttu-id="601ad-165">This is unlikely unless you know you have configured `pfctl` in the past.</span><span class="sxs-lookup"><span data-stu-id="601ad-165">This is unlikely unless you know you have configured `pfctl` in the past.</span></span>
+## <a name="creating-a-proxy-for-the-web-service"></a><span data-ttu-id="cb9d0-161">Creating a Proxy for the Web Service</span><span class="sxs-lookup"><span data-stu-id="cb9d0-161">Creating a Proxy for the Web Service</span></span>
 
-12. <span data-ttu-id="601ad-166">If step 8 fails and **step 10 fails**, then the problem is likely that the SSH server process on the Mac is not running or is not configured to allow the current user to log in.</span><span class="sxs-lookup"><span data-stu-id="601ad-166">If step 8 fails and **step 10 fails**, then the problem is likely that the SSH server process on the Mac is not running or is not configured to allow the current user to log in.</span></span> <span data-ttu-id="601ad-167">In this case be sure to double-check the Remote Login settings from step 2 before you investigate any more complicated possibilities.</span><span class="sxs-lookup"><span data-stu-id="601ad-167">In this case be sure to double-check the Remote Login settings from step 2 before you investigate any more complicated possibilities.</span></span>
+<span data-ttu-id="cb9d0-162">A web service proxy must be created for the WCF service, before an application can consume the service.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-162">A web service proxy must be created for the WCF service, before an application can consume the service.</span></span> <span data-ttu-id="cb9d0-163">This can be accomplished as follows:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-163">This can be accomplished as follows:</span></span>
 
-<a name="knownissues" />
-
-## <a name="known-issues-and-limitations"></a><span data-ttu-id="601ad-168">Known Issues and Limitations</span><span class="sxs-lookup"><span data-stu-id="601ad-168">Known Issues and Limitations</span></span>
+1. <span data-ttu-id="cb9d0-164">Add a .NET Standard Class Library named `HelloWorldServiceProxy`, and delete any classes in the project.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-164">Add a .NET Standard Class Library named `HelloWorldServiceProxy`, and delete any classes in the project.</span></span>
+1. <span data-ttu-id="cb9d0-165">Run the `HelloWorldService` project.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-165">Run the `HelloWorldService` project.</span></span>
+1. <span data-ttu-id="cb9d0-166">With the `HelloWorldService` project running, add a new **Connected Service** to the project, using the **Microsoft WCF Web Service Reference Provider**.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-166">With the `HelloWorldService` project running, add a new **Connected Service** to the project, using the **Microsoft WCF Web Service Reference Provider**.</span></span>
+1. <span data-ttu-id="cb9d0-167">In the **Service Endpoint** tab of the **Configure WCF Web Service Reference** dialog, click the **Discover** button, delete `mex` from the end of the detected endpoint in the **URI** drop-down, enter `HelloWorldServiceProxy` as the **Namespace**, and click the **Next** button.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-167">In the **Service Endpoint** tab of the **Configure WCF Web Service Reference** dialog, click the **Discover** button, delete `mex` from the end of the detected endpoint in the **URI** drop-down, enter `HelloWorldServiceProxy` as the **Namespace**, and click the **Next** button.</span></span>
+1. <span data-ttu-id="cb9d0-168">In the **Data Type Options** tab of the **Configure WCF Web Service Reference** dialog, accept the defaults by clicking the **Next** button.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-168">In the **Data Type Options** tab of the **Configure WCF Web Service Reference** dialog, accept the defaults by clicking the **Next** button.</span></span>
+1. <span data-ttu-id="cb9d0-169">In the **Client Options** tab of the **Configure WCF Web Service Reference** dialog, ensure that the **Public** checkbox is selected, and click the **Finish** button.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-169">In the **Client Options** tab of the **Configure WCF Web Service Reference** dialog, ensure that the **Public** checkbox is selected, and click the **Finish** button.</span></span>
+1. <span data-ttu-id="cb9d0-170">Build the `HelloWorldServiceProxy` project.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-170">Build the `HelloWorldServiceProxy` project.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="601ad-169">This section only applies if you have already connected successfully to the Mac build host with your Mac username and password using the OpenSSH SSH client, as discussed in steps 8 and 9 above.</span><span class="sxs-lookup"><span data-stu-id="601ad-169">This section only applies if you have already connected successfully to the Mac build host with your Mac username and password using the OpenSSH SSH client, as discussed in steps 8 and 9 above.</span></span>
+> <span data-ttu-id="cb9d0-171">An alternative to creating the proxy using the Microsoft WCF Web Service Reference Provider in Visual Studio 2017 is to use the ServiceModel Metadata Utility Tool (svcutil.exe).</span><span class="sxs-lookup"><span data-stu-id="cb9d0-171">An alternative to creating the proxy using the Microsoft WCF Web Service Reference Provider in Visual Studio 2017 is to use the ServiceModel Metadata Utility Tool (svcutil.exe).</span></span> <span data-ttu-id="cb9d0-172">For more information, see [ServiceModel Metadata Utility Tool (Svcutil.exe)](https://docs.microsoft.com/en-us/dotnet/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe).</span><span class="sxs-lookup"><span data-stu-id="cb9d0-172">For more information, see [ServiceModel Metadata Utility Tool (Svcutil.exe)](https://docs.microsoft.com/en-us/dotnet/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe).</span></span>
 
-### <a name="invalid-credentials-please-try-again"></a><span data-ttu-id="601ad-170">"Invalid credentials.</span><span class="sxs-lookup"><span data-stu-id="601ad-170">"Invalid credentials.</span></span> <span data-ttu-id="601ad-171">Please try again."</span><span class="sxs-lookup"><span data-stu-id="601ad-171">Please try again."</span></span>
+<a name="Creating_a_Xamarin_Android_Application" />
 
-<span data-ttu-id="601ad-172">Known causes:</span><span class="sxs-lookup"><span data-stu-id="601ad-172">Known causes:</span></span>
+## <a name="creating-a-xamarinandroid-application"></a><span data-ttu-id="cb9d0-173">Creating a Xamarin.Android Application</span><span class="sxs-lookup"><span data-stu-id="cb9d0-173">Creating a Xamarin.Android Application</span></span>
 
-- <span data-ttu-id="601ad-173">**Limitation** – This error can appear when attempting to log in to the build host using the account _Full Name_ if the name includes an accented character.</span><span class="sxs-lookup"><span data-stu-id="601ad-173">**Limitation** – This error can appear when attempting to log in to the build host using the account _Full Name_ if the name includes an accented character.</span></span> <span data-ttu-id="601ad-174">This is a limitation of the [SSH.NET library](https://sshnet.codeplex.com/) that Xamarin uses for the SSH connection.</span><span class="sxs-lookup"><span data-stu-id="601ad-174">This is a limitation of the [SSH.NET library](https://sshnet.codeplex.com/) that Xamarin uses for the SSH connection.</span></span> <span data-ttu-id="601ad-175">**Workaround**: See step 5 above.</span><span class="sxs-lookup"><span data-stu-id="601ad-175">**Workaround**: See step 5 above.</span></span>
+<span data-ttu-id="cb9d0-174">The WCF service proxy can be consumed by a Xamarin.Android application, as follows:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-174">The WCF service proxy can be consumed by a Xamarin.Android application, as follows:</span></span>
 
-### <a name="unable-to-authenticate-with-ssh-keys-please-try-to-log-in-with-credentials-first"></a><span data-ttu-id="601ad-176">"Unable to authenticate with SSH keys.</span><span class="sxs-lookup"><span data-stu-id="601ad-176">"Unable to authenticate with SSH keys.</span></span> <span data-ttu-id="601ad-177">Please try to log in with credentials first"</span><span class="sxs-lookup"><span data-stu-id="601ad-177">Please try to log in with credentials first"</span></span>
+1. <span data-ttu-id="cb9d0-175">In Visual Studio, add a new blank Android project to the solution and name it `HelloWorld.Android`.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-175">In Visual Studio, add a new blank Android project to the solution and name it `HelloWorld.Android`.</span></span>
+1. <span data-ttu-id="cb9d0-176">In the `HelloWorld.Android` project, add a reference to the `HelloWorldServiceProxy` project, and a reference to the `System.ServiceModel` namespace.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-176">In the `HelloWorld.Android` project, add a reference to the `HelloWorldServiceProxy` project, and a reference to the `System.ServiceModel` namespace.</span></span>
+1. <span data-ttu-id="cb9d0-177">In **Solution Explorer**, open `Resources/layout/main.axml` and replace the existing XML with the following XML:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-177">In **Solution Explorer**, open `Resources/layout/main.axml` and replace the existing XML with the following XML:</span></span>
 
-<span data-ttu-id="601ad-178">Known cause:</span><span class="sxs-lookup"><span data-stu-id="601ad-178">Known cause:</span></span>
-
-- <span data-ttu-id="601ad-179">**SSH security restriction** – This message most often means that one of the files or directories in the fully qualified path of **$HOME/.ssh/authorized\_keys** on the Mac has write permissions enabled for _other_ or _group_ members.</span><span class="sxs-lookup"><span data-stu-id="601ad-179">**SSH security restriction** – This message most often means that one of the files or directories in the fully qualified path of **$HOME/.ssh/authorized\_keys** on the Mac has write permissions enabled for _other_ or _group_ members.</span></span> <span data-ttu-id="601ad-180">**Common fix**: Run `chmod og-w "$HOME"` in a Terminal command prompt on the Mac.</span><span class="sxs-lookup"><span data-stu-id="601ad-180">**Common fix**: Run `chmod og-w "$HOME"` in a Terminal command prompt on the Mac.</span></span> <span data-ttu-id="601ad-181">For details about which particular file or directory is causing the problem, run `grep sshd /var/log/system.log > "$HOME/Desktop/sshd.log"` in Terminal, and then open the **sshd.log** file from your Desktop and look for "Authentication refused: bad ownership or modes".</span><span class="sxs-lookup"><span data-stu-id="601ad-181">For details about which particular file or directory is causing the problem, run `grep sshd /var/log/system.log > "$HOME/Desktop/sshd.log"` in Terminal, and then open the **sshd.log** file from your Desktop and look for "Authentication refused: bad ownership or modes".</span></span>
-
-### <a name="trying-to-connect-never-completes"></a><span data-ttu-id="601ad-182">"Trying to connect..." never completes</span><span class="sxs-lookup"><span data-stu-id="601ad-182">"Trying to connect..." never completes</span></span>
-
-- <span data-ttu-id="601ad-183">**Bug [#52264](https://bugzilla.xamarin.com/show_bug.cgi?id=52264)** – This problem can happen on Xamarin 4.1 if the **Login shell** in the **Advanced Options** context menu for the Mac user in **System Preferences &gt; Users &amp; Groups** is set to a value other than **/bin/bash**.</span><span class="sxs-lookup"><span data-stu-id="601ad-183">**Bug [#52264](https://bugzilla.xamarin.com/show_bug.cgi?id=52264)** – This problem can happen on Xamarin 4.1 if the **Login shell** in the **Advanced Options** context menu for the Mac user in **System Preferences &gt; Users &amp; Groups** is set to a value other than **/bin/bash**.</span></span> <span data-ttu-id="601ad-184">(Starting with Xamarin 4.2, this scenario instead leads to the "Couldn't connect" error message.) **Workaround**: Change the **Login shell** back to the original default of **/bin/bash**.</span><span class="sxs-lookup"><span data-stu-id="601ad-184">(Starting with Xamarin 4.2, this scenario instead leads to the "Couldn't connect" error message.) **Workaround**: Change the **Login shell** back to the original default of **/bin/bash**.</span></span>
-
-<a name="tryagain" />
-
-### <a name="couldnt-connect-to-macbuildhostlocal-please-try-again"></a><span data-ttu-id="601ad-185">"Couldn't connect to MacBuildHost.local.</span><span class="sxs-lookup"><span data-stu-id="601ad-185">"Couldn't connect to MacBuildHost.local.</span></span> <span data-ttu-id="601ad-186">Please try again."</span><span class="sxs-lookup"><span data-stu-id="601ad-186">Please try again."</span></span>
-
-<span data-ttu-id="601ad-187">Reported causes:</span><span class="sxs-lookup"><span data-stu-id="601ad-187">Reported causes:</span></span>
-
-- <span data-ttu-id="601ad-188">**Bug** – A few users have seen this error message along with a more detailed error in the log files "An unexpected error occurred while configuring SSH for the user ... Session operation has timed out" when attempting to log in to the build host using an Active Directory or other directory service domain user account.</span><span class="sxs-lookup"><span data-stu-id="601ad-188">**Bug** – A few users have seen this error message along with a more detailed error in the log files "An unexpected error occurred while configuring SSH for the user ... Session operation has timed out" when attempting to log in to the build host using an Active Directory or other directory service domain user account.</span></span> <span data-ttu-id="601ad-189">**Workaround:** Log in to the build host using a local user account instead.</span><span class="sxs-lookup"><span data-stu-id="601ad-189">**Workaround:** Log in to the build host using a local user account instead.</span></span>
-
-- <span data-ttu-id="601ad-190">**Bug** – Some users have seen this error when attempting to connect to the build host by double-clicking the name of the Mac in the connection dialog.</span><span class="sxs-lookup"><span data-stu-id="601ad-190">**Bug** – Some users have seen this error when attempting to connect to the build host by double-clicking the name of the Mac in the connection dialog.</span></span> <span data-ttu-id="601ad-191">**Possible workaround**: [Manually add the Mac](~/ios/get-started/installation/windows/connecting-to-mac/index.md#manual-add) using the IP address.</span><span class="sxs-lookup"><span data-stu-id="601ad-191">**Possible workaround**: [Manually add the Mac](~/ios/get-started/installation/windows/connecting-to-mac/index.md#manual-add) using the IP address.</span></span>
-
-- <span data-ttu-id="601ad-192">**Bug [#35971](https://bugzilla.xamarin.com/show_bug.cgi?id=35971)** – Some users have run across this error when using a wireless network connection between the Mac build host and Windows.</span><span class="sxs-lookup"><span data-stu-id="601ad-192">**Bug [#35971](https://bugzilla.xamarin.com/show_bug.cgi?id=35971)** – Some users have run across this error when using a wireless network connection between the Mac build host and Windows.</span></span> <span data-ttu-id="601ad-193">**Possible workaround**: Move both computers to a wired network connection.</span><span class="sxs-lookup"><span data-stu-id="601ad-193">**Possible workaround**: Move both computers to a wired network connection.</span></span>
-
-- <span data-ttu-id="601ad-194">**Bug [#36642](https://bugzilla.xamarin.com/show_bug.cgi?id=36642)** – On Xamarin 4.0, this message will appear anytime the **$HOME/.bashrc** file on the Mac contains an error.</span><span class="sxs-lookup"><span data-stu-id="601ad-194">**Bug [#36642](https://bugzilla.xamarin.com/show_bug.cgi?id=36642)** – On Xamarin 4.0, this message will appear anytime the **$HOME/.bashrc** file on the Mac contains an error.</span></span> <span data-ttu-id="601ad-195">(Starting with Xamarin 4.1, errors in the **.bashrc** file will no longer affect the connection process.) **Workaround**: Move the **.bashrc** file to a backup location (or delete it if you know you don't need it).</span><span class="sxs-lookup"><span data-stu-id="601ad-195">(Starting with Xamarin 4.1, errors in the **.bashrc** file will no longer affect the connection process.) **Workaround**: Move the **.bashrc** file to a backup location (or delete it if you know you don't need it).</span></span>
-
-- <span data-ttu-id="601ad-196">**Bug [#52264](https://bugzilla.xamarin.com/show_bug.cgi?id=52264)** – This error can appear if the **Login shell** in the **Advanced Options** context menu for the Mac user in **System Preferences > Users & Groups** is set to a value other than **/bin/bash**.</span><span class="sxs-lookup"><span data-stu-id="601ad-196">**Bug [#52264](https://bugzilla.xamarin.com/show_bug.cgi?id=52264)** – This error can appear if the **Login shell** in the **Advanced Options** context menu for the Mac user in **System Preferences > Users & Groups** is set to a value other than **/bin/bash**.</span></span> <span data-ttu-id="601ad-197">**Workaround**: Change the **Login shell** back to the original default of **/bin/bash**.</span><span class="sxs-lookup"><span data-stu-id="601ad-197">**Workaround**: Change the **Login shell** back to the original default of **/bin/bash**.</span></span>
-
-- <span data-ttu-id="601ad-198">**Limitation** – This error can appear if the Mac build host is connected to a router that has no access to the internet (or if the Mac is using a DNS server that times out when asked for the reverse-DNS lookup of the Windows computer).</span><span class="sxs-lookup"><span data-stu-id="601ad-198">**Limitation** – This error can appear if the Mac build host is connected to a router that has no access to the internet (or if the Mac is using a DNS server that times out when asked for the reverse-DNS lookup of the Windows computer).</span></span> <span data-ttu-id="601ad-199">Visual Studio will take roughly 30 seconds to retrieve the SSH fingerprint and eventually fail to connect.</span><span class="sxs-lookup"><span data-stu-id="601ad-199">Visual Studio will take roughly 30 seconds to retrieve the SSH fingerprint and eventually fail to connect.</span></span>
-
-    <span data-ttu-id="601ad-200">**Possible workaround**: Add "UseDNS no" to the **sshd\_config** file.</span><span class="sxs-lookup"><span data-stu-id="601ad-200">**Possible workaround**: Add "UseDNS no" to the **sshd\_config** file.</span></span> <span data-ttu-id="601ad-201">Be sure to read about this SSH setting before changing it.</span><span class="sxs-lookup"><span data-stu-id="601ad-201">Be sure to read about this SSH setting before changing it.</span></span> <span data-ttu-id="601ad-202">See for example [unix.stackexchange.com/questions/56941/what-is-the-point-of-sshd-usedns-option](http://unix.stackexchange.com/questions/56941/what-is-the-point-of-sshd-usedns-option).</span><span class="sxs-lookup"><span data-stu-id="601ad-202">See for example [unix.stackexchange.com/questions/56941/what-is-the-point-of-sshd-usedns-option](http://unix.stackexchange.com/questions/56941/what-is-the-point-of-sshd-usedns-option).</span></span>
-
-    <span data-ttu-id="601ad-203">The following steps describe one way to change the setting.</span><span class="sxs-lookup"><span data-stu-id="601ad-203">The following steps describe one way to change the setting.</span></span> <span data-ttu-id="601ad-204">You will need to be logged in to an administrator account on the Mac to complete the steps.</span><span class="sxs-lookup"><span data-stu-id="601ad-204">You will need to be logged in to an administrator account on the Mac to complete the steps.</span></span>
-
-    1. <span data-ttu-id="601ad-205">Confirm the location of the **sshd\_config** file by running `ls /etc/ssh/sshd_config` and `ls /etc/sshd_config` in a Terminal command prompt.</span><span class="sxs-lookup"><span data-stu-id="601ad-205">Confirm the location of the **sshd\_config** file by running `ls /etc/ssh/sshd_config` and `ls /etc/sshd_config` in a Terminal command prompt.</span></span> <span data-ttu-id="601ad-206">For all of the remaining steps, be sure to use the location that does _not_ return "No such file or directory".</span><span class="sxs-lookup"><span data-stu-id="601ad-206">For all of the remaining steps, be sure to use the location that does _not_ return "No such file or directory".</span></span>
-
-        <span data-ttu-id="601ad-207">[![](troubleshooting-images/troubleshooting-image18.png "Running `ls /etc/ssh/sshd_config` and `ls /etc/sshd_config` in the Terminal")](troubleshooting-images/troubleshooting-image18.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-207">[![](troubleshooting-images/troubleshooting-image18.png "Running `ls /etc/ssh/sshd_config` and `ls /etc/sshd_config` in the Terminal")](troubleshooting-images/troubleshooting-image18.png#lightbox)</span></span>
-
-    3. <span data-ttu-id="601ad-208">Run `cp /etc/ssh/sshd_config "$HOME/Desktop/"` in Terminal to copy the file to your desktop.</span><span class="sxs-lookup"><span data-stu-id="601ad-208">Run `cp /etc/ssh/sshd_config "$HOME/Desktop/"` in Terminal to copy the file to your desktop.</span></span>
-
-    4. <span data-ttu-id="601ad-209">Open the file from your Desktop in a text editor.</span><span class="sxs-lookup"><span data-stu-id="601ad-209">Open the file from your Desktop in a text editor.</span></span> <span data-ttu-id="601ad-210">For example you can run `open -a TextEdit "$HOME/Desktop/sshd_config"` in Terminal.</span><span class="sxs-lookup"><span data-stu-id="601ad-210">For example you can run `open -a TextEdit "$HOME/Desktop/sshd_config"` in Terminal.</span></span>
-
-    5. <span data-ttu-id="601ad-211">Add the following line at the bottom of the file:</span><span class="sxs-lookup"><span data-stu-id="601ad-211">Add the following line at the bottom of the file:</span></span>
-
-        ```
-        UseDNS no
-        ```
-        
-    6. <span data-ttu-id="601ad-212">Remove any lines that say `UseDNS yes` to make sure the new setting takes effect.</span><span class="sxs-lookup"><span data-stu-id="601ad-212">Remove any lines that say `UseDNS yes` to make sure the new setting takes effect.</span></span>
-
-    7. <span data-ttu-id="601ad-213">Save the file.</span><span class="sxs-lookup"><span data-stu-id="601ad-213">Save the file.</span></span>
-
-    8. <span data-ttu-id="601ad-214">Run `sudo cp "$HOME/Desktop/sshd_config" /etc/ssh/sshd_config` in Terminal to copy the edited file back into place.</span><span class="sxs-lookup"><span data-stu-id="601ad-214">Run `sudo cp "$HOME/Desktop/sshd_config" /etc/ssh/sshd_config` in Terminal to copy the edited file back into place.</span></span> <span data-ttu-id="601ad-215">Enter your password if prompted.</span><span class="sxs-lookup"><span data-stu-id="601ad-215">Enter your password if prompted.</span></span>
-
-    9. <span data-ttu-id="601ad-216">Disable and re-enable **Remote Login** under **System Preferences &gt; Sharing &gt; Remote Login** to restart the SSH server.</span><span class="sxs-lookup"><span data-stu-id="601ad-216">Disable and re-enable **Remote Login** under **System Preferences &gt; Sharing &gt; Remote Login** to restart the SSH server.</span></span>
-
-<a name="clearing" />
-
-### <a name="clearing-the-broker-idb-build-and-designer-agents-on-the-mac"></a><span data-ttu-id="601ad-217">Clearing the Broker, IDB, Build, and Designer Agents on the Mac</span><span class="sxs-lookup"><span data-stu-id="601ad-217">Clearing the Broker, IDB, Build, and Designer Agents on the Mac</span></span>
-
-<span data-ttu-id="601ad-218">If your log files show a problem during the "Installing", "Uploading", or "Starting" steps for any of Mac agents, you can try deleting the **XMA** cache folder to force Visual Studio to re-upload them.</span><span class="sxs-lookup"><span data-stu-id="601ad-218">If your log files show a problem during the "Installing", "Uploading", or "Starting" steps for any of Mac agents, you can try deleting the **XMA** cache folder to force Visual Studio to re-upload them.</span></span>
-
-1. <span data-ttu-id="601ad-219">Run the following command in Terminal on the Mac:</span><span class="sxs-lookup"><span data-stu-id="601ad-219">Run the following command in Terminal on the Mac:</span></span>
-
-    ```bash
-    open "$HOME/Library/Caches/Xamarin"
+    ```xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0px"
+                    android:layout_weight="1">
+                <Button
+                        android:id="@+id/sayHelloWorldButton"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/say_hello_world" />
+                <TextView
+                        android:text="Large Text"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sayHelloWorldTextView" />
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0px"
+                    android:layout_weight="1">
+                <Button
+                        android:id="@+id/getHelloWorldDataButton"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/get_hello_world_data" />
+                <TextView
+                        android:text="Large Text"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/getHelloWorldDataTextView" />
+            </LinearLayout>
+        </LinearLayout>
     ```
     
-2. <span data-ttu-id="601ad-220">Control-click the **XMA** folder and select **Move to Trash**:</span><span class="sxs-lookup"><span data-stu-id="601ad-220">Control-click the **XMA** folder and select **Move to Trash**:</span></span>
+    <span data-ttu-id="cb9d0-178">The following screenshots shows the UI in the designer:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-178">The following screenshots shows the UI in the designer:</span></span>
 
-    <span data-ttu-id="601ad-221">[![](troubleshooting-images/troubleshooting-image8.png "Move the XMA folder to Trash")](troubleshooting-images/troubleshooting-image8.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-221">[![](troubleshooting-images/troubleshooting-image8.png "Move the XMA folder to Trash")](troubleshooting-images/troubleshooting-image8.png#lightbox)</span></span>
+    <span data-ttu-id="cb9d0-179">[![](walkthrough-working-with-wcf-images/image09.png "This is a screenshot of what this UI looks like in the designer")](walkthrough-working-with-wcf-images/image09.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="cb9d0-179">[![](walkthrough-working-with-wcf-images/image09.png "This is a screenshot of what this UI looks like in the designer")](walkthrough-working-with-wcf-images/image09.png#lightbox)</span></span>
+    
+1. <span data-ttu-id="cb9d0-180">In **Solution Explorer**, open `Resources/values/Strings.xml` and add the following XML:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-180">In **Solution Explorer**, open `Resources/values/Strings.xml` and add the following XML:</span></span>
 
-3. <span data-ttu-id="601ad-222">There is a cache on Windows as well that it may help to clear.</span><span class="sxs-lookup"><span data-stu-id="601ad-222">There is a cache on Windows as well that it may help to clear.</span></span> <span data-ttu-id="601ad-223">Open a cmd prompt as Administrator on Windows:</span><span class="sxs-lookup"><span data-stu-id="601ad-223">Open a cmd prompt as Administrator on Windows:</span></span>
-
-    ```
-    del %localappdata%\Temp\Xamarin\XMA
+    ```xml
+    <string name="say_hello_world">Say Hello World</string>
+    <string name="get_hello_world_data">Get Hello World data</string>
     ```
     
-## <a name="warning-messages"></a><span data-ttu-id="601ad-224">Warning Messages</span><span class="sxs-lookup"><span data-stu-id="601ad-224">Warning Messages</span></span>
+1. <span data-ttu-id="cb9d0-181">In **Solution Explorer**, open `MainActivity.cs` and replace existing code with the following code:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-181">In **Solution Explorer**, open `MainActivity.cs` and replace existing code with the following code:</span></span>
 
-<span data-ttu-id="601ad-225">This section discusses a few messages that can appear in the Output windows and logs that you can usually ignore.</span><span class="sxs-lookup"><span data-stu-id="601ad-225">This section discusses a few messages that can appear in the Output windows and logs that you can usually ignore.</span></span>
+    ```csharp
+        [Activity(Label = "HelloWorld.Android", MainLauncher = true)]
+        public class MainActivity : Activity
+        {
+            static readonly EndpointAddress Endpoint = new EndpointAddress("<insert_WCF_service_endpoint_here>");
 
-### <a name="there-is-a-mismatch-between-the-installed-xamarinios--and-the-local-xamarinios"></a><span data-ttu-id="601ad-226">"There is a mismatch between the installed Xamarin.iOS ... and the local Xamarin.iOS"</span><span class="sxs-lookup"><span data-stu-id="601ad-226">"There is a mismatch between the installed Xamarin.iOS ... and the local Xamarin.iOS"</span></span>
-
-<span data-ttu-id="601ad-227">As long as you have confirmed that both Mac and Windows are updated to the same Xamarin distribution channel, this warning is ignorable.</span><span class="sxs-lookup"><span data-stu-id="601ad-227">As long as you have confirmed that both Mac and Windows are updated to the same Xamarin distribution channel, this warning is ignorable.</span></span>
-
-### <a name="failed-to-execute-ls-usrbinmono-exitstatus1"></a><span data-ttu-id="601ad-228">"Failed to execute 'ls /usr/bin/mono': ExitStatus=1"</span><span class="sxs-lookup"><span data-stu-id="601ad-228">"Failed to execute 'ls /usr/bin/mono': ExitStatus=1"</span></span>
-
-<span data-ttu-id="601ad-229">This message is ignorable as long as the Mac is running OS X 10.11 (El Capitan) or newer.</span><span class="sxs-lookup"><span data-stu-id="601ad-229">This message is ignorable as long as the Mac is running OS X 10.11 (El Capitan) or newer.</span></span> <span data-ttu-id="601ad-230">This message is not a problem on OS X 10.11 because Xamarin also checks **/usr/local/bin/mono**, which is the correct expected location for `mono` on OS X 10.11.</span><span class="sxs-lookup"><span data-stu-id="601ad-230">This message is not a problem on OS X 10.11 because Xamarin also checks **/usr/local/bin/mono**, which is the correct expected location for `mono` on OS X 10.11.</span></span>
-
-### <a name="bonjour-service-macbuildhost-did-not-respond-with-its-ip-address"></a><span data-ttu-id="601ad-231">"Bonjour service 'MacBuildHost' did not respond with its IP address."</span><span class="sxs-lookup"><span data-stu-id="601ad-231">"Bonjour service 'MacBuildHost' did not respond with its IP address."</span></span>
-
-<span data-ttu-id="601ad-232">This message is ignorable unless you notice that the connection dialog does not display the IP address of Mac build host.</span><span class="sxs-lookup"><span data-stu-id="601ad-232">This message is ignorable unless you notice that the connection dialog does not display the IP address of Mac build host.</span></span> <span data-ttu-id="601ad-233">If the IP address _is_ missing in that dialog, you can still [manually add the Mac](~/ios/get-started/installation/windows/connecting-to-mac/index.md#manual-add).</span><span class="sxs-lookup"><span data-stu-id="601ad-233">If the IP address _is_ missing in that dialog, you can still [manually add the Mac](~/ios/get-started/installation/windows/connecting-to-mac/index.md#manual-add).</span></span>
-
-### <a name="invalid-user-a-from-101895-and-inputuserauthrequest-invalid-user-a-preauth"></a><span data-ttu-id="601ad-234">"Invalid user a from 10.1.8.95" and "input\_userauth\_request: invalid user a [preauth]"</span><span class="sxs-lookup"><span data-stu-id="601ad-234">"Invalid user a from 10.1.8.95" and "input\_userauth\_request: invalid user a [preauth]"</span></span>
-
-<span data-ttu-id="601ad-235">You might notice this messages if you look in the **sshd.log**.</span><span class="sxs-lookup"><span data-stu-id="601ad-235">You might notice this messages if you look in the **sshd.log**.</span></span> <span data-ttu-id="601ad-236">These messages are part of the normal connection process.</span><span class="sxs-lookup"><span data-stu-id="601ad-236">These messages are part of the normal connection process.</span></span> <span data-ttu-id="601ad-237">They appear because Xamarin uses the username **a** temporarily when retrieving the _SSH Fingerprint_.</span><span class="sxs-lookup"><span data-stu-id="601ad-237">They appear because Xamarin uses the username **a** temporarily when retrieving the _SSH Fingerprint_.</span></span>
-
-## <a name="output-window-and-log-files"></a><span data-ttu-id="601ad-238">Output Window and Log Files</span><span class="sxs-lookup"><span data-stu-id="601ad-238">Output Window and Log Files</span></span>
-
-<span data-ttu-id="601ad-239">If Visual Studio hits an error when connecting to the build host, there are 2 locations to check for additional messages: the Output window and the log files.</span><span class="sxs-lookup"><span data-stu-id="601ad-239">If Visual Studio hits an error when connecting to the build host, there are 2 locations to check for additional messages: the Output window and the log files.</span></span>
-
-### <a name="output-window"></a><span data-ttu-id="601ad-240">Output Window</span><span class="sxs-lookup"><span data-stu-id="601ad-240">Output Window</span></span>
-
-<span data-ttu-id="601ad-241">The Output window is the best place to start.</span><span class="sxs-lookup"><span data-stu-id="601ad-241">The Output window is the best place to start.</span></span> <span data-ttu-id="601ad-242">It displays messages about the main connection steps and errors.</span><span class="sxs-lookup"><span data-stu-id="601ad-242">It displays messages about the main connection steps and errors.</span></span> <span data-ttu-id="601ad-243">To view the Xamarin messages in the Output window:</span><span class="sxs-lookup"><span data-stu-id="601ad-243">To view the Xamarin messages in the Output window:</span></span>
-
-1. <span data-ttu-id="601ad-244">Select **View > Output** from the menus or click the **Output** tab.</span><span class="sxs-lookup"><span data-stu-id="601ad-244">Select **View > Output** from the menus or click the **Output** tab.</span></span>
-2. <span data-ttu-id="601ad-245">Click the **Show output from** drop-down menu.</span><span class="sxs-lookup"><span data-stu-id="601ad-245">Click the **Show output from** drop-down menu.</span></span>
-3. <span data-ttu-id="601ad-246">Select **Xamarin**.</span><span class="sxs-lookup"><span data-stu-id="601ad-246">Select **Xamarin**.</span></span>
-
-<span data-ttu-id="601ad-247">[![](troubleshooting-images/troubleshooting-image11.png "Select Xamarin in the Output tab")](troubleshooting-images/troubleshooting-image11.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-247">[![](troubleshooting-images/troubleshooting-image11.png "Select Xamarin in the Output tab")](troubleshooting-images/troubleshooting-image11.png#lightbox)</span></span>
-
-### <a name="log-files"></a><span data-ttu-id="601ad-248">Log Files</span><span class="sxs-lookup"><span data-stu-id="601ad-248">Log Files</span></span>
-
-<span data-ttu-id="601ad-249">If the Output window does not include enough information to diagnose the problem, the log files are the next place to look.</span><span class="sxs-lookup"><span data-stu-id="601ad-249">If the Output window does not include enough information to diagnose the problem, the log files are the next place to look.</span></span> <span data-ttu-id="601ad-250">The log files contain additional diagnostic messages that do not appear in the Output window.</span><span class="sxs-lookup"><span data-stu-id="601ad-250">The log files contain additional diagnostic messages that do not appear in the Output window.</span></span> <span data-ttu-id="601ad-251">To view the log files:</span><span class="sxs-lookup"><span data-stu-id="601ad-251">To view the log files:</span></span>
-
-1. <span data-ttu-id="601ad-252">Start Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="601ad-252">Start Visual Studio.</span></span>
-
-    > [!IMPORTANT]
-    > <span data-ttu-id="601ad-253">Note that **.svclogs** are not enabled by default.</span><span class="sxs-lookup"><span data-stu-id="601ad-253">Note that **.svclogs** are not enabled by default.</span></span> <span data-ttu-id="601ad-254">To access them you will need to start Visual Studio with verbose logs as explained in the [Version Logs](~/cross-platform/troubleshooting/questions/version-logs.md#visual-studio-startup-verbose-logs) guide.</span><span class="sxs-lookup"><span data-stu-id="601ad-254">To access them you will need to start Visual Studio with verbose logs as explained in the [Version Logs](~/cross-platform/troubleshooting/questions/version-logs.md#visual-studio-startup-verbose-logs) guide.</span></span> <span data-ttu-id="601ad-255">For more information, refer to the [Troubleshooting Extensions with the Activity Log](https://blogs.msdn.microsoft.com/visualstudio/2010/02/24/troubleshooting-extensions-with-the-activity-log/) blog.</span><span class="sxs-lookup"><span data-stu-id="601ad-255">For more information, refer to the [Troubleshooting Extensions with the Activity Log](https://blogs.msdn.microsoft.com/visualstudio/2010/02/24/troubleshooting-extensions-with-the-activity-log/) blog.</span></span>
-
-2. <span data-ttu-id="601ad-256">Attempt to connect to the build host.</span><span class="sxs-lookup"><span data-stu-id="601ad-256">Attempt to connect to the build host.</span></span>
-
-3. <span data-ttu-id="601ad-257">After Visual Studio hits the connection error, collect the logs from **Help > Xamarin > Zip Logs**:</span><span class="sxs-lookup"><span data-stu-id="601ad-257">After Visual Studio hits the connection error, collect the logs from **Help > Xamarin > Zip Logs**:</span></span>
-
-    <span data-ttu-id="601ad-258">[![](troubleshooting-images/troubleshooting-image12.png "Collect the logs from Help > Xamarin > Zip Logs")](troubleshooting-images/troubleshooting-image12.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-258">[![](troubleshooting-images/troubleshooting-image12.png "Collect the logs from Help > Xamarin > Zip Logs")](troubleshooting-images/troubleshooting-image12.png#lightbox)</span></span>
-
-4. <span data-ttu-id="601ad-259">When you open the .zip file, you will see a list of files similar to the example below.</span><span class="sxs-lookup"><span data-stu-id="601ad-259">When you open the .zip file, you will see a list of files similar to the example below.</span></span> <span data-ttu-id="601ad-260">For connection errors, the most important files are the **\*Ide.log** and **\*Ide.svclog** files.</span><span class="sxs-lookup"><span data-stu-id="601ad-260">For connection errors, the most important files are the **\*Ide.log** and **\*Ide.svclog** files.</span></span> <span data-ttu-id="601ad-261">These files contain the same messages in two slightly different formats.</span><span class="sxs-lookup"><span data-stu-id="601ad-261">These files contain the same messages in two slightly different formats.</span></span> <span data-ttu-id="601ad-262">The **.svclog** is XML and is useful if you want to browse through the messages.</span><span class="sxs-lookup"><span data-stu-id="601ad-262">The **.svclog** is XML and is useful if you want to browse through the messages.</span></span> <span data-ttu-id="601ad-263">The **.log** is plain text and is useful if you want to filter the messages using command line tools.</span><span class="sxs-lookup"><span data-stu-id="601ad-263">The **.log** is plain text and is useful if you want to filter the messages using command line tools.</span></span>
-
-    <span data-ttu-id="601ad-264">To browse through all the messages, select and open the **.svclog** file:</span><span class="sxs-lookup"><span data-stu-id="601ad-264">To browse through all the messages, select and open the **.svclog** file:</span></span>
-
-    <span data-ttu-id="601ad-265">[![](troubleshooting-images/troubleshooting-image13.png "Select the svclog file")](troubleshooting-images/troubleshooting-image13.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-265">[![](troubleshooting-images/troubleshooting-image13.png "Select the svclog file")](troubleshooting-images/troubleshooting-image13.png#lightbox)</span></span>
-
-5. <span data-ttu-id="601ad-266">The **.svclog** file will open in **Microsoft Service Trace Viewer**.</span><span class="sxs-lookup"><span data-stu-id="601ad-266">The **.svclog** file will open in **Microsoft Service Trace Viewer**.</span></span> <span data-ttu-id="601ad-267">You can browse the messages by thread to see related groups of messages.</span><span class="sxs-lookup"><span data-stu-id="601ad-267">You can browse the messages by thread to see related groups of messages.</span></span> <span data-ttu-id="601ad-268">To browse by thread, first select the **Graph** tab, then click the **Layout Mode** drop-down menu and select **Thread**:</span><span class="sxs-lookup"><span data-stu-id="601ad-268">To browse by thread, first select the **Graph** tab, then click the **Layout Mode** drop-down menu and select **Thread**:</span></span>
-
-    <span data-ttu-id="601ad-269">[![](troubleshooting-images/troubleshooting-image14.png "Click the Layout Mode drop-down menu and select Thread")](troubleshooting-images/troubleshooting-image14.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-269">[![](troubleshooting-images/troubleshooting-image14.png "Click the Layout Mode drop-down menu and select Thread")](troubleshooting-images/troubleshooting-image14.png#lightbox)</span></span>
-
-<a name="verboselogs" />
-
-### <a name="verbose-log-files"></a><span data-ttu-id="601ad-270">Verbose Log Files</span><span class="sxs-lookup"><span data-stu-id="601ad-270">Verbose Log Files</span></span>
-
-<span data-ttu-id="601ad-271">If the normal log files still do not provide sufficient information to diagnose the problem, one last technique to try is to enable verbose logging.</span><span class="sxs-lookup"><span data-stu-id="601ad-271">If the normal log files still do not provide sufficient information to diagnose the problem, one last technique to try is to enable verbose logging.</span></span> <span data-ttu-id="601ad-272">The verbose logs are also preferred on bug reports.</span><span class="sxs-lookup"><span data-stu-id="601ad-272">The verbose logs are also preferred on bug reports.</span></span>
-
-1. <span data-ttu-id="601ad-273">Quit Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="601ad-273">Quit Visual Studio.</span></span>
-
-2. <span data-ttu-id="601ad-274">Start a [**Developer Command Prompt**](https://msdn.microsoft.com/en-us/library/ms229859(v=vs.110).aspx).</span><span class="sxs-lookup"><span data-stu-id="601ad-274">Start a [**Developer Command Prompt**](https://msdn.microsoft.com/en-us/library/ms229859(v=vs.110).aspx).</span></span>
-
-3. <span data-ttu-id="601ad-275">Run the following command in the command prompt to launch Visual Studio with verbose logging:</span><span class="sxs-lookup"><span data-stu-id="601ad-275">Run the following command in the command prompt to launch Visual Studio with verbose logging:</span></span>
-
-    ```bash
-    devenv /log
+            HelloWorldServiceClient _client;
+            Button _getHelloWorldDataButton;
+            TextView _getHelloWorldDataTextView;
+            Button _sayHelloWorldButton;
+            TextView _sayHelloWorldTextView;
+            ...
+        }
     ```
 
-4. <span data-ttu-id="601ad-276">Attempt to connect to the build host from Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="601ad-276">Attempt to connect to the build host from Visual Studio.</span></span>
+    <span data-ttu-id="cb9d0-182">Replace `<insert_WCF_service_endpoint_here>` with the address of your WCF endpoint.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-182">Replace `<insert_WCF_service_endpoint_here>` with the address of your WCF endpoint.</span></span>
 
-5. <span data-ttu-id="601ad-277">After Visual Studio hits the connection error, collect the logs from **Help > Xamarin > Zip Logs**.</span><span class="sxs-lookup"><span data-stu-id="601ad-277">After Visual Studio hits the connection error, collect the logs from **Help > Xamarin > Zip Logs**.</span></span>
+1. <span data-ttu-id="cb9d0-183">In `MainActivity.cs`, modify the `OnCreate` method so that it contains the following code:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-183">In `MainActivity.cs`, modify the `OnCreate` method so that it contains the following code:</span></span>
 
-6. <span data-ttu-id="601ad-278">Run the following command in Terminal on the Mac to copy any recent log messages from the SSH server into a file on your Desktop:</span><span class="sxs-lookup"><span data-stu-id="601ad-278">Run the following command in Terminal on the Mac to copy any recent log messages from the SSH server into a file on your Desktop:</span></span>
+    ```csharp
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(bundle);
 
-    ```bash
-    grep sshd /var/log/system.log > "$HOME/Desktop/sshd.log"
-   ```
+            SetContentView(Resource.Layout.Main);
 
-<span data-ttu-id="601ad-279">If these verbose log files do not provide enough clues to resolve the issue directly, please [file a new bug report](https://bugzilla.xamarin.com/newbug) and attach both the .zip file from step 5 and the .log file from step 6.</span><span class="sxs-lookup"><span data-stu-id="601ad-279">If these verbose log files do not provide enough clues to resolve the issue directly, please [file a new bug report](https://bugzilla.xamarin.com/newbug) and attach both the .zip file from step 5 and the .log file from step 6.</span></span>
+            InitializeHelloWorldServiceClient();
 
-## <a name="troubleshooting-build-and-deployment-errors"></a><span data-ttu-id="601ad-280">Troubleshooting Build and Deployment Errors</span><span class="sxs-lookup"><span data-stu-id="601ad-280">Troubleshooting Build and Deployment Errors</span></span>
+            // This button will invoke the GetHelloWorldData - the method that takes a C# object as a parameter.
+            _getHelloWorldDataButton = FindViewById<Button>(Resource.Id.getHelloWorldDataButton);
+            _getHelloWorldDataButton.Click += GetHelloWorldDataButtonOnClick;
+            _getHelloWorldDataTextView = FindViewById<TextView>(Resource.Id.getHelloWorldDataTextView);
 
-<span data-ttu-id="601ad-281">This section covers a few problems that can happen after Visual Studio connects successfully to the build host.</span><span class="sxs-lookup"><span data-stu-id="601ad-281">This section covers a few problems that can happen after Visual Studio connects successfully to the build host.</span></span>
+            // This button will invoke SayHelloWorld - this method takes a simple string as a parameter.
+            _sayHelloWorldButton = FindViewById<Button>(Resource.Id.sayHelloWorldButton);
+            _sayHelloWorldButton.Click += SayHelloWorldButtonOnClick;
+            _sayHelloWorldTextView = FindViewById<TextView>(Resource.Id.sayHelloWorldTextView);
+        }
+    ```
+    
+    <span data-ttu-id="cb9d0-184">The code above initializes the instance variables for the class and wires up some event handlers.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-184">The code above initializes the instance variables for the class and wires up some event handlers.</span></span>
 
-### <a name="unable-to-connect-to-address1921681222-with-usermacuser"></a><span data-ttu-id="601ad-282">"Unable to connect to Address='192.168.1.2:22' with User='macuser'"</span><span class="sxs-lookup"><span data-stu-id="601ad-282">"Unable to connect to Address='192.168.1.2:22' with User='macuser'"</span></span>
+1. <span data-ttu-id="cb9d0-185">In `MainActivity.cs`, instantiate the client proxy class by adding the following two methods:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-185">In `MainActivity.cs`, instantiate the client proxy class by adding the following two methods:</span></span>
 
-<span data-ttu-id="601ad-283">Known causes:</span><span class="sxs-lookup"><span data-stu-id="601ad-283">Known causes:</span></span>
+    ```csharp
+        void InitializeHelloWorldServiceClient()
+        {
+            BasicHttpBinding binding = CreateBasicHttpBinding();
+            _client = new HelloWorldServiceClient(binding, Endpoint);
+        }
 
-- <span data-ttu-id="601ad-284">**Xamarin 4.1 security feature** – This error _will_ happen if you downgrade to Xamarin 4.0 after using Xamarin 4.1 or higher.</span><span class="sxs-lookup"><span data-stu-id="601ad-284">**Xamarin 4.1 security feature** – This error _will_ happen if you downgrade to Xamarin 4.0 after using Xamarin 4.1 or higher.</span></span> <span data-ttu-id="601ad-285">In this case the error will be accompanied by the additional warning "Private key is encrypted but passphrase is empty".</span><span class="sxs-lookup"><span data-stu-id="601ad-285">In this case the error will be accompanied by the additional warning "Private key is encrypted but passphrase is empty".</span></span> <span data-ttu-id="601ad-286">This is an _intentional_ change due to a new security feature in Xamarin 4.1.</span><span class="sxs-lookup"><span data-stu-id="601ad-286">This is an _intentional_ change due to a new security feature in Xamarin 4.1.</span></span> <span data-ttu-id="601ad-287">**Recommended fix**: Delete **id\_rsa** and **id\_rsa.pub** from **%LOCALAPPDATA%\Xamarin\MonoTouch**, and then reconnect to the Mac build host.</span><span class="sxs-lookup"><span data-stu-id="601ad-287">**Recommended fix**: Delete **id\_rsa** and **id\_rsa.pub** from **%LOCALAPPDATA%\Xamarin\MonoTouch**, and then reconnect to the Mac build host.</span></span>
+        static BasicHttpBinding CreateBasicHttpBinding()
+        {
+            BasicHttpBinding binding = new BasicHttpBinding
+            {
+                Name = "basicHttpBinding",
+                MaxBufferSize = 2147483647,
+                MaxReceivedMessageSize = 2147483647
+            };
 
-- <span data-ttu-id="601ad-288">**SSH security restriction** – When this message is accompanied by the additional warning "Could not authenticate the user using the existing ssh keys", it most often means one of the files or directories in the fully qualified path of **$HOME/.ssh/authorized\_keys** on the Mac has write permissions enabled for _other_ or _group_ members.</span><span class="sxs-lookup"><span data-stu-id="601ad-288">**SSH security restriction** – When this message is accompanied by the additional warning "Could not authenticate the user using the existing ssh keys", it most often means one of the files or directories in the fully qualified path of **$HOME/.ssh/authorized\_keys** on the Mac has write permissions enabled for _other_ or _group_ members.</span></span> <span data-ttu-id="601ad-289">**Common fix**: Run `chmod og-w "$HOME"` in a Terminal command prompt on the Mac.</span><span class="sxs-lookup"><span data-stu-id="601ad-289">**Common fix**: Run `chmod og-w "$HOME"` in a Terminal command prompt on the Mac.</span></span> <span data-ttu-id="601ad-290">For details about which particular file or directory is causing the problem, run `grep sshd /var/log/system.log > "$HOME/Desktop/sshd.log"` in Terminal, and then open the **sshd.log** file from your Desktop and look for "Authentication refused: bad ownership or modes".</span><span class="sxs-lookup"><span data-stu-id="601ad-290">For details about which particular file or directory is causing the problem, run `grep sshd /var/log/system.log > "$HOME/Desktop/sshd.log"` in Terminal, and then open the **sshd.log** file from your Desktop and look for "Authentication refused: bad ownership or modes".</span></span>
+            TimeSpan timeout = new TimeSpan(0, 0, 30);
+            binding.SendTimeout = timeout;
+            binding.OpenTimeout = timeout;
+            binding.ReceiveTimeout = timeout;
+            return binding;
+        }
+    ```
+    
+    <span data-ttu-id="cb9d0-186">The code above instantiates and initializes a `HelloWorldServiceClient` object.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-186">The code above instantiates and initializes a `HelloWorldServiceClient` object.</span></span>
 
-### <a name="solutions-cannot-be-loaded-from-a-network-share"></a><span data-ttu-id="601ad-291">Solutions cannot be loaded from a Network Share</span><span class="sxs-lookup"><span data-stu-id="601ad-291">Solutions cannot be loaded from a Network Share</span></span>
+1. <span data-ttu-id="cb9d0-187">In `MainActivity.cs`, add even handlers for the two buttons in the `Activity`:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-187">In `MainActivity.cs`, add even handlers for the two buttons in the `Activity`:</span></span>
 
-<span data-ttu-id="601ad-292">Solutions will only be compiled if they are on the local Windows file system or a mapped drive.</span><span class="sxs-lookup"><span data-stu-id="601ad-292">Solutions will only be compiled if they are on the local Windows file system or a mapped drive.</span></span>
+    ```csharp
+        async void GetHelloWorldDataButtonOnClick(object sender, EventArgs e)
+        {
+            var data = new HelloWorldData
+            {
+                Name = "Mr. Chad",
+                SayHello = true
+            };
 
-<span data-ttu-id="601ad-293">Solutions that are saved in a network share might throw errors, or completely refuse to compile.</span><span class="sxs-lookup"><span data-stu-id="601ad-293">Solutions that are saved in a network share might throw errors, or completely refuse to compile.</span></span> <span data-ttu-id="601ad-294">Any **.sln** files used in Visual Studio should be saved on the local Windows file system.</span><span class="sxs-lookup"><span data-stu-id="601ad-294">Any **.sln** files used in Visual Studio should be saved on the local Windows file system.</span></span>
+            _getHelloWorldDataTextView.Text = "Waiting for WCF...";
+            HelloWorldData result;
+            try
+            {
+                result = await _client.GetHelloDataAsync(data);
+                _getHelloWorldDataTextView.Text = result.Name;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
-<span data-ttu-id="601ad-295">The following error is thrown because of this problem:</span><span class="sxs-lookup"><span data-stu-id="601ad-295">The following error is thrown because of this problem:</span></span>
+        async void SayHelloWorldButtonOnClick(object sender, EventArgs e)
+        {
+            _sayHelloWorldTextView.Text = "Waiting for WCF...";
+            try
+            {
+                var result = await _client.SayHelloToAsync("Kilroy");
+                _sayHelloWorldTextView.Text = result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    ```
+  
+1. <span data-ttu-id="cb9d0-188">Run the application, ensure that the WCF service is running, and click on the two buttons.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-188">Run the application, ensure that the WCF service is running, and click on the two buttons.</span></span> <span data-ttu-id="cb9d0-189">The application will call the WCF asynchronously, provided that the `Endpoint` field is correctly set:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-189">The application will call the WCF asynchronously, provided that the `Endpoint` field is correctly set:</span></span>
 
-```bash
-error : Building from a network share path is not supported at the moment. Please map a network drive to '\\SharedSources\HelloWorld\HelloWorld' or copy the source to a local directory.
-```
+    <span data-ttu-id="cb9d0-190">[![](walkthrough-working-with-wcf-images/image08.png "Within 30 seconds a response should be received from each WCF method, and our application should look something like this screenshot")](walkthrough-working-with-wcf-images/image08.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="cb9d0-190">[![](walkthrough-working-with-wcf-images/image08.png "Within 30 seconds a response should be received from each WCF method, and our application should look something like this screenshot")](walkthrough-working-with-wcf-images/image08.png#lightbox)</span></span>
 
-<span data-ttu-id="601ad-296">related bug: [#36195](https://bugzilla.xamarin.com/show_bug.cgi?id=36195)</span><span class="sxs-lookup"><span data-stu-id="601ad-296">related bug: [#36195](https://bugzilla.xamarin.com/show_bug.cgi?id=36195)</span></span>
+<a name="Creating_a_Xamarin_iOS_Application" />
 
-### <a name="missing-provisioning-profiles-or-failed-to-create-the-a-fat-library-error"></a><span data-ttu-id="601ad-297">Missing Provisioning Profiles or "Failed to create the a fat library" Error</span><span class="sxs-lookup"><span data-stu-id="601ad-297">Missing Provisioning Profiles or "Failed to create the a fat library" Error</span></span>
+## <a name="creating-a-xamarinios-application"></a><span data-ttu-id="cb9d0-191">Creating a Xamarin.iOS Application</span><span class="sxs-lookup"><span data-stu-id="cb9d0-191">Creating a Xamarin.iOS Application</span></span>
 
-<span data-ttu-id="601ad-298">Launch Xcode on the Mac and ensure that your Apple developer account is logged in and your iOS Development Profile is downloaded:</span><span class="sxs-lookup"><span data-stu-id="601ad-298">Launch Xcode on the Mac and ensure that your Apple developer account is logged in and your iOS Development Profile is downloaded:</span></span>
+<span data-ttu-id="cb9d0-192">The WCF service proxy can be consumed by a Xamarin.iOS application, as follows:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-192">The WCF service proxy can be consumed by a Xamarin.iOS application, as follows:</span></span>
 
-<span data-ttu-id="601ad-299">[![](troubleshooting-images/troubleshooting-image7.png "Ensuring that the Apple developer account is logged in and the iOS Development Profile is downloaded")](troubleshooting-images/troubleshooting-image7.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-299">[![](troubleshooting-images/troubleshooting-image7.png "Ensuring that the Apple developer account is logged in and the iOS Development Profile is downloaded")](troubleshooting-images/troubleshooting-image7.png#lightbox)</span></span>
+1. <span data-ttu-id="cb9d0-193">In Visual Studio, add a new iPhone **Single View Application** project to the solution and name it `HelloWorld.iOS`.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-193">In Visual Studio, add a new iPhone **Single View Application** project to the solution and name it `HelloWorld.iOS`.</span></span>
+1. <span data-ttu-id="cb9d0-194">In the `HelloWorld.iOS` project, add a reference to the `HelloWorldServiceProxy` project, and a reference to the `System.ServiceModel` namespace.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-194">In the `HelloWorld.iOS` project, add a reference to the `HelloWorldServiceProxy` project, and a reference to the `System.ServiceModel` namespace.</span></span>
+1. <span data-ttu-id="cb9d0-195">In **Solution Explorer**, double-click on `Main.storyboard` to open the file in the iOS designer.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-195">In **Solution Explorer**, double-click on `Main.storyboard` to open the file in the iOS designer.</span></span> <span data-ttu-id="cb9d0-196">Then, add the following `UIButton` and `UITextView` controls:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-196">Then, add the following `UIButton` and `UITextView` controls:</span></span>
 
-### <a name="a-socket-operation-was-attempted-to-an-unreachable-network"></a><span data-ttu-id="601ad-300">"A socket operation was attempted to an unreachable network"</span><span class="sxs-lookup"><span data-stu-id="601ad-300">"A socket operation was attempted to an unreachable network"</span></span>
+    ||<span data-ttu-id="cb9d0-197">Name</span><span class="sxs-lookup"><span data-stu-id="cb9d0-197">Name</span></span>|<span data-ttu-id="cb9d0-198">Title</span><span class="sxs-lookup"><span data-stu-id="cb9d0-198">Title</span></span>|
+    |--- |--- |--- |
+    |`UIButton`|`sayHelloWorldButton`|<span data-ttu-id="cb9d0-199">Say "Hello, World"</span><span class="sxs-lookup"><span data-stu-id="cb9d0-199">Say "Hello, World"</span></span>|
+    |`UITextView`|`sayHelloWorldText`||
+    |`UIButton`|`getHelloWorldDataButton`|<span data-ttu-id="cb9d0-200">Get "Hello, World" Data</span><span class="sxs-lookup"><span data-stu-id="cb9d0-200">Get "Hello, World" Data</span></span>|
+    |`UITextView`|`getHelloWorldDataText`||
 
-<span data-ttu-id="601ad-301">Reported causes:</span><span class="sxs-lookup"><span data-stu-id="601ad-301">Reported causes:</span></span>
+    <span data-ttu-id="cb9d0-201">After adding the controls, the UI should resemble the following screenshot:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-201">After adding the controls, the UI should resemble the following screenshot:</span></span>
 
-- <span data-ttu-id="601ad-302">**Enhancement [#36118](https://bugzilla.xamarin.com/show_bug.cgi?id=36118)** – This error can prevent successful builds when Visual Studio is using an IPv6 address to connect to the build host.</span><span class="sxs-lookup"><span data-stu-id="601ad-302">**Enhancement [#36118](https://bugzilla.xamarin.com/show_bug.cgi?id=36118)** – This error can prevent successful builds when Visual Studio is using an IPv6 address to connect to the build host.</span></span> <span data-ttu-id="601ad-303">(The build host connection does not yet support IPv6 addresses.)</span><span class="sxs-lookup"><span data-stu-id="601ad-303">(The build host connection does not yet support IPv6 addresses.)</span></span>
+    <span data-ttu-id="cb9d0-202">[![](walkthrough-working-with-wcf-images/image12.png "After adding the controls, the UI should resemble this screenshot")](walkthrough-working-with-wcf-images/image12.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="cb9d0-202">[![](walkthrough-working-with-wcf-images/image12.png "After adding the controls, the UI should resemble this screenshot")](walkthrough-working-with-wcf-images/image12.png#lightbox)</span></span>
 
-### <a name="xamarinios-visual-studio-plugin-fails-to-load-after-reinstallation-of-betaalpha-channel"></a><span data-ttu-id="601ad-304">Xamarin.iOS Visual Studio plugin fails to load after reinstallation of beta/alpha channel</span><span class="sxs-lookup"><span data-stu-id="601ad-304">Xamarin.iOS Visual Studio plugin fails to load after reinstallation of beta/alpha channel</span></span>
+1. <span data-ttu-id="cb9d0-203">In **Solution Explorer**, open `ViewController.cs` and add the following code:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-203">In **Solution Explorer**, open `ViewController.cs` and add the following code:</span></span>
 
-<span data-ttu-id="601ad-305">Relevant bug [#40781](https://bugzilla.xamarin.com/show_bug.cgi?id=40781).</span><span class="sxs-lookup"><span data-stu-id="601ad-305">Relevant bug [#40781](https://bugzilla.xamarin.com/show_bug.cgi?id=40781).</span></span>
+    ```xml
+        public partial class ViewController : UIViewController
+        {
+            static readonly EndpointAddress Endpoint = new EndpointAddress("<insert_WCF_service_endpoint_here>");
+            HelloWorldServiceClient _client;
+            ...
+        }
+    ```
+  
+    <span data-ttu-id="cb9d0-204">Replace `<insert_WCF_service_endpoint_here>` with the address of your WCF endpoint.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-204">Replace `<insert_WCF_service_endpoint_here>` with the address of your WCF endpoint.</span></span>
 
-<span data-ttu-id="601ad-306">This issue may happen when Visual Studio fails to refresh the MEF component cache.</span><span class="sxs-lookup"><span data-stu-id="601ad-306">This issue may happen when Visual Studio fails to refresh the MEF component cache.</span></span> <span data-ttu-id="601ad-307">If that's the case, installing this Visual Studio extension may help: [https://visualstudiogallery.msdn.microsoft.com/22b94661-70c7-4a93-9ca3-8b6dd45f47cd](https://visualstudiogallery.msdn.microsoft.com/22b94661-70c7-4a93-9ca3-8b6dd45f47cd)</span><span class="sxs-lookup"><span data-stu-id="601ad-307">If that's the case, installing this Visual Studio extension may help: [https://visualstudiogallery.msdn.microsoft.com/22b94661-70c7-4a93-9ca3-8b6dd45f47cd](https://visualstudiogallery.msdn.microsoft.com/22b94661-70c7-4a93-9ca3-8b6dd45f47cd)</span></span>
+1. <span data-ttu-id="cb9d0-205">In `ViewController.cs`, update the `ViewDidLoad` method so that it resembles the following:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-205">In `ViewController.cs`, update the `ViewDidLoad` method so that it resembles the following:</span></span>
 
-<span data-ttu-id="601ad-308">This will clear the Visual Studio MEF component cache to fix issues with cache corruption.</span><span class="sxs-lookup"><span data-stu-id="601ad-308">This will clear the Visual Studio MEF component cache to fix issues with cache corruption.</span></span>
+    ```csharp
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            InitializeHelloWorldServiceClient();
 
-<a name="errors" />
+            getHelloWorldDataButton.TouchUpInside += GetHelloWorldDataButton_TouchUpInside;
+            sayHelloWorldButton.TouchUpInside += SayHelloWorldButton_TouchUpInside;
+        }
+    ```
+  
+1. <span data-ttu-id="cb9d0-206">In `ViewController.cs`, add the `InitializeHelloWorldServiceClient` and `CreateBasicHttpBinding` methods:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-206">In `ViewController.cs`, add the `InitializeHelloWorldServiceClient` and `CreateBasicHttpBinding` methods:</span></span>
 
-### <a name="errors-due-to-existing-build-host-processes-on-the-mac"></a><span data-ttu-id="601ad-309">Errors due to existing Build Host Processes on the Mac</span><span class="sxs-lookup"><span data-stu-id="601ad-309">Errors due to existing Build Host Processes on the Mac</span></span>
+    ```csharp
+        void InitializeHelloWorldServiceClient()
+        {
+            BasicHttpBinding binding = CreateBasicHttpBinding();
+            _client = new HelloWorldServiceClient(binding, Endpoint);
+        }
 
-<span data-ttu-id="601ad-310">Processes from previous build host connections can sometimes interfere with the behavior of the current active connection.</span><span class="sxs-lookup"><span data-stu-id="601ad-310">Processes from previous build host connections can sometimes interfere with the behavior of the current active connection.</span></span> <span data-ttu-id="601ad-311">To check for any existing processes, close Visual Studio and then run the following commands in Terminal on the Mac:</span><span class="sxs-lookup"><span data-stu-id="601ad-311">To check for any existing processes, close Visual Studio and then run the following commands in Terminal on the Mac:</span></span>
+        static BasicHttpBinding CreateBasicHttpBinding()
+        {
+            BasicHttpBinding binding = new BasicHttpBinding
+            {
+                Name = "basicHttpBinding",
+                MaxBufferSize = 2147483647,
+                MaxReceivedMessageSize = 2147483647
+            };
 
-```bash
-ps -A | grep mono
-```
+            TimeSpan timeout = new TimeSpan(0, 0, 30);
+            binding.SendTimeout = timeout;
+            binding.OpenTimeout = timeout;
+            binding.ReceiveTimeout = timeout;
+            return binding;
+        }
+    ```
+  
+1. <span data-ttu-id="cb9d0-207">In `ViewController.cs`, add event handlers for the `TouchUpInside` events on the two `UIButton` instances:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-207">In `ViewController.cs`, add event handlers for the `TouchUpInside` events on the two `UIButton` instances:</span></span>
 
-<span data-ttu-id="601ad-312">[![](troubleshooting-images/troubleshooting-image10.png "Running commands in Terminal on the Mac")](troubleshooting-images/troubleshooting-image10.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-312">[![](troubleshooting-images/troubleshooting-image10.png "Running commands in Terminal on the Mac")](troubleshooting-images/troubleshooting-image10.png#lightbox)</span></span>
+    ```csharp
+        async void GetHelloWorldDataButton_TouchUpInside(object sender, EventArgs e)
+        {
+            getHelloWorldDataText.Text = "Waiting for WCF...";
+            var data = new HelloWorldData
+            {
+                Name = "Mr. Chad",
+                SayHello = true
+            };
 
-<span data-ttu-id="601ad-313">To kill the existing processes use the following command:</span><span class="sxs-lookup"><span data-stu-id="601ad-313">To kill the existing processes use the following command:</span></span>
+            HelloWorldData result;
+            try
+            {
+                result = await _client.GetHelloDataAsync(data);
+                getHelloWorldDataText.Text = result.Name;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
-```bash
-killall mono
-```
-
-### <a name="clearing-the-mac-build-cache"></a><span data-ttu-id="601ad-314">Clearing the Mac Build Cache</span><span class="sxs-lookup"><span data-stu-id="601ad-314">Clearing the Mac Build Cache</span></span>
-
-<span data-ttu-id="601ad-315">If you are troubleshooting a build problem and want to make sure the behavior is not related to any of temporary build files stored on the Mac, you can delete the build cache folder.</span><span class="sxs-lookup"><span data-stu-id="601ad-315">If you are troubleshooting a build problem and want to make sure the behavior is not related to any of temporary build files stored on the Mac, you can delete the build cache folder.</span></span>
-
-1. <span data-ttu-id="601ad-316">Run the following command in Terminal on the Mac:</span><span class="sxs-lookup"><span data-stu-id="601ad-316">Run the following command in Terminal on the Mac:</span></span>
-
-    ```bash
-    open "$HOME/Library/Caches/Xamarin"
+        async void SayHelloWorldButton_TouchUpInside(object sender, EventArgs e)
+        {
+            sayHelloWorldText.Text = "Waiting for WCF...";
+            try
+            {
+                var result = await _client.SayHelloToAsync("Kilroy");
+                sayHelloWorldText.Text = result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     ```
 
-2. <span data-ttu-id="601ad-317">Control-click the **mtbs** folder and select **Move to Trash**:</span><span class="sxs-lookup"><span data-stu-id="601ad-317">Control-click the **mtbs** folder and select **Move to Trash**:</span></span>
+1. <span data-ttu-id="cb9d0-208">Run the application, ensure that the WCF service is running, and click on the two buttons.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-208">Run the application, ensure that the WCF service is running, and click on the two buttons.</span></span> <span data-ttu-id="cb9d0-209">The application will call the WCF asynchronously, provided that the `Endpoint` field is correctly set:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-209">The application will call the WCF asynchronously, provided that the `Endpoint` field is correctly set:</span></span>
 
-    <span data-ttu-id="601ad-318">[![](troubleshooting-images/troubleshooting-image9.png "Move the mtbs folder to Trash")](troubleshooting-images/troubleshooting-image9.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="601ad-318">[![](troubleshooting-images/troubleshooting-image9.png "Move the mtbs folder to Trash")](troubleshooting-images/troubleshooting-image9.png#lightbox)</span></span>
+    <span data-ttu-id="cb9d0-210">[![](walkthrough-working-with-wcf-images/image10.png "Within 30 seconds a response should be received from each WCF method, and our application should look like this screenshot")](walkthrough-working-with-wcf-images/image10.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="cb9d0-210">[![](walkthrough-working-with-wcf-images/image10.png "Within 30 seconds a response should be received from each WCF method, and our application should look like this screenshot")](walkthrough-working-with-wcf-images/image10.png#lightbox)</span></span>
+
+<a name="Summary" />
+
+## <a name="summary"></a><span data-ttu-id="cb9d0-211">Summary</span><span class="sxs-lookup"><span data-stu-id="cb9d0-211">Summary</span></span>
+
+<span data-ttu-id="cb9d0-212">This tutorial covered how to work with a WCF service in a mobile application using Xamarin.Android and Xamarin.iOS.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-212">This tutorial covered how to work with a WCF service in a mobile application using Xamarin.Android and Xamarin.iOS.</span></span> <span data-ttu-id="cb9d0-213">It showed how to create a WCF service and explained how to configure Windows 10 and IIS Express to accept connections from remote devices.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-213">It showed how to create a WCF service and explained how to configure Windows 10 and IIS Express to accept connections from remote devices.</span></span> <span data-ttu-id="cb9d0-214">It then explained how to generate a WCF proxy client and demonstrated how to use the proxy client in both Xamarin.Android and Xamarin.iOS applications.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-214">It then explained how to generate a WCF proxy client and demonstrated how to use the proxy client in both Xamarin.Android and Xamarin.iOS applications.</span></span>
 
 
-## <a name="related-links"></a><span data-ttu-id="601ad-319">Related Links</span><span class="sxs-lookup"><span data-stu-id="601ad-319">Related Links</span></span>
+## <a name="related-links"></a><span data-ttu-id="cb9d0-215">Related Links</span><span class="sxs-lookup"><span data-stu-id="cb9d0-215">Related Links</span></span>
 
-- [<span data-ttu-id="601ad-320">Connecting to the Mac</span><span class="sxs-lookup"><span data-stu-id="601ad-320">Connecting to the Mac</span></span>](~/ios/get-started/installation/windows/connecting-to-mac/index.md)
-- [<span data-ttu-id="601ad-321">Connecting a Mac to your Visual Studio environment with XMA (video)</span><span class="sxs-lookup"><span data-stu-id="601ad-321">Connecting a Mac to your Visual Studio environment with XMA (video)</span></span>](https://university.xamarin.com/lightninglectures/xamarin-mac-agent)
+- [<span data-ttu-id="cb9d0-216">HelloWorld (sample)</span><span class="sxs-lookup"><span data-stu-id="cb9d0-216">HelloWorld (sample)</span></span>](https://developer.xamarin.com/samples/mobile/WCF-Walkthrough/)
+- [<span data-ttu-id="cb9d0-217">Developing Service-Oriented Applications with WCF</span><span class="sxs-lookup"><span data-stu-id="cb9d0-217">Developing Service-Oriented Applications with WCF</span></span>](https://docs.microsoft.com/en-us/dotnet/framework/wcf/index)
+- [<span data-ttu-id="cb9d0-218">How to: Create a Windows Communication Foundation Client</span><span class="sxs-lookup"><span data-stu-id="cb9d0-218">How to: Create a Windows Communication Foundation Client</span></span>](https://docs.microsoft.com/en-us/dotnet/framework/wcf/how-to-create-a-wcf-client)
+- [<span data-ttu-id="cb9d0-219">ServiceModel Metadata Utility Tool (svcutil.exe)</span><span class="sxs-lookup"><span data-stu-id="cb9d0-219">ServiceModel Metadata Utility Tool (svcutil.exe)</span></span>](https://docs.microsoft.com/en-us/dotnet/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe)
