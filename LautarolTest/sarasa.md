@@ -165,7 +165,6 @@ ms.date: 02/17/2018
 
     <span data-ttu-id="cb9d0-145">[![](walkthrough-working-with-wcf-images/image05.png "We can do this by editing the configuration file for IIS Express at solutiondirectory.vsconfigapplicationhost.config, as shown in this screenshot")](walkthrough-working-with-wcf-images/image05.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="cb9d0-145">[![](walkthrough-working-with-wcf-images/image05.png "We can do this by editing the configuration file for IIS Express at solutiondirectory.vsconfigapplicationhost.config, as shown in this screenshot")](walkthrough-working-with-wcf-images/image05.png#lightbox)</span></span>
 
-
     <span data-ttu-id="cb9d0-146">Locate the `site` element with the name `HelloWorldWcfHost`.</span><span class="sxs-lookup"><span data-stu-id="cb9d0-146">Locate the `site` element with the name `HelloWorldWcfHost`.</span></span> <span data-ttu-id="cb9d0-147">It should look something like the following XML snippet:</span><span class="sxs-lookup"><span data-stu-id="cb9d0-147">It should look something like the following XML snippet:</span></span>
 
     ```xml
