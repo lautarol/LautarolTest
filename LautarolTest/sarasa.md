@@ -1,240 +1,536 @@
 ---
-title: Creating Mobile Apps with Xamarin.Forms Book First Edition
-description: Learn Xamarin.Forms with the electronic version of the Creating Mobile Apps book by Charles Petzold.
-ms.topic: article
+title: Walkthrough - Working with WCF
+description: This walkthrough covers how a mobile application built with Xamarin can consume a WCF web service using the BasicHttpBinding class.
 ms.prod: xamarin
-ms.assetid: CDE99818-689B-4376-9DC4-C4102AC0F931
-ms.technology: xamarin-forms
-author: charlespetzold
-ms.author: chape
-ms.date: 10/03/2016
+ms.assetid: D0E83342-2E79-4D25-BD57-43718F5628C4
+ms.technology: xamarin-cross-platform
+author: asb3993
+ms.author: amburns
+ms.date: 02/17/2018
 ---
 
-# <a name="creating-mobile-apps-with-xamarinforms-book-first-edition"></a><span data-ttu-id="0fe17-103">Creating Mobile Apps with Xamarin.Forms Book First Edition</span><span class="sxs-lookup"><span data-stu-id="0fe17-103">Creating Mobile Apps with Xamarin.Forms Book First Edition</span></span>
+# <a name="walkthrough---working-with-wcf"></a><span data-ttu-id="d3122-103">Walkthrough - Working with WCF</span><span class="sxs-lookup"><span data-stu-id="d3122-103">Walkthrough - Working with WCF</span></span>
 
-<p><img src="Images/Cover-sml.png" title="Creating Mobile Apps with Xamarin.Forms Book" align="left" /><span data-ttu-id="0fe17-105">Charles Petzold's latest book - <i>Creating Mobile Apps with Xamarin.Forms</i> - has been sent to (electronic) press and is now available for download!</span><span class="sxs-lookup"><span data-stu-id="0fe17-105">Charles Petzold's latest book - <i>Creating Mobile Apps with Xamarin.Forms</i> - has been sent to (electronic) press and is now available for download!</span></span></p>
-
-<span data-ttu-id="0fe17-106">This *first edition* has 27 chapters, and covers Xamarin.Forms&nbsp;2.x including Animation, MVVM, triggers, behaviors, custom layouts, custom renderers, and much more.</span><span class="sxs-lookup"><span data-stu-id="0fe17-106">This *first edition* has 27 chapters, and covers Xamarin.Forms&nbsp;2.x including Animation, MVVM, triggers, behaviors, custom layouts, custom renderers, and much more.</span></span>
-<span data-ttu-id="0fe17-107">Chapter 28 is also now available online among the individual chapters listed below.</span><span class="sxs-lookup"><span data-stu-id="0fe17-107">Chapter 28 is also now available online among the individual chapters listed below.</span></span>
-
-## <a name="download-ebook-for-free"></a><span data-ttu-id="0fe17-108">Download eBook for free</span><span class="sxs-lookup"><span data-stu-id="0fe17-108">Download eBook for free</span></span>
-
-<span data-ttu-id="0fe17-109">Download your preferred eBook format from Microsoft Virtual Academy:</span><span class="sxs-lookup"><span data-stu-id="0fe17-109">Download your preferred eBook format from Microsoft Virtual Academy:</span></span>
-
-*    [<span data-ttu-id="0fe17-110">**PDF (56Mb)**</span><span class="sxs-lookup"><span data-stu-id="0fe17-110">**PDF (56Mb)**</span></span>](https://aka.ms/xamebook)
-
-*    [<span data-ttu-id="0fe17-111">**ePub (151Mb)**</span><span class="sxs-lookup"><span data-stu-id="0fe17-111">**ePub (151Mb)**</span></span>](https://aka.ms/xamebook/epub)
-
-*    [<span data-ttu-id="0fe17-112">**Kindle edition (325Mb)**</span><span class="sxs-lookup"><span data-stu-id="0fe17-112">**Kindle edition (325Mb)**</span></span>](https://aka.ms/xamebook/mobi)
-
-## <a name="samples"></a><span data-ttu-id="0fe17-113">Samples</span><span class="sxs-lookup"><span data-stu-id="0fe17-113">Samples</span></span>
-
-<span data-ttu-id="0fe17-114">The samples are [available on github](https://github.com/xamarin/xamarin-forms-book-samples), and include [Xamarin.Forms for Windows](~/xamarin-forms/platform/windows/index.md) projects for Windows 8.1, Windows Phone 8.1, and UWP for Windows 10.</span><span class="sxs-lookup"><span data-stu-id="0fe17-114">The samples are [available on github](https://github.com/xamarin/xamarin-forms-book-samples), and include [Xamarin.Forms for Windows](~/xamarin-forms/platform/windows/index.md) projects for Windows 8.1, Windows Phone 8.1, and UWP for Windows 10.</span></span>
-
-## <a name="chapter-summaries"></a><span data-ttu-id="0fe17-115">Chapter summaries</span><span class="sxs-lookup"><span data-stu-id="0fe17-115">Chapter summaries</span></span>
-
-<span data-ttu-id="0fe17-116">Online [chapter summaries](summaries/index.md) describe the contents of each chapter with links to github samples and APIs.</span><span class="sxs-lookup"><span data-stu-id="0fe17-116">Online [chapter summaries](summaries/index.md) describe the contents of each chapter with links to github samples and APIs.</span></span>
-
-## <a name="download-individual-chapters"></a><span data-ttu-id="0fe17-117">Download Individual Chapters</span><span class="sxs-lookup"><span data-stu-id="0fe17-117">Download Individual Chapters</span></span>
-
-<table style="border:0px; box-shadow:0 0px 0px" cellpadding="0" cellspacing="2" border="0" width="85%">
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-118">Chapter 1.</span><span class="sxs-lookup"><span data-stu-id="0fe17-118">Chapter 1.</span></span> <span data-ttu-id="0fe17-119">How Does Xamarin.Forms Fit In?</span><span class="sxs-lookup"><span data-stu-id="0fe17-119">How Does Xamarin.Forms Fit In?</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-120"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch01-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-120"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch01-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-121"><a href="summaries/chapter01.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-121"><a href="summaries/chapter01.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-122">Chapter 2.</span><span class="sxs-lookup"><span data-stu-id="0fe17-122">Chapter 2.</span></span> <span data-ttu-id="0fe17-123">Anatomy of an App</span><span class="sxs-lookup"><span data-stu-id="0fe17-123">Anatomy of an App</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-124"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch02-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-124"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch02-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-125"><a href="summaries/chapter02.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-125"><a href="summaries/chapter02.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-126">Chapter 3.</span><span class="sxs-lookup"><span data-stu-id="0fe17-126">Chapter 3.</span></span> <span data-ttu-id="0fe17-127">Deeper into Text</span><span class="sxs-lookup"><span data-stu-id="0fe17-127">Deeper into Text</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-128"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch03-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-128"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch03-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-129"><a href="summaries/chapter03.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-129"><a href="summaries/chapter03.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-130">Chapter 4.</span><span class="sxs-lookup"><span data-stu-id="0fe17-130">Chapter 4.</span></span> <span data-ttu-id="0fe17-131">Scrolling the Stack</span><span class="sxs-lookup"><span data-stu-id="0fe17-131">Scrolling the Stack</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-132"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch04-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-132"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch04-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-133"><a href="summaries/chapter04.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-133"><a href="summaries/chapter04.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-134">Chapter 5.</span><span class="sxs-lookup"><span data-stu-id="0fe17-134">Chapter 5.</span></span> <span data-ttu-id="0fe17-135">Dealing with Sizes</span><span class="sxs-lookup"><span data-stu-id="0fe17-135">Dealing with Sizes</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-136"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch05-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-136"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch05-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-137"><a href="summaries/chapter05.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-137"><a href="summaries/chapter05.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-138">Chapter 6.</span><span class="sxs-lookup"><span data-stu-id="0fe17-138">Chapter 6.</span></span> <span data-ttu-id="0fe17-139">Button Clicks</span><span class="sxs-lookup"><span data-stu-id="0fe17-139">Button Clicks</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-140"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch06-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-140"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch06-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-141"><a href="summaries/chapter06.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-141"><a href="summaries/chapter06.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-142">Chapter 7.</span><span class="sxs-lookup"><span data-stu-id="0fe17-142">Chapter 7.</span></span> <span data-ttu-id="0fe17-143">XAML vs. Code</span><span class="sxs-lookup"><span data-stu-id="0fe17-143">XAML vs. Code</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-144"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch07-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-144"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch07-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-145"><a href="summaries/chapter07.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-145"><a href="summaries/chapter07.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-146">Chapter 8.</span><span class="sxs-lookup"><span data-stu-id="0fe17-146">Chapter 8.</span></span> <span data-ttu-id="0fe17-147">Code and XAML in Harmony</span><span class="sxs-lookup"><span data-stu-id="0fe17-147">Code and XAML in Harmony</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-148"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch08-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-148"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch08-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-149"><a href="summaries/chapter08.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-149"><a href="summaries/chapter08.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-150">Chapter 9.</span><span class="sxs-lookup"><span data-stu-id="0fe17-150">Chapter 9.</span></span> <span data-ttu-id="0fe17-151">Platform-Specific API Calls</span><span class="sxs-lookup"><span data-stu-id="0fe17-151">Platform-Specific API Calls</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-152"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch09-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-152"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch09-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-153"><a href="summaries/chapter09.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-153"><a href="summaries/chapter09.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-154">Chapter 10.</span><span class="sxs-lookup"><span data-stu-id="0fe17-154">Chapter 10.</span></span> <span data-ttu-id="0fe17-155">XAML Markup Extensions</span><span class="sxs-lookup"><span data-stu-id="0fe17-155">XAML Markup Extensions</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-156"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch10-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-156"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch10-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-157"><a href="summaries/chapter10.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-157"><a href="summaries/chapter10.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-158">Chapter 11.</span><span class="sxs-lookup"><span data-stu-id="0fe17-158">Chapter 11.</span></span> <span data-ttu-id="0fe17-159">The Bindable Infrastructure</span><span class="sxs-lookup"><span data-stu-id="0fe17-159">The Bindable Infrastructure</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-160"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch11-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-160"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch11-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-161"><a href="summaries/chapter11.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-161"><a href="summaries/chapter11.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-162">Chapter 12.</span><span class="sxs-lookup"><span data-stu-id="0fe17-162">Chapter 12.</span></span> <span data-ttu-id="0fe17-163">Styles</span><span class="sxs-lookup"><span data-stu-id="0fe17-163">Styles</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-164"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch12-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-164"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch12-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-165"><a href="summaries/chapter12.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-165"><a href="summaries/chapter12.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-166">Chapter 13.</span><span class="sxs-lookup"><span data-stu-id="0fe17-166">Chapter 13.</span></span> <span data-ttu-id="0fe17-167">Bitmaps</span><span class="sxs-lookup"><span data-stu-id="0fe17-167">Bitmaps</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-168"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch13-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-168"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch13-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-169"><a href="summaries/chapter13.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-169"><a href="summaries/chapter13.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-170">Chapter 14.</span><span class="sxs-lookup"><span data-stu-id="0fe17-170">Chapter 14.</span></span> <span data-ttu-id="0fe17-171">Absolute Layout</span><span class="sxs-lookup"><span data-stu-id="0fe17-171">Absolute Layout</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-172"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch14-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-172"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch14-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-173"><a href="summaries/chapter14.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-173"><a href="summaries/chapter14.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-174">Chapter 15.</span><span class="sxs-lookup"><span data-stu-id="0fe17-174">Chapter 15.</span></span> <span data-ttu-id="0fe17-175">The Interactive Interface</span><span class="sxs-lookup"><span data-stu-id="0fe17-175">The Interactive Interface</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-176"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch15-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-176"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch15-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-177"><a href="summaries/chapter15.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-177"><a href="summaries/chapter15.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-178">Chapter 16.</span><span class="sxs-lookup"><span data-stu-id="0fe17-178">Chapter 16.</span></span> <span data-ttu-id="0fe17-179">Data Binding</span><span class="sxs-lookup"><span data-stu-id="0fe17-179">Data Binding</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-180"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch16-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-180"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch16-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-181"><a href="summaries/chapter16.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-181"><a href="summaries/chapter16.md">Summary</a></span></span></td>
-</tr>
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-182">Chapter 17.</span><span class="sxs-lookup"><span data-stu-id="0fe17-182">Chapter 17.</span></span> <span data-ttu-id="0fe17-183">Mastering the Grid</span><span class="sxs-lookup"><span data-stu-id="0fe17-183">Mastering the Grid</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-184"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch17-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-184"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch17-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-185"><a href="summaries/chapter17.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-185"><a href="summaries/chapter17.md">Summary</a></span></span></td></tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-186">Chapter 18.</span><span class="sxs-lookup"><span data-stu-id="0fe17-186">Chapter 18.</span></span> <span data-ttu-id="0fe17-187">MVVM</span><span class="sxs-lookup"><span data-stu-id="0fe17-187">MVVM</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-188"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch18-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-188"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch18-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-189"><a href="summaries/chapter18.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-189"><a href="summaries/chapter18.md">Summary</a></span></span></td></tr>
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-190">Chapter 19.</span><span class="sxs-lookup"><span data-stu-id="0fe17-190">Chapter 19.</span></span> <span data-ttu-id="0fe17-191">Collection Views</span><span class="sxs-lookup"><span data-stu-id="0fe17-191">Collection Views</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-192"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch19-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-192"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch19-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-193"><a href="summaries/chapter19.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-193"><a href="summaries/chapter19.md">Summary</a></span></span></td></tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-194">Chapter 20.</span><span class="sxs-lookup"><span data-stu-id="0fe17-194">Chapter 20.</span></span> <span data-ttu-id="0fe17-195">Async and File I/O</span><span class="sxs-lookup"><span data-stu-id="0fe17-195">Async and File I/O</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-196"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch20-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-196"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch20-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-197"><a href="summaries/chapter20.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-197"><a href="summaries/chapter20.md">Summary</a></span></span></td></tr>
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-198">Chapter 21.</span><span class="sxs-lookup"><span data-stu-id="0fe17-198">Chapter 21.</span></span> <span data-ttu-id="0fe17-199">Transforms</span><span class="sxs-lookup"><span data-stu-id="0fe17-199">Transforms</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-200"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch21-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-200"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch21-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-201"><a href="summaries/chapter21.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-201"><a href="summaries/chapter21.md">Summary</a></span></span></td></tr>
-</tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-202">Chapter 22.</span><span class="sxs-lookup"><span data-stu-id="0fe17-202">Chapter 22.</span></span> <span data-ttu-id="0fe17-203">Animation</span><span class="sxs-lookup"><span data-stu-id="0fe17-203">Animation</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-204"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch22-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-204"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch22-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-205"><a href="summaries/chapter22.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-205"><a href="summaries/chapter22.md">Summary</a></span></span></td></tr>
-</tr>
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-206">Chapter 23.</span><span class="sxs-lookup"><span data-stu-id="0fe17-206">Chapter 23.</span></span> <span data-ttu-id="0fe17-207">Triggers and Behaviors</span><span class="sxs-lookup"><span data-stu-id="0fe17-207">Triggers and Behaviors</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-208"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch23-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-208"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch23-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-209"><a href="summaries/chapter23.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-209"><a href="summaries/chapter23.md">Summary</a></span></span></td></tr>
-</tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-210">Chapter 24.</span><span class="sxs-lookup"><span data-stu-id="0fe17-210">Chapter 24.</span></span> <span data-ttu-id="0fe17-211">Page Navigation</span><span class="sxs-lookup"><span data-stu-id="0fe17-211">Page Navigation</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-212"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch24-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-212"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch24-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-213"><a href="summaries/chapter24.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-213"><a href="summaries/chapter24.md">Summary</a></span></span></td></tr>
-</tr>
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-214">Chapter 25.</span><span class="sxs-lookup"><span data-stu-id="0fe17-214">Chapter 25.</span></span> <span data-ttu-id="0fe17-215">Page Varieties</span><span class="sxs-lookup"><span data-stu-id="0fe17-215">Page Varieties</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-216"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch25-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-216"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch25-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-217"><a href="summaries/chapter25.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-217"><a href="summaries/chapter25.md">Summary</a></span></span></td></tr>
-</tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-218">Chapter 26.</span><span class="sxs-lookup"><span data-stu-id="0fe17-218">Chapter 26.</span></span> <span data-ttu-id="0fe17-219">Custom Layouts</span><span class="sxs-lookup"><span data-stu-id="0fe17-219">Custom Layouts</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-220"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch26-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-220"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch26-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-221"><a href="summaries/chapter26.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-221"><a href="summaries/chapter26.md">Summary</a></span></span></td></tr>
-</tr>
-<tr style="background:#ecf0f1">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-222">Chapter 27.</span><span class="sxs-lookup"><span data-stu-id="0fe17-222">Chapter 27.</span></span> <span data-ttu-id="0fe17-223">Custom renderers</span><span class="sxs-lookup"><span data-stu-id="0fe17-223">Custom renderers</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-224"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch27-Apr2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-224"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch27-Apr2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-225"><a href="summaries/chapter27.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-225"><a href="summaries/chapter27.md">Summary</a></span></span></td></tr>
-</tr>
-<tr style="background:#f8f9fa">
-  <td style="border:0px;">
-    <h4><span data-ttu-id="0fe17-226">Chapter 28.</span><span class="sxs-lookup"><span data-stu-id="0fe17-226">Chapter 28.</span></span> <span data-ttu-id="0fe17-227">Location and Maps</span><span class="sxs-lookup"><span data-stu-id="0fe17-227">Location and Maps</span></span></h4>
-  </td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-228"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch28-Aug2016.pdf">Download PDF</a> </span><span class="sxs-lookup"><span data-stu-id="0fe17-228"><a href="https://download.xamarin.com/developer/xamarin-forms-book/XamarinFormsBook-Ch28-Aug2016.pdf">Download PDF</a> </span></span></td>
-  <td style="border:0px;" align="right"><span data-ttu-id="0fe17-229"><a href="summaries/chapter28.md">Summary</a></span><span class="sxs-lookup"><span data-stu-id="0fe17-229"><a href="summaries/chapter28.md">Summary</a></span></span></td></tr>
-</tr>
-</table>
+<span data-ttu-id="d3122-104">_This walkthrough covers how a mobile application built with Xamarin can consume a WCF web service using the BasicHttpBinding class._</span><span class="sxs-lookup"><span data-stu-id="d3122-104">_This walkthrough covers how a mobile application built with Xamarin can consume a WCF web service using the BasicHttpBinding class._</span></span>
 
 
+<span data-ttu-id="d3122-105">It is a common requirement for mobile applications to be able to communicate with backend systems.</span><span class="sxs-lookup"><span data-stu-id="d3122-105">It is a common requirement for mobile applications to be able to communicate with backend systems.</span></span> <span data-ttu-id="d3122-106">There are many choices and options for backend frameworks, one of which is [Windows Communication Foundation](http://msdn.microsoft.com/en-us/library/ms731082.aspx) (WCF).</span><span class="sxs-lookup"><span data-stu-id="d3122-106">There are many choices and options for backend frameworks, one of which is [Windows Communication Foundation](http://msdn.microsoft.com/en-us/library/ms731082.aspx) (WCF).</span></span> <span data-ttu-id="d3122-107">This walkthrough will provide an example of how a Xamarin mobile application can consume a WCF service using the `BasicHttpBinding` class.</span><span class="sxs-lookup"><span data-stu-id="d3122-107">This walkthrough will provide an example of how a Xamarin mobile application can consume a WCF service using the `BasicHttpBinding` class.</span></span> <span data-ttu-id="d3122-108">The walkthrough includes the following topics:</span><span class="sxs-lookup"><span data-stu-id="d3122-108">The walkthrough includes the following topics:</span></span>
 
-## <a name="related-links"></a><span data-ttu-id="0fe17-230">Related Links</span><span class="sxs-lookup"><span data-stu-id="0fe17-230">Related Links</span></span>
+1.  <span data-ttu-id="d3122-109">**Create a WCF Service** - In this section we will create a very basic WCF service having two methods.</span><span class="sxs-lookup"><span data-stu-id="d3122-109">**Create a WCF Service** - In this section we will create a very basic WCF service having two methods.</span></span> <span data-ttu-id="d3122-110">The first method will take a string parameter, while the other method will take a C# object.</span><span class="sxs-lookup"><span data-stu-id="d3122-110">The first method will take a string parameter, while the other method will take a C# object.</span></span> <span data-ttu-id="d3122-111">This section will also discuss how to configure a developer's workstation to allow remote access to the WCF service.</span><span class="sxs-lookup"><span data-stu-id="d3122-111">This section will also discuss how to configure a developer's workstation to allow remote access to the WCF service.</span></span>
+1.  <span data-ttu-id="d3122-112">**Create a Xamarin.Android Application** - Once the WCF service has been created, we will create a simple Xamarin.Android application that will use the WCF service.</span><span class="sxs-lookup"><span data-stu-id="d3122-112">**Create a Xamarin.Android Application** - Once the WCF service has been created, we will create a simple Xamarin.Android application that will use the WCF service.</span></span> <span data-ttu-id="d3122-113">This section will cover how to create a WCF service proxy class to facilitate communication with the WCF service.</span><span class="sxs-lookup"><span data-stu-id="d3122-113">This section will cover how to create a WCF service proxy class to facilitate communication with the WCF service.</span></span>
+1.  <span data-ttu-id="d3122-114">**Create a Xamarin.iOS Application** - The final part of this tutorial involves creating a simple Xamarin.iOS application that will use the WCF service.</span><span class="sxs-lookup"><span data-stu-id="d3122-114">**Create a Xamarin.iOS Application** - The final part of this tutorial involves creating a simple Xamarin.iOS application that will use the WCF service.</span></span>
 
-- [<span data-ttu-id="0fe17-231">MS Press blog</span><span class="sxs-lookup"><span data-stu-id="0fe17-231">MS Press blog</span></span>](https://blogs.msdn.microsoft.com/microsoft_press/2016/03/31/free-ebook-creating-mobile-apps-with-xamarin-forms/)
-- [<span data-ttu-id="0fe17-232">First Edition Samples</span><span class="sxs-lookup"><span data-stu-id="0fe17-232">First Edition Samples</span></span>](https://github.com/xamarin/xamarin-forms-book-samples)
+<a name="Requirements" />
+
+## <a name="requirements"></a><span data-ttu-id="d3122-115">Requirements</span><span class="sxs-lookup"><span data-stu-id="d3122-115">Requirements</span></span>
+
+<span data-ttu-id="d3122-116">This walkthrough assumes that you have some familiarity with creating and using WCF services.</span><span class="sxs-lookup"><span data-stu-id="d3122-116">This walkthrough assumes that you have some familiarity with creating and using WCF services.</span></span>
+
+<a name="Creating_a_WCF_Service" />
+
+## <a name="creating-a-wcf-service"></a><span data-ttu-id="d3122-117">Creating a WCF Service</span><span class="sxs-lookup"><span data-stu-id="d3122-117">Creating a WCF Service</span></span>
+
+<span data-ttu-id="d3122-118">The first task before us is to create a WCF service for a mobile applications to communicate with.</span><span class="sxs-lookup"><span data-stu-id="d3122-118">The first task before us is to create a WCF service for a mobile applications to communicate with.</span></span>
+
+1. <span data-ttu-id="d3122-119">Launch Visual Studio 2017, and create a new project.</span><span class="sxs-lookup"><span data-stu-id="d3122-119">Launch Visual Studio 2017, and create a new project.</span></span>
+1. <span data-ttu-id="d3122-120">In the **New Project** dialog, select the **WCF > WCF Service Library** template, and name the solution `HelloWorldService`:</span><span class="sxs-lookup"><span data-stu-id="d3122-120">In the **New Project** dialog, select the **WCF > WCF Service Library** template, and name the solution `HelloWorldService`:</span></span>
+
+    <span data-ttu-id="d3122-121">![](walkthrough-working-with-wcf-images/new-wcf-service.png "Create a new WCF service library")</span><span class="sxs-lookup"><span data-stu-id="d3122-121">![](walkthrough-working-with-wcf-images/new-wcf-service.png "Create a new WCF service library")</span></span>
+
+1. <span data-ttu-id="d3122-122">In **Solution Explorer**, add a new class named `HelloWorldData` to the project:</span><span class="sxs-lookup"><span data-stu-id="d3122-122">In **Solution Explorer**, add a new class named `HelloWorldData` to the project:</span></span>
+
+    ```csharp
+        using System.Runtime.Serialization;
+
+        namespace HelloWorldService
+        {
+            [DataContract]
+            public class HelloWorldData
+            {
+                [DataMember]
+                public bool SayHello { get; set; }
+
+                [DataMember]
+                public string Name { get; set; }
+
+                public HelloWorldData()
+                {
+                    Name = "Hello ";
+                    SayHello = false;
+                }
+            }
+        }
+    ```
+
+
+1. <span data-ttu-id="d3122-123">In **Solution Explorer**, rename `IService1.cs` to `IHelloWorldService.cs`, and rename `Service1.cs` to `HelloWorldService.cs`.</span><span class="sxs-lookup"><span data-stu-id="d3122-123">In **Solution Explorer**, rename `IService1.cs` to `IHelloWorldService.cs`, and rename `Service1.cs` to `HelloWorldService.cs`.</span></span>
+1. <span data-ttu-id="d3122-124">In **Solution Explorer**, open `IHelloWorldService.cs` and replace the code with the following code:</span><span class="sxs-lookup"><span data-stu-id="d3122-124">In **Solution Explorer**, open `IHelloWorldService.cs` and replace the code with the following code:</span></span>
+
+    ```csharp
+        using System.ServiceModel;
+
+        namespace HelloWorldService
+        {
+            [ServiceContract]
+            public interface IHelloWorldService
+            {
+                [OperationContract]
+                string SayHelloTo(string name);
+
+                [OperationContract]
+                HelloWorldData GetHelloData(HelloWorldData helloWorldData);
+            }
+        }
+    ```
+  
+    <span data-ttu-id="d3122-125">This service provides two methods – one that takes a string for a parameter and another that takes a .NET object.</span><span class="sxs-lookup"><span data-stu-id="d3122-125">This service provides two methods – one that takes a string for a parameter and another that takes a .NET object.</span></span>
+
+1. <span data-ttu-id="d3122-126">In **Solution Explorer**, open `HelloWorldService.cs` and replace the code with the following code:</span><span class="sxs-lookup"><span data-stu-id="d3122-126">In **Solution Explorer**, open `HelloWorldService.cs` and replace the code with the following code:</span></span>
+
+    ```csharp
+        using System;
+
+        namespace HelloWorldService
+        {
+            public class HelloWorldService : IHelloWorldService
+            {
+                public HelloWorldData GetHelloData(HelloWorldData helloWorldData)
+                {
+                    if (helloWorldData == null)
+                        throw new ArgumentException("helloWorldData");
+
+                    if (helloWorldData.SayHello)
+                        helloWorldData.Name = "Hello World to {helloWorldData.Name}";
+
+                    return helloWorldData;
+                }
+
+                public string SayHelloTo(string name)
+                {
+                    return "Hello World to you, {name}";
+                }
+            }
+        }
+    ```
+
+1. <span data-ttu-id="d3122-127">In **Solution Explorer**, open `App.config`, update the `name` attribute of the `<service>` node, the `contract` attribute of the `<endpoint>` node, and the `baseAddress` attribute of the `<add>` node:</span><span class="sxs-lookup"><span data-stu-id="d3122-127">In **Solution Explorer**, open `App.config`, update the `name` attribute of the `<service>` node, the `contract` attribute of the `<endpoint>` node, and the `baseAddress` attribute of the `<add>` node:</span></span>
+
+    ```xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <configuration>
+            ...
+            <services>
+              <service name="HelloWorldService.HelloWorldService">
+                <endpoint address="" binding="basicHttpBinding" contract="HelloWorldService.IHelloWorldService">
+                  <identity>
+                    <dns value="localhost" />
+                  </identity>
+                </endpoint>
+                <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange" />
+                <host>
+                  <baseAddresses>
+                    <add baseAddress="http://localhost:8733/Design_Time_Addresses/HelloWorldService/" />
+                  </baseAddresses>
+                </host>
+              </service>
+            </services>
+            ...
+        </configuration>
+    ```
+
+1. <span data-ttu-id="d3122-128">Build and run the WCF service.</span><span class="sxs-lookup"><span data-stu-id="d3122-128">Build and run the WCF service.</span></span> <span data-ttu-id="d3122-129">The service will be hosted by the WCF test client:</span><span class="sxs-lookup"><span data-stu-id="d3122-129">The service will be hosted by the WCF test client:</span></span>
+
+    <span data-ttu-id="d3122-130">![](walkthrough-working-with-wcf-images/hosted-wcf-service.png "WCF service running in test client")</span><span class="sxs-lookup"><span data-stu-id="d3122-130">![](walkthrough-working-with-wcf-images/hosted-wcf-service.png "WCF service running in test client")</span></span>
+
+1. <span data-ttu-id="d3122-131">With the WCF test client running, launch a browser and navigate to the endpoint for the WCF service:</span><span class="sxs-lookup"><span data-stu-id="d3122-131">With the WCF test client running, launch a browser and navigate to the endpoint for the WCF service:</span></span>
+
+    <span data-ttu-id="d3122-132">![](walkthrough-working-with-wcf-images/wcf-service-browser.png "WCF service browser information page")</span><span class="sxs-lookup"><span data-stu-id="d3122-132">![](walkthrough-working-with-wcf-images/wcf-service-browser.png "WCF service browser information page")</span></span>
+
+> [!IMPORTANT]
+> <span data-ttu-id="d3122-133">The following section is only necessary if you need to accept remote connections on a Windows 10 workstation.</span><span class="sxs-lookup"><span data-stu-id="d3122-133">The following section is only necessary if you need to accept remote connections on a Windows 10 workstation.</span></span> <span data-ttu-id="d3122-134">The section can be ignored if you have an alternate platform on which to deploy the WCF service.</span><span class="sxs-lookup"><span data-stu-id="d3122-134">The section can be ignored if you have an alternate platform on which to deploy the WCF service.</span></span>
+
+<a name="Allow_Remote_Access_to_IIS_Express" />
+
+## <a name="configuring-remote-access-to-iis-express"></a><span data-ttu-id="d3122-135">Configuring Remote Access to IIS Express</span><span class="sxs-lookup"><span data-stu-id="d3122-135">Configuring Remote Access to IIS Express</span></span>
+
+<span data-ttu-id="d3122-136">Hosting a WCF locally is adequate when connections only come from the local machine.</span><span class="sxs-lookup"><span data-stu-id="d3122-136">Hosting a WCF locally is adequate when connections only come from the local machine.</span></span> <span data-ttu-id="d3122-137">However, remote devices (such as an Android device or an iPhone) will not have any access to a local WCF service.</span><span class="sxs-lookup"><span data-stu-id="d3122-137">However, remote devices (such as an Android device or an iPhone) will not have any access to a local WCF service.</span></span> <span data-ttu-id="d3122-138">Therefore, this section explains how to configure Windows 10 and IIS Express to accept remote connections:</span><span class="sxs-lookup"><span data-stu-id="d3122-138">Therefore, this section explains how to configure Windows 10 and IIS Express to accept remote connections:</span></span>
+
+1.  <span data-ttu-id="d3122-139">**Configure IIS Express to Accept Remote connections** - This step involves editing the config file for IIS Express to accept remote connections on a specific port and then setting up a rule for IIS Express to accept the incoming traffic.</span><span class="sxs-lookup"><span data-stu-id="d3122-139">**Configure IIS Express to Accept Remote connections** - This step involves editing the config file for IIS Express to accept remote connections on a specific port and then setting up a rule for IIS Express to accept the incoming traffic.</span></span>
+1.  <span data-ttu-id="d3122-140">**Add an Exception to Windows Firewall** - You must open up a port through Windows Firewall that remote applications can use to communicate with the WCF service.</span><span class="sxs-lookup"><span data-stu-id="d3122-140">**Add an Exception to Windows Firewall** - You must open up a port through Windows Firewall that remote applications can use to communicate with the WCF service.</span></span>
+
+    <span data-ttu-id="d3122-141">You will need to know the IP address of your workstation.</span><span class="sxs-lookup"><span data-stu-id="d3122-141">You will need to know the IP address of your workstation.</span></span> <span data-ttu-id="d3122-142">For the purposes of this example we'll assume that our workstation has the IP address 192.168.1.143.</span><span class="sxs-lookup"><span data-stu-id="d3122-142">For the purposes of this example we'll assume that our workstation has the IP address 192.168.1.143.</span></span>
+
+1. <span data-ttu-id="d3122-143">Let's begin by configuring IIS Express to listen for external requests.</span><span class="sxs-lookup"><span data-stu-id="d3122-143">Let's begin by configuring IIS Express to listen for external requests.</span></span> <span data-ttu-id="d3122-144">We can do this by editing the configuration file for IIS Express at `[solutiondirectory]\.vs\config\applicationhost.config`, as shown in the following screenshot:</span><span class="sxs-lookup"><span data-stu-id="d3122-144">We can do this by editing the configuration file for IIS Express at `[solutiondirectory]\.vs\config\applicationhost.config`, as shown in the following screenshot:</span></span>
+
+    <span data-ttu-id="d3122-145">[![](walkthrough-working-with-wcf-images/image05.png "We can do this by editing the configuration file for IIS Express at solutiondirectory.vsconfigapplicationhost.config, as shown in this screenshot")](walkthrough-working-with-wcf-images/image05.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="d3122-145">[![](walkthrough-working-with-wcf-images/image05.png "We can do this by editing the configuration file for IIS Express at solutiondirectory.vsconfigapplicationhost.config, as shown in this screenshot")](walkthrough-working-with-wcf-images/image05.png#lightbox)</span></span>
+
+    <span data-ttu-id="d3122-146">Locate the `site` element with the name `HelloWorldWcfHost`.</span><span class="sxs-lookup"><span data-stu-id="d3122-146">Locate the `site` element with the name `HelloWorldWcfHost`.</span></span> <span data-ttu-id="d3122-147">It should look something like the following XML snippet:</span><span class="sxs-lookup"><span data-stu-id="d3122-147">It should look something like the following XML snippet:</span></span>
+
+    ```xml
+        <site name="HelloWorldWcfHost" id="2">
+            <application path="/" applicationPool="Clr4IntegratedAppPool">
+                <virtualDirectory path="/" physicalPath="\\vmware-host\Shared Folders\tom\work\xamarin\code\private-samples\webservices\HelloWorld\HelloWorldWcfHost" />
+            </application>
+            <bindings>
+                <binding protocol="http" bindingInformation="*:8733:localhost" />
+            </bindings>
+        </site>
+    ```
+ 
+    <span data-ttu-id="d3122-148">We will need to add another `binding` to open up port 8734 to outside traffic.</span><span class="sxs-lookup"><span data-stu-id="d3122-148">We will need to add another `binding` to open up port 8734 to outside traffic.</span></span> <span data-ttu-id="d3122-149">Add the following XML to the `bindings` element, replacing the IP address with your own IP address:</span><span class="sxs-lookup"><span data-stu-id="d3122-149">Add the following XML to the `bindings` element, replacing the IP address with your own IP address:</span></span>
+
+    ```xml
+    <binding protocol="http" bindingInformation="*:8734:192.168.1.143" />
+    ```
+    
+    <span data-ttu-id="d3122-150">This will configure IIS Express to accept HTTP traffic from any remote IP address on port 8734 on the external IP address of the computer.</span><span class="sxs-lookup"><span data-stu-id="d3122-150">This will configure IIS Express to accept HTTP traffic from any remote IP address on port 8734 on the external IP address of the computer.</span></span> <span data-ttu-id="d3122-151">This above snippet assumes the IP address of the computer running IIS Express is 192.168.1.143.</span><span class="sxs-lookup"><span data-stu-id="d3122-151">This above snippet assumes the IP address of the computer running IIS Express is 192.168.1.143.</span></span> <span data-ttu-id="d3122-152">After the changes, the `bindings` element should look like the following:</span><span class="sxs-lookup"><span data-stu-id="d3122-152">After the changes, the `bindings` element should look like the following:</span></span>
+
+    ```xml
+        <site name="HelloWorldWcfHost" id="2">
+            <application path="/" applicationPool="Clr4IntegratedAppPool">
+                <virtualDirectory path="/" physicalPath="\\vmware-host\Shared Folders\tom\work\xamarin\code\private-samples\webservices\HelloWorld\HelloWorldWcfHost" />
+            </application>
+            <bindings>
+                <binding protocol="http" bindingInformation="*:8733:localhost" />
+                <binding protocol="http" bindingInformation="*:8734:192.168.1.143" />
+            </bindings>
+        </site>
+    ```
+
+1. <span data-ttu-id="d3122-153">Next, we need to configure IIS Express accept incoming connections on port 8734.</span><span class="sxs-lookup"><span data-stu-id="d3122-153">Next, we need to configure IIS Express accept incoming connections on port 8734.</span></span> <span data-ttu-id="d3122-154">Startup up an administrative command prompt, and run this command:</span><span class="sxs-lookup"><span data-stu-id="d3122-154">Startup up an administrative command prompt, and run this command:</span></span>
+
+    `> netsh http add urlacl url=http://192.168.1.143:9608/ user=everyone`
+
+1. <span data-ttu-id="d3122-155">The final step is to configure Windows Firewall to permit external traffic on port 8734.</span><span class="sxs-lookup"><span data-stu-id="d3122-155">The final step is to configure Windows Firewall to permit external traffic on port 8734.</span></span> <span data-ttu-id="d3122-156">From an administrative command prompt, run the following command:</span><span class="sxs-lookup"><span data-stu-id="d3122-156">From an administrative command prompt, run the following command:</span></span>
+
+    `> netsh advfirewall firewall add rule name="IISExpressXamarin" dir=in protocol=tcp localport=8734 profile=private remoteip=localsubnet action=allow`
+
+    <span data-ttu-id="d3122-157">This command will allow incoming traffic on port 8734 from all devices on the same subnet as the Windows 10 workstation.</span><span class="sxs-lookup"><span data-stu-id="d3122-157">This command will allow incoming traffic on port 8734 from all devices on the same subnet as the Windows 10 workstation.</span></span>
+
+<span data-ttu-id="d3122-158">You have created a very basic WCF service hosted in IIS Express that will accept incoming connections from other devices or computers on our subnet.</span><span class="sxs-lookup"><span data-stu-id="d3122-158">You have created a very basic WCF service hosted in IIS Express that will accept incoming connections from other devices or computers on our subnet.</span></span> <span data-ttu-id="d3122-159">You can test this out by running your application and visiting `http://localhost:8733/Design_Time_Addresses/HelloWorldService/` on your workstation and `http://192.168.1.143:8734/Design_Time_Addresses/HelloWorldService/` from another computer on your subnet.</span><span class="sxs-lookup"><span data-stu-id="d3122-159">You can test this out by running your application and visiting `http://localhost:8733/Design_Time_Addresses/HelloWorldService/` on your workstation and `http://192.168.1.143:8734/Design_Time_Addresses/HelloWorldService/` from another computer on your subnet.</span></span>
+
+<span data-ttu-id="d3122-160">To allow IIS Express to keep running and serving the service, turn off the **Edit and Continue** option in *Project Properties > Web >Debuggers*.</span><span class="sxs-lookup"><span data-stu-id="d3122-160">To allow IIS Express to keep running and serving the service, turn off the **Edit and Continue** option in *Project Properties > Web >Debuggers*.</span></span>
+
+## <a name="creating-a-proxy-for-the-web-service"></a><span data-ttu-id="d3122-161">Creating a Proxy for the Web Service</span><span class="sxs-lookup"><span data-stu-id="d3122-161">Creating a Proxy for the Web Service</span></span>
+
+<span data-ttu-id="d3122-162">A web service proxy must be created for the WCF service, before an application can consume the service.</span><span class="sxs-lookup"><span data-stu-id="d3122-162">A web service proxy must be created for the WCF service, before an application can consume the service.</span></span> <span data-ttu-id="d3122-163">This can be accomplished as follows:</span><span class="sxs-lookup"><span data-stu-id="d3122-163">This can be accomplished as follows:</span></span>
+
+1. <span data-ttu-id="d3122-164">Add a .NET Standard Class Library named `HelloWorldServiceProxy`, and delete any classes in the project.</span><span class="sxs-lookup"><span data-stu-id="d3122-164">Add a .NET Standard Class Library named `HelloWorldServiceProxy`, and delete any classes in the project.</span></span>
+1. <span data-ttu-id="d3122-165">Run the `HelloWorldService` project.</span><span class="sxs-lookup"><span data-stu-id="d3122-165">Run the `HelloWorldService` project.</span></span>
+1. <span data-ttu-id="d3122-166">With the `HelloWorldService` project running, add a new **Connected Service** to the project, using the **Microsoft WCF Web Service Reference Provider**.</span><span class="sxs-lookup"><span data-stu-id="d3122-166">With the `HelloWorldService` project running, add a new **Connected Service** to the project, using the **Microsoft WCF Web Service Reference Provider**.</span></span>
+1. <span data-ttu-id="d3122-167">In the **Service Endpoint** tab of the **Configure WCF Web Service Reference** dialog, click the **Discover** button, delete `mex` from the end of the detected endpoint in the **URI** drop-down, enter `HelloWorldServiceProxy` as the **Namespace**, and click the **Next** button.</span><span class="sxs-lookup"><span data-stu-id="d3122-167">In the **Service Endpoint** tab of the **Configure WCF Web Service Reference** dialog, click the **Discover** button, delete `mex` from the end of the detected endpoint in the **URI** drop-down, enter `HelloWorldServiceProxy` as the **Namespace**, and click the **Next** button.</span></span>
+1. <span data-ttu-id="d3122-168">In the **Data Type Options** tab of the **Configure WCF Web Service Reference** dialog, accept the defaults by clicking the **Next** button.</span><span class="sxs-lookup"><span data-stu-id="d3122-168">In the **Data Type Options** tab of the **Configure WCF Web Service Reference** dialog, accept the defaults by clicking the **Next** button.</span></span>
+1. <span data-ttu-id="d3122-169">In the **Client Options** tab of the **Configure WCF Web Service Reference** dialog, ensure that the **Public** checkbox is selected, and click the **Finish** button.</span><span class="sxs-lookup"><span data-stu-id="d3122-169">In the **Client Options** tab of the **Configure WCF Web Service Reference** dialog, ensure that the **Public** checkbox is selected, and click the **Finish** button.</span></span>
+1. <span data-ttu-id="d3122-170">Build the `HelloWorldServiceProxy` project.</span><span class="sxs-lookup"><span data-stu-id="d3122-170">Build the `HelloWorldServiceProxy` project.</span></span>
+
+> [!NOTE]
+> <span data-ttu-id="d3122-171">An alternative to creating the proxy using the Microsoft WCF Web Service Reference Provider in Visual Studio 2017 is to use the ServiceModel Metadata Utility Tool (svcutil.exe).</span><span class="sxs-lookup"><span data-stu-id="d3122-171">An alternative to creating the proxy using the Microsoft WCF Web Service Reference Provider in Visual Studio 2017 is to use the ServiceModel Metadata Utility Tool (svcutil.exe).</span></span> <span data-ttu-id="d3122-172">For more information, see [ServiceModel Metadata Utility Tool (Svcutil.exe)](https://docs.microsoft.com/en-us/dotnet/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe).</span><span class="sxs-lookup"><span data-stu-id="d3122-172">For more information, see [ServiceModel Metadata Utility Tool (Svcutil.exe)](https://docs.microsoft.com/en-us/dotnet/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe).</span></span>
+
+<a name="Creating_a_Xamarin_Android_Application" />
+
+## <a name="creating-a-xamarinandroid-application"></a><span data-ttu-id="d3122-173">Creating a Xamarin.Android Application</span><span class="sxs-lookup"><span data-stu-id="d3122-173">Creating a Xamarin.Android Application</span></span>
+
+<span data-ttu-id="d3122-174">The WCF service proxy can be consumed by a Xamarin.Android application, as follows:</span><span class="sxs-lookup"><span data-stu-id="d3122-174">The WCF service proxy can be consumed by a Xamarin.Android application, as follows:</span></span>
+
+1. <span data-ttu-id="d3122-175">In Visual Studio, add a new blank Android project to the solution and name it `HelloWorld.Android`.</span><span class="sxs-lookup"><span data-stu-id="d3122-175">In Visual Studio, add a new blank Android project to the solution and name it `HelloWorld.Android`.</span></span>
+1. <span data-ttu-id="d3122-176">In the `HelloWorld.Android` project, add a reference to the `HelloWorldServiceProxy` project, and a reference to the `System.ServiceModel` namespace.</span><span class="sxs-lookup"><span data-stu-id="d3122-176">In the `HelloWorld.Android` project, add a reference to the `HelloWorldServiceProxy` project, and a reference to the `System.ServiceModel` namespace.</span></span>
+1. <span data-ttu-id="d3122-177">In **Solution Explorer**, open `Resources/layout/main.axml` and replace the existing XML with the following XML:</span><span class="sxs-lookup"><span data-stu-id="d3122-177">In **Solution Explorer**, open `Resources/layout/main.axml` and replace the existing XML with the following XML:</span></span>
+
+    ```xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0px"
+                    android:layout_weight="1">
+                <Button
+                        android:id="@+id/sayHelloWorldButton"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/say_hello_world" />
+                <TextView
+                        android:text="Large Text"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sayHelloWorldTextView" />
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0px"
+                    android:layout_weight="1">
+                <Button
+                        android:id="@+id/getHelloWorldDataButton"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/get_hello_world_data" />
+                <TextView
+                        android:text="Large Text"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/getHelloWorldDataTextView" />
+            </LinearLayout>
+        </LinearLayout>
+    ```
+    
+    <span data-ttu-id="d3122-178">The following screenshots shows the UI in the designer:</span><span class="sxs-lookup"><span data-stu-id="d3122-178">The following screenshots shows the UI in the designer:</span></span>
+
+    <span data-ttu-id="d3122-179">[![](walkthrough-working-with-wcf-images/image09.png "This is a screenshot of what this UI looks like in the designer")](walkthrough-working-with-wcf-images/image09.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="d3122-179">[![](walkthrough-working-with-wcf-images/image09.png "This is a screenshot of what this UI looks like in the designer")](walkthrough-working-with-wcf-images/image09.png#lightbox)</span></span>
+    
+1. <span data-ttu-id="d3122-180">In **Solution Explorer**, open `Resources/values/Strings.xml` and add the following XML:</span><span class="sxs-lookup"><span data-stu-id="d3122-180">In **Solution Explorer**, open `Resources/values/Strings.xml` and add the following XML:</span></span>
+
+    ```xml
+    <string name="say_hello_world">Say Hello World</string>
+    <string name="get_hello_world_data">Get Hello World data</string>
+    ```
+    
+1. <span data-ttu-id="d3122-181">In **Solution Explorer**, open `MainActivity.cs` and replace existing code with the following code:</span><span class="sxs-lookup"><span data-stu-id="d3122-181">In **Solution Explorer**, open `MainActivity.cs` and replace existing code with the following code:</span></span>
+
+    ```csharp
+        [Activity(Label = "HelloWorld.Android", MainLauncher = true)]
+        public class MainActivity : Activity
+        {
+            static readonly EndpointAddress Endpoint = new EndpointAddress("<insert_WCF_service_endpoint_here>");
+
+            HelloWorldServiceClient _client;
+            Button _getHelloWorldDataButton;
+            TextView _getHelloWorldDataTextView;
+            Button _sayHelloWorldButton;
+            TextView _sayHelloWorldTextView;
+            ...
+        }
+    ```
+
+    <span data-ttu-id="d3122-182">Replace `<insert_WCF_service_endpoint_here>` with the address of your WCF endpoint.</span><span class="sxs-lookup"><span data-stu-id="d3122-182">Replace `<insert_WCF_service_endpoint_here>` with the address of your WCF endpoint.</span></span>
+
+1. <span data-ttu-id="d3122-183">In `MainActivity.cs`, modify the `OnCreate` method so that it contains the following code:</span><span class="sxs-lookup"><span data-stu-id="d3122-183">In `MainActivity.cs`, modify the `OnCreate` method so that it contains the following code:</span></span>
+
+    ```csharp
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(bundle);
+
+            SetContentView(Resource.Layout.Main);
+
+            InitializeHelloWorldServiceClient();
+
+            // This button will invoke the GetHelloWorldData - the method that takes a C# object as a parameter.
+            _getHelloWorldDataButton = FindViewById<Button>(Resource.Id.getHelloWorldDataButton);
+            _getHelloWorldDataButton.Click += GetHelloWorldDataButtonOnClick;
+            _getHelloWorldDataTextView = FindViewById<TextView>(Resource.Id.getHelloWorldDataTextView);
+
+            // This button will invoke SayHelloWorld - this method takes a simple string as a parameter.
+            _sayHelloWorldButton = FindViewById<Button>(Resource.Id.sayHelloWorldButton);
+            _sayHelloWorldButton.Click += SayHelloWorldButtonOnClick;
+            _sayHelloWorldTextView = FindViewById<TextView>(Resource.Id.sayHelloWorldTextView);
+        }
+    ```
+    
+    <span data-ttu-id="d3122-184">The code above initializes the instance variables for the class and wires up some event handlers.</span><span class="sxs-lookup"><span data-stu-id="d3122-184">The code above initializes the instance variables for the class and wires up some event handlers.</span></span>
+
+1. <span data-ttu-id="d3122-185">In `MainActivity.cs`, instantiate the client proxy class by adding the following two methods:</span><span class="sxs-lookup"><span data-stu-id="d3122-185">In `MainActivity.cs`, instantiate the client proxy class by adding the following two methods:</span></span>
+
+    ```csharp
+        void InitializeHelloWorldServiceClient()
+        {
+            BasicHttpBinding binding = CreateBasicHttpBinding();
+            _client = new HelloWorldServiceClient(binding, Endpoint);
+        }
+
+        static BasicHttpBinding CreateBasicHttpBinding()
+        {
+            BasicHttpBinding binding = new BasicHttpBinding
+            {
+                Name = "basicHttpBinding",
+                MaxBufferSize = 2147483647,
+                MaxReceivedMessageSize = 2147483647
+            };
+
+            TimeSpan timeout = new TimeSpan(0, 0, 30);
+            binding.SendTimeout = timeout;
+            binding.OpenTimeout = timeout;
+            binding.ReceiveTimeout = timeout;
+            return binding;
+        }
+    ```
+    
+    <span data-ttu-id="d3122-186">The code above instantiates and initializes a `HelloWorldServiceClient` object.</span><span class="sxs-lookup"><span data-stu-id="d3122-186">The code above instantiates and initializes a `HelloWorldServiceClient` object.</span></span>
+
+1. <span data-ttu-id="d3122-187">In `MainActivity.cs`, add even handlers for the two buttons in the `Activity`:</span><span class="sxs-lookup"><span data-stu-id="d3122-187">In `MainActivity.cs`, add even handlers for the two buttons in the `Activity`:</span></span>
+
+    ```csharp
+        async void GetHelloWorldDataButtonOnClick(object sender, EventArgs e)
+        {
+            var data = new HelloWorldData
+            {
+                Name = "Mr. Chad",
+                SayHello = true
+            };
+
+            _getHelloWorldDataTextView.Text = "Waiting for WCF...";
+            HelloWorldData result;
+            try
+            {
+                result = await _client.GetHelloDataAsync(data);
+                _getHelloWorldDataTextView.Text = result.Name;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        async void SayHelloWorldButtonOnClick(object sender, EventArgs e)
+        {
+            _sayHelloWorldTextView.Text = "Waiting for WCF...";
+            try
+            {
+                var result = await _client.SayHelloToAsync("Kilroy");
+                _sayHelloWorldTextView.Text = result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    ```
+  
+1. <span data-ttu-id="d3122-188">Run the application, ensure that the WCF service is running, and click on the two buttons.</span><span class="sxs-lookup"><span data-stu-id="d3122-188">Run the application, ensure that the WCF service is running, and click on the two buttons.</span></span> <span data-ttu-id="d3122-189">The application will call the WCF asynchronously, provided that the `Endpoint` field is correctly set:</span><span class="sxs-lookup"><span data-stu-id="d3122-189">The application will call the WCF asynchronously, provided that the `Endpoint` field is correctly set:</span></span>
+
+    <span data-ttu-id="d3122-190">[![](walkthrough-working-with-wcf-images/image08.png "Within 30 seconds a response should be received from each WCF method, and our application should look something like this screenshot")](walkthrough-working-with-wcf-images/image08.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="d3122-190">[![](walkthrough-working-with-wcf-images/image08.png "Within 30 seconds a response should be received from each WCF method, and our application should look something like this screenshot")](walkthrough-working-with-wcf-images/image08.png#lightbox)</span></span>
+
+<a name="Creating_a_Xamarin_iOS_Application" />
+
+## <a name="creating-a-xamarinios-application"></a><span data-ttu-id="d3122-191">Creating a Xamarin.iOS Application</span><span class="sxs-lookup"><span data-stu-id="d3122-191">Creating a Xamarin.iOS Application</span></span>
+
+<span data-ttu-id="d3122-192">The WCF service proxy can be consumed by a Xamarin.iOS application, as follows:</span><span class="sxs-lookup"><span data-stu-id="d3122-192">The WCF service proxy can be consumed by a Xamarin.iOS application, as follows:</span></span>
+
+1. <span data-ttu-id="d3122-193">In Visual Studio, add a new iPhone **Single View Application** project to the solution and name it `HelloWorld.iOS`.</span><span class="sxs-lookup"><span data-stu-id="d3122-193">In Visual Studio, add a new iPhone **Single View Application** project to the solution and name it `HelloWorld.iOS`.</span></span>
+1. <span data-ttu-id="d3122-194">In the `HelloWorld.iOS` project, add a reference to the `HelloWorldServiceProxy` project, and a reference to the `System.ServiceModel` namespace.</span><span class="sxs-lookup"><span data-stu-id="d3122-194">In the `HelloWorld.iOS` project, add a reference to the `HelloWorldServiceProxy` project, and a reference to the `System.ServiceModel` namespace.</span></span>
+1. <span data-ttu-id="d3122-195">In **Solution Explorer**, double-click on `Main.storyboard` to open the file in the iOS designer.</span><span class="sxs-lookup"><span data-stu-id="d3122-195">In **Solution Explorer**, double-click on `Main.storyboard` to open the file in the iOS designer.</span></span> <span data-ttu-id="d3122-196">Then, add the following `UIButton` and `UITextView` controls:</span><span class="sxs-lookup"><span data-stu-id="d3122-196">Then, add the following `UIButton` and `UITextView` controls:</span></span>
+
+    ||<span data-ttu-id="d3122-197">Name</span><span class="sxs-lookup"><span data-stu-id="d3122-197">Name</span></span>|<span data-ttu-id="d3122-198">Title</span><span class="sxs-lookup"><span data-stu-id="d3122-198">Title</span></span>|
+    |--- |--- |--- |
+    |`UIButton`|`sayHelloWorldButton`|<span data-ttu-id="d3122-199">Say "Hello, World"</span><span class="sxs-lookup"><span data-stu-id="d3122-199">Say "Hello, World"</span></span>|
+    |`UITextView`|`sayHelloWorldText`||
+    |`UIButton`|`getHelloWorldDataButton`|<span data-ttu-id="d3122-200">Get "Hello, World" Data</span><span class="sxs-lookup"><span data-stu-id="d3122-200">Get "Hello, World" Data</span></span>|
+    |`UITextView`|`getHelloWorldDataText`||
+
+    <span data-ttu-id="d3122-201">After adding the controls, the UI should resemble the following screenshot:</span><span class="sxs-lookup"><span data-stu-id="d3122-201">After adding the controls, the UI should resemble the following screenshot:</span></span>
+
+    <span data-ttu-id="d3122-202">[![](walkthrough-working-with-wcf-images/image12.png "After adding the controls, the UI should resemble this screenshot")](walkthrough-working-with-wcf-images/image12.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="d3122-202">[![](walkthrough-working-with-wcf-images/image12.png "After adding the controls, the UI should resemble this screenshot")](walkthrough-working-with-wcf-images/image12.png#lightbox)</span></span>
+
+1. <span data-ttu-id="d3122-203">In **Solution Explorer**, open `ViewController.cs` and add the following code:</span><span class="sxs-lookup"><span data-stu-id="d3122-203">In **Solution Explorer**, open `ViewController.cs` and add the following code:</span></span>
+
+    ```xml
+        public partial class ViewController : UIViewController
+        {
+            static readonly EndpointAddress Endpoint = new EndpointAddress("<insert_WCF_service_endpoint_here>");
+            HelloWorldServiceClient _client;
+            ...
+        }
+    ```
+  
+    <span data-ttu-id="d3122-204">Replace `<insert_WCF_service_endpoint_here>` with the address of your WCF endpoint.</span><span class="sxs-lookup"><span data-stu-id="d3122-204">Replace `<insert_WCF_service_endpoint_here>` with the address of your WCF endpoint.</span></span>
+
+1. <span data-ttu-id="d3122-205">In `ViewController.cs`, update the `ViewDidLoad` method so that it resembles the following:</span><span class="sxs-lookup"><span data-stu-id="d3122-205">In `ViewController.cs`, update the `ViewDidLoad` method so that it resembles the following:</span></span>
+
+    ```csharp
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            InitializeHelloWorldServiceClient();
+
+            getHelloWorldDataButton.TouchUpInside += GetHelloWorldDataButton_TouchUpInside;
+            sayHelloWorldButton.TouchUpInside += SayHelloWorldButton_TouchUpInside;
+        }
+    ```
+  
+1. <span data-ttu-id="d3122-206">In `ViewController.cs`, add the `InitializeHelloWorldServiceClient` and `CreateBasicHttpBinding` methods:</span><span class="sxs-lookup"><span data-stu-id="d3122-206">In `ViewController.cs`, add the `InitializeHelloWorldServiceClient` and `CreateBasicHttpBinding` methods:</span></span>
+
+    ```csharp
+        void InitializeHelloWorldServiceClient()
+        {
+            BasicHttpBinding binding = CreateBasicHttpBinding();
+            _client = new HelloWorldServiceClient(binding, Endpoint);
+        }
+
+        static BasicHttpBinding CreateBasicHttpBinding()
+        {
+            BasicHttpBinding binding = new BasicHttpBinding
+            {
+                Name = "basicHttpBinding",
+                MaxBufferSize = 2147483647,
+                MaxReceivedMessageSize = 2147483647
+            };
+
+            TimeSpan timeout = new TimeSpan(0, 0, 30);
+            binding.SendTimeout = timeout;
+            binding.OpenTimeout = timeout;
+            binding.ReceiveTimeout = timeout;
+            return binding;
+        }
+    ```
+  
+1. <span data-ttu-id="d3122-207">In `ViewController.cs`, add event handlers for the `TouchUpInside` events on the two `UIButton` instances:</span><span class="sxs-lookup"><span data-stu-id="d3122-207">In `ViewController.cs`, add event handlers for the `TouchUpInside` events on the two `UIButton` instances:</span></span>
+
+    ```csharp
+        async void GetHelloWorldDataButton_TouchUpInside(object sender, EventArgs e)
+        {
+            getHelloWorldDataText.Text = "Waiting for WCF...";
+            var data = new HelloWorldData
+            {
+                Name = "Mr. Chad",
+                SayHello = true
+            };
+
+            HelloWorldData result;
+            try
+            {
+                result = await _client.GetHelloDataAsync(data);
+                getHelloWorldDataText.Text = result.Name;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        async void SayHelloWorldButton_TouchUpInside(object sender, EventArgs e)
+        {
+            sayHelloWorldText.Text = "Waiting for WCF...";
+            try
+            {
+                var result = await _client.SayHelloToAsync("Kilroy");
+                sayHelloWorldText.Text = result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    ```
+
+1. <span data-ttu-id="d3122-208">Run the application, ensure that the WCF service is running, and click on the two buttons.</span><span class="sxs-lookup"><span data-stu-id="d3122-208">Run the application, ensure that the WCF service is running, and click on the two buttons.</span></span> <span data-ttu-id="d3122-209">The application will call the WCF asynchronously, provided that the `Endpoint` field is correctly set:</span><span class="sxs-lookup"><span data-stu-id="d3122-209">The application will call the WCF asynchronously, provided that the `Endpoint` field is correctly set:</span></span>
+
+    <span data-ttu-id="d3122-210">[![](walkthrough-working-with-wcf-images/image10.png "Within 30 seconds a response should be received from each WCF method, and our application should look like this screenshot")](walkthrough-working-with-wcf-images/image10.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="d3122-210">[![](walkthrough-working-with-wcf-images/image10.png "Within 30 seconds a response should be received from each WCF method, and our application should look like this screenshot")](walkthrough-working-with-wcf-images/image10.png#lightbox)</span></span>
+
+<a name="Summary" />
+
+## <a name="summary"></a><span data-ttu-id="d3122-211">Summary</span><span class="sxs-lookup"><span data-stu-id="d3122-211">Summary</span></span>
+
+<span data-ttu-id="d3122-212">This tutorial covered how to work with a WCF service in a mobile application using Xamarin.Android and Xamarin.iOS.</span><span class="sxs-lookup"><span data-stu-id="d3122-212">This tutorial covered how to work with a WCF service in a mobile application using Xamarin.Android and Xamarin.iOS.</span></span> <span data-ttu-id="d3122-213">It showed how to create a WCF service and explained how to configure Windows 10 and IIS Express to accept connections from remote devices.</span><span class="sxs-lookup"><span data-stu-id="d3122-213">It showed how to create a WCF service and explained how to configure Windows 10 and IIS Express to accept connections from remote devices.</span></span> <span data-ttu-id="d3122-214">It then explained how to generate a WCF proxy client and demonstrated how to use the proxy client in both Xamarin.Android and Xamarin.iOS applications.</span><span class="sxs-lookup"><span data-stu-id="d3122-214">It then explained how to generate a WCF proxy client and demonstrated how to use the proxy client in both Xamarin.Android and Xamarin.iOS applications.</span></span>
+
+
+## <a name="related-links"></a><span data-ttu-id="d3122-215">Related Links</span><span class="sxs-lookup"><span data-stu-id="d3122-215">Related Links</span></span>
+
+- [<span data-ttu-id="d3122-216">HelloWorld (sample)</span><span class="sxs-lookup"><span data-stu-id="d3122-216">HelloWorld (sample)</span></span>](https://developer.xamarin.com/samples/mobile/WCF-Walkthrough/)
+- [<span data-ttu-id="d3122-217">Developing Service-Oriented Applications with WCF</span><span class="sxs-lookup"><span data-stu-id="d3122-217">Developing Service-Oriented Applications with WCF</span></span>](https://docs.microsoft.com/en-us/dotnet/framework/wcf/index)
+- [<span data-ttu-id="d3122-218">How to: Create a Windows Communication Foundation Client</span><span class="sxs-lookup"><span data-stu-id="d3122-218">How to: Create a Windows Communication Foundation Client</span></span>](https://docs.microsoft.com/en-us/dotnet/framework/wcf/how-to-create-a-wcf-client)
+- [<span data-ttu-id="d3122-219">ServiceModel Metadata Utility Tool (svcutil.exe)</span><span class="sxs-lookup"><span data-stu-id="d3122-219">ServiceModel Metadata Utility Tool (svcutil.exe)</span></span>](https://docs.microsoft.com/en-us/dotnet/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe)
