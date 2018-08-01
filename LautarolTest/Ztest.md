@@ -7,6 +7,17 @@ ms.technology: xamarin-cross-platform
 author: asb3993
 ms.author: amburns
 ---
+<span data-ttu-id="5902f-108">Protokoly ATA Gateway jsou umístěné v podsložce s názvem **Protokoly** v místě, kde je služba ATA nainstalovaná. Výchozí umístění je **C:\Program Files\Microsoft Advanced Threat Analytics\** .</span><span class="sxs-lookup"><span data-stu-id="5902f-108">The ATA Gateway logs are located in a subfolder called **Logs** where ATA is installed; the default location is: **C:\Program Files\Microsoft Advanced Threat Analytics\**.</span></span> <span data-ttu-id="5902f-109">Ve výchozí instalaci ji najdete tady: **C:\Program Files\Microsoft Advanced Threat Analytics\Gateway\Logs**.</span><span class="sxs-lookup"><span data-stu-id="5902f-109">In the default installation location, it can be found at: **C:\Program Files\Microsoft Advanced Threat Analytics\Gateway\Logs**.</span></span>
+
+<span data-ttu-id="5902f-108">Protokoly ATA Gateway jsou umístěné v podsložce s názvem **Protokoly** v místě, kde je služba ATA nainstalovaná. Výchozí umístění je **C:\Program Files\Microsoft Advanced Threat Analytics\**.</span><span class="sxs-lookup"><span data-stu-id="5902f-108">The ATA Gateway logs are located in a subfolder called **Logs** where ATA is installed; the default location is: **C:\Program Files\Microsoft Advanced Threat Analytics\**.</span></span> <span data-ttu-id="5902f-109">Ve výchozí instalaci ji najdete tady: **C:\Program Files\Microsoft Advanced Threat Analytics\Gateway\Logs**.</span><span class="sxs-lookup"><span data-stu-id="5902f-109">In the default installation location, it can be found at: **C:\Program Files\Microsoft Advanced Threat Analytics\Gateway\Logs**.</span></span>
+
+
+
+
+
+
+
+
 
 |Azure ATP standalone sensor|Domain Controller|Considerations|
 |---------------|---------------------|------------------|
