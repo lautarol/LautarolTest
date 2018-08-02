@@ -7,6 +7,29 @@ ms.technology: xamarin-cross-platform
 author: asb3993
 ms.author: amburns
 ---
+
+## Instructions to Create a Remoting Endpoint
+
+PowerShell Core supports the PowerShell Remoting Protocol (PSRP) over both WSMan and SSH.
+For more information, see:
+
+- [SSH Remoting in PowerShell Core][ssh-remoting]
+- [WSMan Remoting in PowerShell Core][wsman-remoting]
+
+## Artifact Installation Instructions
+
+We publish an archive with CoreCLR bits on every CI build with [AppVeyor][].
+
+To install PowerShell Core from the CoreCLR Artifact:
+
+1. Download ZIP package from *artifacts* tab of the particular build.
+2. Unblock ZIP file: right-click in File Explorer -> Properties ->
+   check 'Unblock' box -> apply
+3. Extract zip file to `bin` directory
+4. `./bin/pwsh.exe`
+
+
+
 <span data-ttu-id="5902f-108">Protokoly ATA Gateway jsou umístěné v podsložce s názvem **Protokoly** v místě, kde je služba ATA nainstalovaná. Výchozí umístění je **C:\Program Files\Microsoft Advanced Threat Analytics\** .</span><span class="sxs-lookup"><span data-stu-id="5902f-108">The ATA Gateway logs are located in a subfolder called **Logs** where ATA is installed; the default location is: **C:\Program Files\Microsoft Advanced Threat Analytics\**.</span></span> <span data-ttu-id="5902f-109">Ve výchozí instalaci ji najdete tady: **C:\Program Files\Microsoft Advanced Threat Analytics\Gateway\Logs**.</span><span class="sxs-lookup"><span data-stu-id="5902f-109">In the default installation location, it can be found at: **C:\Program Files\Microsoft Advanced Threat Analytics\Gateway\Logs**.</span></span>
 
 <span data-ttu-id="5902f-108">Protokoly ATA Gateway jsou umístěné v podsložce s názvem **Protokoly** v místě, kde je služba ATA nainstalovaná. Výchozí umístění je **C:\Program Files\Microsoft Advanced Threat Analytics\**.</span><span class="sxs-lookup"><span data-stu-id="5902f-108">The ATA Gateway logs are located in a subfolder called **Logs** where ATA is installed; the default location is: **C:\Program Files\Microsoft Advanced Threat Analytics\**.</span></span> <span data-ttu-id="5902f-109">Ve výchozí instalaci ji najdete tady: **C:\Program Files\Microsoft Advanced Threat Analytics\Gateway\Logs**.</span><span class="sxs-lookup"><span data-stu-id="5902f-109">In the default installation location, it can be found at: **C:\Program Files\Microsoft Advanced Threat Analytics\Gateway\Logs**.</span></span>
@@ -67,3 +90,7 @@ ms.author: amburns
 <span data-ttu-id="0994b-115">C4688</span><span class="sxs-lookup"><span data-stu-id="0994b-115">C4688</span></span>|<span data-ttu-id="0994b-116">'*name*': constraint list contains assembly private type '*declaration*'</span><span class="sxs-lookup"><span data-stu-id="0994b-116">'*name*': constraint list contains assembly private type '*declaration*'</span></span>
 <span data-ttu-id="0994b-117">C4690</span><span class="sxs-lookup"><span data-stu-id="0994b-117">C4690</span></span>|<span data-ttu-id="0994b-118">\[ emitidl(pop) ]: more pops than pushes</span><span class="sxs-lookup"><span data-stu-id="0994b-118">\[ emitidl(pop) ]: more pops than pushes</span></span>
 <span data-ttu-id="0994b-119">C4691</span><span class="sxs-lookup"><span data-stu-id="0994b-119">C4691</span></span>|<span data-ttu-id="0994b-120">'*type*': type referenced was expected in unreferenced *module* '*description*', type defined in current translation unit used instead</span><span class="sxs-lookup"><span data-stu-id="0994b-120">'*type*': type referenced was expected in unreferenced *module* '*description*', type defined in current translation unit used instead</span></span>
+
+<span data-ttu-id="3a550-101">bla bla</span><span class="sxs-lookup"><span data-stu-id="3a550-101">bla bla</span></span>
+
+<span data-ttu-id="3a550-102"><!-- [download-center]: TODO --> [releases]: https://github.com/PowerShell/PowerShell/releases [ssh-remoting]: ../core-powershell/SSH-Remoting-in-PowerShell-Core.md [wsman-remoting]: ../core-powershell/WSMan-Remoting-in-PowerShell-Core.md [AppVeyor]: https://ci.appveyor.com/project/PowerShell/powershell</span><span class="sxs-lookup"><span data-stu-id="3a550-102"><!-- [download-center]: TODO --> [releases]: https://github.com/PowerShell/PowerShell/releases [ssh-remoting]: ../core-powershell/SSH-Remoting-in-PowerShell-Core.md [wsman-remoting]: ../core-powershell/WSMan-Remoting-in-PowerShell-Core.md [AppVeyor]: https://ci.appveyor.com/project/PowerShell/powershell</span></span>
