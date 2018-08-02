@@ -8,6 +8,57 @@ author: asb3993
 ms.author: amburns
 ---
 
+## How to integrate Azure ATP with Windows Defender ATP
+
+1. Set the workspace you want to integrate as **Primary**. Only one workspace can be the Primary workspace and only a primary workspace can integrate with other services. If, at some point in the future, you should want to make this workspace no longer the primary workspace, you will first have to remove the integration before you can set it as non-primary.
+
+ ![primary workspace](./media/primary-workspace.png)
+
+2. Click **Configuration**, and under **Data sources** select **Windows Defender ATP**. Then click the link to **Workspace management**. This is only available if you have a license for Windows Defender ATP and you already performed the on-boarding process for Windows Defender ATP. 
+
+3. In your primary workspace, click the settings cog.
+
+ ![workspace integration](./media/edit-workspace.png)
+ 
+3. Set the integration to **On**. 
+
+ ![enable integration](./media/enable-integration.png)
+
+4. In the [Windows Defender ATP portal](https://beta.securitycenter.windows.com/preferences/advanced), go to **Settings**, **Advanced features** and set **Azure ATP integration** to **ON**. 
+
+ ![Windows Defender ATP enable integration](./media/wd-atp-enable.png)
+
+5. To check the status of the integration, in the Azure ATP workspace portal, go to **Settings** and then **Windows Defender ATP integration**. You can see the status of the integration; if something is wrong you see an error. You can also see which workspace is integrated with Windows Defender ATP.
+
+
+test test 
+
+
+
+
+## How to integrate Azure ATP with Windows Defender ATP
+
+1. Set the workspace you want to integrate as **Primary**. Only one workspace can be the Primary workspace and only a primary workspace can integrate with other services. If, at some point in the future, you should want to make this workspace no longer the primary workspace, you will first have to remove the integration before you can set it as non-primary.
+
+ ![primary workspace](./media/primary-workspace.png)
+
+2. Click **Configuration**, and under **Data sources** select **Windows Defender ATP**. Then click the link to **Workspace management**. This is only available if you have a license for Windows Defender ATP and you already performed the on-boarding process for Windows Defender ATP. 
+
+3. In your primary workspace, click the settings cog.
+
+ ![workspace integration](./media/edit-workspace.png)
+
+3. Set the integration to **On**. 
+
+ ![enable integration](./media/enable-integration.png)
+
+4. In the [Windows Defender ATP portal](https://beta.securitycenter.windows.com/preferences/advanced), go to **Settings**, **Advanced features** and set **Azure ATP integration** to **ON**. 
+
+ ![Windows Defender ATP enable integration](./media/wd-atp-enable.png)
+
+5. To check the status of the integration, in the Azure ATP workspace portal, go to **Settings** and then **Windows Defender ATP integration**. You can see the status of the integration; if something is wrong you see an error. You can also see which workspace is integrated with Windows Defender ATP.
+
+
 ## Instructions to Create a Remoting Endpoint
 
 PowerShell Core supports the PowerShell Remoting Protocol (PSRP) over both WSMan and SSH.
