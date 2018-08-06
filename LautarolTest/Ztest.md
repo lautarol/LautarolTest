@@ -7,6 +7,7 @@ ms.technology: xamarin-cross-platform
 author: asb3993
 ms.author: amburns
 ---
+<span data-ttu-id="cc05c-142">ATA 센터는 ATA 게이트웨이 및 ATA 경량 게이트웨이에서 구문 분석된 트래픽을 받습니다.</span><span class="sxs-lookup"><span data-stu-id="cc05c-142">The ATA Center receives parsed traffic from the ATA Gateway and ATA Lightweight Gateway.</span></span> <span data-ttu-id="cc05c-143">그런 다음 프로파일링을 수행하고 기계 학습 및 동작 알고리즘을 실행하여 네트워크 관련 정보를 학습하고 비정상을 검색하며 의심스러운 활동을 경고합니다.</span><span class="sxs-lookup"><span data-stu-id="cc05c-143">It then performs profiling, runs deterministic detection, and runs machine learning and behavioral algorithms to learn about your network, enable detection of anomalies and warn you of suspicious activities.</span></span>
 
 |||
 |-|-|
