@@ -8,6 +8,15 @@ author: asb3993
 ms.author: amburns
 ---
 
+10.  At this point we need to configure the Xamarin.iOS project to use this newly created provisioning profile. This is done from  **Project Options** dialog, under  **iOS Bundle Signing** tab, as showing in the following screenshot:
+
+	[![](remote-notifications-in-ios-images/image11.png "Configure the Xamarin.iOS project to use this newly created provisioning profile")](remote-notifications-in-ios-images/image11.png#lightbox)
+
+
+
+At this point the application is configured to work with push notifications. However, there are still a few more steps required with the certificate. This certificate is in DER format that is not compatible with PushSharp, which r
+
+
 |To do this ...|...do this:|
 |----|----|
 |See our most popular documentation|Read the top five pages:|- [What is Azure Advanced Threat Protection?](what-is-atp.md)<br>- [Azure ATP prerequisites](atp-prerequisites.md)<br>- [Azure ATP architecture](atp-architecture.md)<br>- [Azure ATP capacity planning](atp-capacity-planning.md)<br>- [Creating a workspace](install-atp-step1.md)|
