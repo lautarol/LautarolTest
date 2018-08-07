@@ -14,15 +14,11 @@ ms.author: amburns
 
 At this point the application is configured to work with push notifications. However, there are still a few more steps required with the certificate. This certificate is in DER format that is not compatible with PushSharp, which r
 
-
 10.  <span data-ttu-id="a33da-155">An diesem Punkt müssen wir das Xamarin.iOS-Projekt, um die neu erstellten provisioning-Profil verwenden, konfigurieren.</span><span class="sxs-lookup"><span data-stu-id="a33da-155">At this point we need to configure the Xamarin.iOS project to use this newly created provisioning profile.</span></span> <span data-ttu-id="a33da-156">Dies erfolgt aus **Projektoptionen** Dialogfeld unter **iOS Bundle Signing** Registerkarte, wie im folgenden Screenshot gezeigt:</span><span class="sxs-lookup"><span data-stu-id="a33da-156">This is done from  **Project Options** dialog, under  **iOS Bundle Signing** tab, as showing in the following screenshot:</span></span>
 
     <span data-ttu-id="a33da-157">[![](remote-notifications-in-ios-images/image11.png "Konfigurieren Sie das Projekt Xamarin.iOS Verwendung neu erstellten provisioning-Profil")](remote-notifications-in-ios-images/image11.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="a33da-157">[![](remote-notifications-in-ios-images/image11.png "Configure the Xamarin.iOS project to use this newly created provisioning profile")](remote-notifications-in-ios-images/image11.png#lightbox)</span></span>
 
 <span data-ttu-id="a33da-158">An diesem Punkt wird die Anwendung für die Zusammenarbeit mit Pushbenachrichtigungen konfiguriert.</span><span class="sxs-lookup"><span data-stu-id="a33da-158">At this point the application is configured to work with push notifications.</span></span> <span data-ttu-id="a33da-159">Es gibt jedoch immer noch einige weitere Schritte, die mit dem Zertifikat erforderlich.</span><span class="sxs-lookup"><span data-stu-id="a33da-159">However, there are still a few more steps required with the certificate.</span></span> <span data-ttu-id="a33da-160">Dieses Zertifikat wird im Format der-KODIERTE, die nicht kompatibel mit PushSharp, wird ein Personal Information Exchange (PKCS12) Zertifikat erforderlich ist.</span><span class="sxs-lookup"><span data-stu-id="a33da-160">This certificate is in DER format that is not compatible with PushSharp, which requires a Personal Information Exchange (PKCS12) certificate.</span></span> <span data-ttu-id="a33da-161">Um das Zertifikat zu konvertieren, damit er von PushSharp verwendet werden kann, führen Sie folgenden abschließenden Schritte aus:</span><span class="sxs-lookup"><span data-stu-id="a33da-161">To convert the certificate so that it is usable by PushSharp, perform these final steps:</span></span>
-
-
-
 
 |To do this ...|...do this:|
 |----|----|
