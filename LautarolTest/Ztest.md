@@ -7,7 +7,7 @@ ms.technology: xamarin-cross-platform
 author: asb3993
 ms.author: amburns
 ---
-9.  <span data-ttu-id="25e66-151">一旦你创建预配配置文件，打开**Xcode 管理器**并刷新它。</span><span class="sxs-lookup"><span data-stu-id="25e66-151">Once you've created the provisioning profile, open up  **Xcode Organizer** and refresh it.</span></span> <span data-ttu-id="25e66-152">如果你创建预配配置文件不会出现可能有必要从 iOS 设置门户下载配置文件并手动将其导入。</span><span class="sxs-lookup"><span data-stu-id="25e66-152">If the provisioning profile you created does not appear it may be necessary to download the profile from the iOS Provisioning Portal and manually import it.</span></span> <span data-ttu-id="25e66-153">下面的屏幕截图与添加的预配配置文件显示组织者的示例：</span><span class="sxs-lookup"><span data-stu-id="25e66-153">The following screen shot shows an example of the Organizer with the provision profile added:</span></span>
+9.  <span data-ttu-id="25e66-151">一旦你创建预配配置文件，打开**Xcode 管 [click2cloud_marketplace] 理器**并刷新它。</span><span class="sxs-lookup"><span data-stu-id="25e66-151">Once you've created the provisioning profile, open [click2cloud_marketplace] up  **Xcode Organizer** and refresh it.</span></span> <span data-ttu-id="25e66-152">如果你创建预配配置文件不会出现可能有必要从 iOS 设置门户下载配置文件并手动将其导入。</span><span class="sxs-lookup"><span data-stu-id="25e66-152">If the provisioning profile you  created does not appear it may be necessary to download the profile from the iOS Provisioning Portal and manually import it.</span></span> <span data-ttu-id="25e66-153">下面的屏幕截图与添加的预配配置文件显示组织者的示例：</span><span class="sxs-lookup"><span data-stu-id="25e66-153">The following screen shot shows an example of the Organizer with the provision profile added:</span></span>
 
     <span data-ttu-id="25e66-154">[![](remote-notifications-in-ios-images/image13new.png "此屏幕截图显示组织者的示例与添加的预配配置文件")](remote-notifications-in-ios-images/image13new.png#lightbox)</span><span class="sxs-lookup"><span data-stu-id="25e66-154">[![](remote-notifications-in-ios-images/image13new.png "This screen shot shows an example of the Organizer with the provision profile added")](remote-notifications-in-ios-images/image13new.png#lightbox)</span></span>
 
@@ -181,6 +181,7 @@ To install PowerShell Core from the CoreCLR Artifact:
 |Virtual|Virtual on same host|The virtual switch needs to support port mirroring.<br /><br />Moving one of the virtual machines to another host by itself may break the port mirroring.|
 |Virtual|Virtual on different hosts|Make sure your virtual switch supports this scenario.|
 |Virtual|Physical|Requires a dedicated network adapter otherwise Azure ATP sees all of the traffic coming in and out of the host, even the traffic it sends to the Azure ATP cloud service.|
+
 |Physical|Virtual|Make sure your virtual switch supports this scenario - and port mirroring configuration on your physical switches based on the scenario:<br /><br />If the virtual host is on the same physical switch, you need to configure a switch level span.<br /><br />If the virtual host is on a different switch, you need to configure RSPAN or ERSPAN&#42;.|
 |Physical|Physical on the same switch|Physical switch must support SPAN/Port Mirroring.|
 |Physical|Physical on a different switch|Requires physical switches to support RSPAN or ERSPAN&#42;.|
@@ -228,3 +229,8 @@ To install PowerShell Core from the CoreCLR Artifact:
 <span data-ttu-id="3a550-101">bla bla</span><span class="sxs-lookup"><span data-stu-id="3a550-101">bla bla</span></span>
 
 <span data-ttu-id="3a550-102"><!-- [download-center]: TODO --> [releases]: https://github.com/PowerShell/PowerShell/releases [ssh-remoting]: ../core-powershell/SSH-Remoting-in-PowerShell-Core.md [wsman-remoting]: ../core-powershell/WSMan-Remoting-in-PowerShell-Core.md [AppVeyor]: https://ci.appveyor.com/project/PowerShell/powershell</span><span class="sxs-lookup"><span data-stu-id="3a550-102"><!-- [download-center]: TODO --> [releases]: https://github.com/PowerShell/PowerShell/releases [ssh-remoting]: ../core-powershell/SSH-Remoting-in-PowerShell-Core.md [wsman-remoting]: ../core-powershell/WSMan-Remoting-in-PowerShell-Core.md [AppVeyor]: https://ci.appveyor.com/project/PowerShell/powershell</span></span>
+
+<!--Marketplace Links -->
+<!----Not available[idera_marketplace]:https://azure.microsoft.com/en-us/marketplace/--> 
+
+[click2cloud_marketplace]:https://marketplace.visualstudio.com/items?itemName=Click2CloudInc.Click2CloudDockerExtensionforVisualStudio 
