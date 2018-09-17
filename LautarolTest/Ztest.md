@@ -10,7 +10,7 @@ ms.author: amburns
 
 1. <span data-ttu-id="ef748-107">Selecteer de instellingenoptie op de werkbalk en selecteer in de portal voor Azure ATP-werkruimte **configuratie**.</span><span class="sxs-lookup"><span data-stu-id="ef748-107">In the Azure ATP workspace portal, select the settings option on the toolbar and select **Configuration**.</span></span>  
 
-![Pictogram voor Azure ATP-configuratie-instellingen](media/atp-config-menu.png)
+ ![Pictogram voor Azure ATP-configuratie-instellingen](media/atp-config-menu.png)
 
 2. <span data-ttu-id="ef748-109">Klik op **meldingen**.</span><span class="sxs-lookup"><span data-stu-id="ef748-109">Click **Notifications**.</span></span>
 3. <span data-ttu-id="ef748-110">Onder **e-mailmeldingen**, opgeven welke meldingen moeten worden verzonden via e-mail: ze kunnen worden verzonden voor nieuwe waarschuwingen (verdachte activiteiten) en nieuwe statusproblemen.</span><span class="sxs-lookup"><span data-stu-id="ef748-110">Under **Mail notifications**, specify which notifications should be sent via email - they can be sent for new alerts (suspicious activities) and new health issues.</span></span> 
