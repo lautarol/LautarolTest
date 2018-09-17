@@ -8,7 +8,7 @@ author: asb3993
 ms.author: amburns
 ---
 
-1. <span data-ttu-id="ef748-107">Selecteer de instellingenoptie op de werkbalk en selecteer in de portal voor Azure ATP-werkruimte **configuratie**.</span><span class="sxs-lookup"><span data-stu-id="ef748-107">In the Azure ATP workspace portal, select the settings option on the toolbar and select **Configuration**.</span></span>
+1. <span data-ttu-id="ef748-107">Selecteer de instellingenoptie op de werkbalk en selecteer in de portal voor Azure ATP-werkruimte **configuratie**.</span><span class="sxs-lookup"><span data-stu-id="ef748-107">In the Azure ATP workspace portal, select the settings option on the toolbar and select **Configuration**.</span></span>  
 
 ![Pictogram voor Azure ATP-configuratie-instellingen](media/atp-config-menu.png)
 
