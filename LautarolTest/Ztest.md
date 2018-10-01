@@ -8,6 +8,32 @@ author: asb3993
 ms.author: amburns
 ---
 
+## Client deployment and upgrade
+
+### Azure AD-enabled clients can't communicate with management point
+<!--501089-->
+*Applies to: Configuration Manager version 1706*
+<!--also fixed in 1710 HFRU-->
+In the scenario to [install and assign Configuration Manager Windows 10 clients using Azure AD for authentication](/sccm/core/clients/deploy/deploy-clients-cmg-azure), client communication fails when the HTTPS-enabled management point uses alternate database credentials. 
+
+## Client deployment and upgrade
+
+### Azure AD-enabled clients can't communicate with management point
+<!--501089-->
+*Applies to: Configuration Manager version 1706*
+<!--also fixed in 1710 HFRU-->
+
+In the scenario to [install and assign Configuration Manager Windows 10 clients using Azure AD for authentication](/sccm/core/clients/deploy/deploy-clients-cmg-azure), client communication fails when the HTTPS-enabled management point uses alternate database credentials. 
+
+## Client deployment and upgrade
+
+### Azure AD-enabled clients can't communicate with management point
+<!--501089-->
+*Applies to: Configuration Manager version 1706*
+<!--also fixed in 1710 HFRU-->  
+In the scenario to [install and assign Configuration Manager Windows 10 clients using Azure AD for authentication](/sccm/core/clients/deploy/deploy-clients-cmg-azure), client communication fails when the HTTPS-enabled management point uses alternate database credentials. 
+
+
 1. <span data-ttu-id="ef748-107">Selecteer de instellingenoptie op de werkbalk en selecteer in de portal voor Azure ATP-werkruimte **configuratie**.</span><span class="sxs-lookup"><span data-stu-id="ef748-107">In the Azure ATP workspace portal, select the settings option on the toolbar and select **Configuration**.</span></span>  
 
  ![Pictogram voor Azure ATP-configuratie-instellingen](media/atp-config-menu.png)
