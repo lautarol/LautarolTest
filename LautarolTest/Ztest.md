@@ -8,6 +8,12 @@ author: asb3993
 ms.author: amburns
 ---
 
+<span data-ttu-id="86452-327">Pokud _ *Meta* není výsledkem porovnání **traits_type::eof**, chcete-li vložit element endeavors chráněná virtuální členská funkce **traits_type::**[k_ char_type](../standard-library/char-traits-struct.md#to_char_type)(\_ *Meta*) do výstupního datového proudu.</span><span class="sxs-lookup"><span data-stu-id="86452-327">If _ *Meta* does not compare equal to **traits_type::eof**, the protected virtual member function endeavors to insert the element **traits_type::**[to_char_type](../standard-library/char-traits-struct.md#to_char_type)(\_ *Meta*) into the output stream.</span></span> <span data-ttu-id="86452-328">To lze provést různými způsoby:</span><span class="sxs-lookup"><span data-stu-id="86452-328">It can do so in various ways:</span></span>
+
+<span data-ttu-id="86452-327">Pokud _ *Meta* není výsledkem porovnání **traits_type::eof**, chcete-li vložit element endeavors chráněná virtuální členská funkce **traits_type::**[k_char_type](../standard-library/char-traits-struct.md#to_char_type)(\_ *Meta*) do výstupního datového proudu.</span><span class="sxs-lookup"><span data-stu-id="86452-327">If _ *Meta* does not compare equal to **traits_type::eof**, the protected virtual member function endeavors to insert the element **traits_type::**[to_char_type](../standard-library/char-traits-struct.md#to_char_type)(\_ *Meta*) into the output stream.</span></span> <span data-ttu-id="86452-328">To lze provést různými způsoby:</span><span class="sxs-lookup"><span data-stu-id="86452-328">It can do so in various ways:</span></span>
+
+
+
 1. <span data-ttu-id="555fa-189">**Asenna SQL Server Profiler ja suorita Power BI Desktop**</span><span class="sxs-lookup"><span data-stu-id="555fa-189">**Install SQL Server Profiler and run Power BI Desktop**</span></span> 
 
    <span data-ttu-id="555fa-190">SQL Server Profiler on saatavilla osana SQL Server Management Studiota.</span><span class="sxs-lookup"><span data-stu-id="555fa-190">SQL Server Profiler is available as part of SQL Server Management Studio.</span></span> 
