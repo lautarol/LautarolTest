@@ -7,29 +7,50 @@ ms.technology: xamarin-cross-platform
 author: asb3993
 ms.author: amburns
 ---
-> [!Important]  
-> <span data-ttu-id="57c4b-101">As of August 14, 2018, hybrid mobile device management is a [deprecated feature](/sccm/core/plan-design/changes/deprecated/removed-and-deprecated-cmfeatures).</span><span class="sxs-lookup"><span data-stu-id="57c4b-101">As of August 14, 2018, hybrid mobile device management is a [deprecated feature](/sccm/core/plan-design/changes/deprecated/removed-and-deprecated-cmfeatures).</span></span>
-> <!--Intune feature 2683117--> 
-> <span data-ttu-id="57c4b-102">Since launching on Azure over a year ago, Intune has added hundreds of new customer-requested and market-leading service capabilities.</span><span class="sxs-lookup"><span data-stu-id="57c4b-102">Since launching on Azure over a year ago, Intune has added hundreds of new customer-requested and market-leading service capabilities.</span></span> <span data-ttu-id="57c4b-103">It now offers far more capabilities than those offered through hybrid mobile device management (MDM).</span><span class="sxs-lookup"><span data-stu-id="57c4b-103">It now offers far more capabilities than those offered through hybrid mobile device management (MDM).</span></span> <span data-ttu-id="57c4b-104">Intune on Azure provides a more integrated, streamlined administrative experience for your enterprise mobility needs.</span><span class="sxs-lookup"><span data-stu-id="57c4b-104">Intune on Azure provides a more integrated, streamlined administrative experience for your enterprise mobility needs.</span></span>
-> 
-> <span data-ttu-id="57c4b-105">As a result, most customers choose Intune on Azure over hybrid MDM.</span><span class="sxs-lookup"><span data-stu-id="57c4b-105">As a result, most customers choose Intune on Azure over hybrid MDM.</span></span> <span data-ttu-id="57c4b-106">The number of customers using hybrid MDM continues to decrease as more customers move to the cloud.</span><span class="sxs-lookup"><span data-stu-id="57c4b-106">The number of customers using hybrid MDM continues to decrease as more customers move to the cloud.</span></span> <span data-ttu-id="57c4b-107">Therefore, on September 1, 2019, Microsoft will retire the hybrid MDM service offering.</span><span class="sxs-lookup"><span data-stu-id="57c4b-107">Therefore, on September 1, 2019, Microsoft will retire the hybrid MDM service offering.</span></span> <span data-ttu-id="57c4b-108">Please plan your [migration to Intune on Azure](/sccm/mdm/deploy-use/migrate-hybridmdm-to-intunesa) for your MDM needs.</span><span class="sxs-lookup"><span data-stu-id="57c4b-108">Please plan your [migration to Intune on Azure](/sccm/mdm/deploy-use/migrate-hybridmdm-to-intunesa) for your MDM needs.</span></span> 
-> 
-> <span data-ttu-id="57c4b-109">This change doesn't affect on-premises Configuration Manager or [co-management for Windows 10 devices](/sccm/core/clients/manage/co-management-overview).</span><span class="sxs-lookup"><span data-stu-id="57c4b-109">This change doesn't affect on-premises Configuration Manager or [co-management for Windows 10 devices](/sccm/core/clients/manage/co-management-overview).</span></span> <span data-ttu-id="57c4b-110">If you're unsure whether you're using hybrid MDM, go to the **Administration** workspace of the Configuration Manager console, expand **Cloud Services**, and click **Microsoft Intune Subscriptions**.</span><span class="sxs-lookup"><span data-stu-id="57c4b-110">If you're unsure whether you're using hybrid MDM, go to the **Administration** workspace of the Configuration Manager console, expand **Cloud Services**, and click **Microsoft Intune Subscriptions**.</span></span> <span data-ttu-id="57c4b-111">If you have a Microsoft Intune subscription set up, your tenant is configured for hybrid MDM.</span><span class="sxs-lookup"><span data-stu-id="57c4b-111">If you have a Microsoft Intune subscription set up, your tenant is configured for hybrid MDM.</span></span>
-> 
+
+1. <span data-ttu-id="555fa-189">**Asenna SQL Server Profiler ja suorita Power BI Desktop**</span><span class="sxs-lookup"><span data-stu-id="555fa-189">**Install SQL Server Profiler and run Power BI Desktop**</span></span> 
+
+   <span data-ttu-id="555fa-190">SQL Server Profiler on saatavilla osana SQL Server Management Studiota.</span><span class="sxs-lookup"><span data-stu-id="555fa-190">SQL Server Profiler is available as part of SQL Server Management Studio.</span></span> 
+ 
+2. <span data-ttu-id="555fa-191">**Määritä Power BI Desktopin käyttämä portti**</span><span class="sxs-lookup"><span data-stu-id="555fa-191">**Determine the port being used by Power BI Desktop**</span></span> 
+
+   <span data-ttu-id="555fa-192">Suorita komentokehote tai PowerShell Suorita järjestelmänvalvojan oikeuksin ja etsi netstat-toiminnon avulla portti, jota Power BI Desktop käyttää analyysia varten:</span><span class="sxs-lookup"><span data-stu-id="555fa-192">Run the command prompt or PowerShell with administrator privileges, and use netstat to find the port that Power BI Desktop is using for analysis:</span></span>
+
+   `> netstat -b -n` 
+
+   <span data-ttu-id="555fa-193">Tuloksena tulisi olla luettelo sovelluksista ja niiden avoimista porteista, esimerkiksi:</span><span class="sxs-lookup"><span data-stu-id="555fa-193">The output should be a list of applications and their open ports, for example:</span></span>  
+
+   `TCP    [::1]:55786            [::1]:55830            ESTABLISHED`
+
+   <span data-ttu-id="555fa-194">[msmdsrv.exe]</span><span class="sxs-lookup"><span data-stu-id="555fa-194">[msmdsrv.exe]</span></span> 
+
+   <span data-ttu-id="555fa-195">Etsi msmdsrv.exen käyttämä portti ja kirjoita se myöhempää käyttöä varten.</span><span class="sxs-lookup"><span data-stu-id="555fa-195">Look for the port used by msmdsrv.exe, and write it for later use.</span></span> <span data-ttu-id="555fa-196">Tässä tapauksessa voit käyttää porttia 55786.</span><span class="sxs-lookup"><span data-stu-id="555fa-196">In this case, you could use port 55786.</span></span> 
+3. <span data-ttu-id="555fa-197">**Yhdistä SQL Server Profiler -työkalu Power BI Desktopiin**</span><span class="sxs-lookup"><span data-stu-id="555fa-197">**Connect SQL Server Profiler to Power BI Desktop**</span></span> 
 
 
+1. **Install SQL Server Profiler and run Power BI Desktop** 
 
-> [!Important]  
-> <span data-ttu-id="57c4b-101">As of August 14, 2018, hybrid mobile device management is a [deprecated feature](/sccm/core/plan-design/changes/deprecated/removed-and-deprecated-cmfeatures).</span><span class="sxs-lookup"><span data-stu-id="57c4b-101">As of August 14, 2018, hybrid mobile device management is a [deprecated feature](/sccm/core/plan-design/changes/deprecated/removed-and-deprecated-cmfeatures).</span></span>
-> <!--Intune feature 2683117-->  
-> <span data-ttu-id="57c4b-102">Since launching on Azure over a year ago, Intune has added hundreds of new customer-requested and market-leading service capabilities.</span><span class="sxs-lookup"><span data-stu-id="57c4b-102">Since launching on Azure over a year ago, Intune has added hundreds of new customer-requested and market-leading service capabilities.</span></span> <span data-ttu-id="57c4b-103">It now offers far more capabilities than those offered through hybrid mobile device management (MDM).</span><span class="sxs-lookup"><span data-stu-id="57c4b-103">It now offers far more capabilities than those offered through hybrid mobile device management (MDM).</span></span> <span data-ttu-id="57c4b-104">Intune on Azure provides a more integrated, streamlined administrative experience for your enterprise mobility needs.</span><span class="sxs-lookup"><span data-stu-id="57c4b-104">Intune on Azure provides a more integrated, streamlined administrative experience for your enterprise mobility needs.</span></span>
-> 
-> <span data-ttu-id="57c4b-105">As a result, most customers choose Intune on Azure over hybrid MDM.</span><span class="sxs-lookup"><span data-stu-id="57c4b-105">As a result, most customers choose Intune on Azure over hybrid MDM.</span></span> <span data-ttu-id="57c4b-106">The number of customers using hybrid MDM continues to decrease as more customers move to the cloud.</span><span class="sxs-lookup"><span data-stu-id="57c4b-106">The number of customers using hybrid MDM continues to decrease as more customers move to the cloud.</span></span> <span data-ttu-id="57c4b-107">Therefore, on September 1, 2019, Microsoft will retire the hybrid MDM service offering.</span><span class="sxs-lookup"><span data-stu-id="57c4b-107">Therefore, on September 1, 2019, Microsoft will retire the hybrid MDM service offering.</span></span> <span data-ttu-id="57c4b-108">Please plan your [migration to Intune on Azure](/sccm/mdm/deploy-use/migrate-hybridmdm-to-intunesa) for your MDM needs.</span><span class="sxs-lookup"><span data-stu-id="57c4b-108">Please plan your [migration to Intune on Azure](/sccm/mdm/deploy-use/migrate-hybridmdm-to-intunesa) for your MDM needs.</span></span> 
-> 
-> <span data-ttu-id="57c4b-109">This change doesn't affect on-premises Configuration Manager or [co-management for Windows 10 devices](/sccm/core/clients/manage/co-management-overview).</span><span class="sxs-lookup"><span data-stu-id="57c4b-109">This change doesn't affect on-premises Configuration Manager or [co-management for Windows 10 devices](/sccm/core/clients/manage/co-management-overview).</span></span> <span data-ttu-id="57c4b-110">If you're unsure whether you're using hybrid MDM, go to the **Administration** workspace of the Configuration Manager console, expand **Cloud Services**, and click **Microsoft Intune Subscriptions**.</span><span class="sxs-lookup"><span data-stu-id="57c4b-110">If you're unsure whether you're using hybrid MDM, go to the **Administration** workspace of the Configuration Manager console, expand **Cloud Services**, and click **Microsoft Intune Subscriptions**.</span></span> <span data-ttu-id="57c4b-111">If you have a Microsoft Intune subscription set up, your tenant is configured for hybrid MDM.</span><span class="sxs-lookup"><span data-stu-id="57c4b-111">If you have a Microsoft Intune subscription set up, your tenant is configured for hybrid MDM.</span></span>
-> 
+   SQL Server Profiler is available as part of SQL Server Management Studio. 
+ 
+2. **Determine the port being used by Power BI Desktop** 
 
+   Run the command prompt or PowerShell with administrator privileges, and use netstat to find the port that Power BI Desktop is using for analysis:
 
+   `> netstat -b -n` 
+
+   The output should be a list of applications and their open ports, for example:  
+
+   `TCP    [::1]:55786            [::1]:55830            ESTABLISHED`
+
+   [msmdsrv.exe] 
+
+   Look for the port used by msmdsrv.exe, and write it for later use. In this case, you could use port 55786. 
+3. **Connect SQL Server Profiler to Power BI Desktop** 
+
+   - Start SQL Server Profiler from the **Start** menu 
+   - **File** > **New Trace** 
+   - Server Type: Analysis Services 
+   - Server name: localhost:[port number found above] 
 
 
 ## Client deployment and upgrade
