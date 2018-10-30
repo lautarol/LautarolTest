@@ -36,7 +36,7 @@ The following table lists some common conversion and test methods for variables.
         Converts a string that represents a whole number (like "593") to an integer.
     :::column-end:::
     :::column:::
-        [!code-csharp[Main](introducing-razor-syntax-c/samples/sample28.cs)]
+        [!code-csharp[Main](includes/ztest.cs)]
     :::column-end:::
 :::row-end:::
 
