@@ -39,7 +39,30 @@ The following table lists some common conversion and test methods for variables.
         [!code-csharp[Main](includes/ztest.cs)]
     :::column-end:::
 :::row-end:::
-
+* * *
+:::row:::
+    :::column:::
+        `AsInt(), IsInt()`
+    :::column-end:::
+    :::column:::
+        Converts a string that represents a whole (number (like "593") to an integer.)
+    :::column-end:::
+    :::column:::
+        [!code-csharp[Main](includes/ztest.cs)]
+    :::column-end:::
+:::row-end:::
+* * *
+:::row:::
+    :::column:::
+        `AsInt(), IsInt()`
+    :::column-end:::
+    :::column:::
+        Converts a string that represents a whole (number (like "593") to an integer).
+    :::column-end:::
+    :::column:::
+        [!code-csharp[Main](includes/ztest.cs)]
+    :::column-end:::
+:::row-end:::
 
 <span data-ttu-id="69139-104">ames of the form **get_**_PropertyName_ and **put_**_PropertyName_ can be trea</span><span class="sxs-lookup"><span data-stu-id="69139-104">ames of the form **get_**_PropertyName_ and **put_**_PropertyName_ can be trea</span></span>  
 <span data-ttu-id="69139-104">ames of the form **get_***PropertyName* and **put_***PropertyName* can be trea</span><span class="sxs-lookup"><span data-stu-id="69139-104">ames of the form **get_**_PropertyName_ and **put_**_PropertyName_ can be trea</span></span>
