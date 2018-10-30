@@ -8,6 +8,10 @@ author: asb3993
 ms.author: amburns
 ---
 
+<span data-ttu-id="69139-104">ames of the form **get_**_PropertyName_ and **put_**_PropertyName_ can be trea</span><span class="sxs-lookup"><span data-stu-id="69139-104">ames of the form **get_**_PropertyName_ and **put_**_PropertyName_ can be trea</span></span>  
+<span data-ttu-id="69139-104">ames of the form **get_***PropertyName* and **put_***PropertyName* can be trea</span><span class="sxs-lookup"><span data-stu-id="69139-104">ames of the form **get_**_PropertyName_ and **put_**_PropertyName_ can be trea</span></span>
+
+
 **text  text**
 
 **Note:****adAffectAll**
