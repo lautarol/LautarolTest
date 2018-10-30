@@ -8,6 +8,39 @@ author: asb3993
 ms.author: amburns
 ---
 
+As a rule, user input comes to you as strings. Even if you've prompted users to enter a number, and even if they've entered a digit, when user input is submitted and you read it in code, the data is in string format. Therefore, you must convert the string to a number. In the example, if you try to perform arithmetic on the values without converting them, the following error results, because ASP.NET cannot add two strings:
+
+*Cannot implicitly convert type 'string' to 'int'.*
+
+To convert the values to integers, you call the `AsInt` method. If the conversion is successful, you can then add the numbers.
+
+The following table lists some common conversion and test methods for variables.
+
+:::row:::
+    :::column:::
+        <strong>Method</strong>
+    :::column-end:::
+    :::column:::
+        <strong>Description</strong>
+    :::column-end:::
+    :::column:::
+        <strong>Example</strong>
+    :::column-end:::
+:::row-end:::
+* * *
+:::row:::
+    :::column:::
+        `AsInt(), IsInt()`
+    :::column-end:::
+    :::column:::
+        Converts a string that represents a whole number (like "593") to an integer.
+    :::column-end:::
+    :::column:::
+        [!code-csharp[Main](introducing-razor-syntax-c/samples/sample28.cs)]
+    :::column-end:::
+:::row-end:::
+
+
 <span data-ttu-id="69139-104">ames of the form **get_**_PropertyName_ and **put_**_PropertyName_ can be trea</span><span class="sxs-lookup"><span data-stu-id="69139-104">ames of the form **get_**_PropertyName_ and **put_**_PropertyName_ can be trea</span></span>  
 <span data-ttu-id="69139-104">ames of the form **get_***PropertyName* and **put_***PropertyName* can be trea</span><span class="sxs-lookup"><span data-stu-id="69139-104">ames of the form **get_**_PropertyName_ and **put_**_PropertyName_ can be trea</span></span>
 
