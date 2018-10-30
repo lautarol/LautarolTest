@@ -16,6 +16,7 @@ To convert the values to integers, you call the `AsInt` method. If the conversio
 
 The following table lists some common conversion and test methods for variables.
 
+
 :::row:::
     :::column:::
         <strong>Method</strong>
@@ -61,6 +62,30 @@ The following table lists some common conversion and test methods for variables.
     :::column-end:::
     :::column:::
         [!code-csharp[Main](includes/ztest.cs)]
+    :::column-end:::
+:::row-end:::
+* * *
+:::row:::
+    :::column:::
+        `AsInt(), IsInt()`
+    :::column-end:::
+    :::column:::
+<span data-ttu-id="dd6a3-101">Converts a string that represents a whole number (like "593") to an( integer.)</span><span class="sxs-lookup"><span data-stu-id="dd6a3-101">Converts a string that represents a whole number (like "593") to an( integer.)</span></span>
+    :::column-end:::
+    :::column:::
+        [!code-csharp[Main](introducing-razor-syntax-c/samples/sample28.cs)]
+    :::column-end:::
+:::row-end:::
+* * *
+:::row:::
+    :::column:::
+        `AsInt(), IsInt()`
+    :::column-end:::
+    :::column:::
+<span data-ttu-id="dd6a3-101">Converts a string that represents a whole number (like "593") to an( integer).</span><span class="sxs-lookup"><span data-stu-id="dd6a3-101">Converts a string that represents a whole number (like "593") to an( integer).</span></span>
+    :::column-end:::
+    :::column:::
+        [!code-csharp[Main](introducing-razor-syntax-c/samples/sample28.cs)]
     :::column-end:::
 :::row-end:::
 
