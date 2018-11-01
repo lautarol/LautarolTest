@@ -115,7 +115,7 @@ bla^test2^bla
 
    <span data-ttu-id="555fa-193">Tuloksena tulisi olla luettelo sovelluksista ja niiden avoimista porteista, esimerkiksi:</span><span class="sxs-lookup"><span data-stu-id="555fa-193">The output should be a list of applications and their open ports, for example:</span></span>  
 
-   `TCP    [::1]:55786            [::1]:55830            ESTABLISHED`
+   `TCP    [::1]:55786            [::1]:55830         ESTABLISHED`
 
    <span data-ttu-id="555fa-194">[msmdsrv.exe]</span><span class="sxs-lookup"><span data-stu-id="555fa-194">[msmdsrv.exe]</span></span> 
 
@@ -135,7 +135,7 @@ bla^test2^bla
 
    The output should be a list of applications and their open ports, for example:  
 
-   `TCP    [::1]:55786            [::1]:55830            ESTABLISHED`
+   `TCP    [::1]:55786         [::1]:55830            ESTABLISHED`
 
    [msmdsrv.exe] 
 
