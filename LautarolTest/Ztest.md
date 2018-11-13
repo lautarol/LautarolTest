@@ -8,45 +8,33 @@ author: asb3993
 ms.author: amburns
 ---
 
-10. blalflasdlasldasldsald
-
-11. blalflasdlasldasldsald
-
-12. blalflasdlasldasldsald
+7. blalflasdlasldasldsald 
     
-    - blalflasdlasldasldsald 
+    blalflasdlasldasldsald
     
-    - blalflasdlasldasldsald
-    
-    - blalflasdlasldasldsald 
-
-7. If you selected **Set permissions** for **Azure (cloud key)**, this option lets you configure the same settings that you can configure in a template. 
-    
-    Select **Add permissions**, and on the **Add permissions** blade, select the first set of users and groups who will have rights to use the content that will be protected by the selected label:
-    
-    - Choose **Select from the list** where you can then add all users from your organization by selecting **Add \<organization name> - All members**. This setting excludes guest accounts. Or, you can select **Add any authenticated users**, or browse the directory.
+    - blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald
         
-        When you choose all members or browse the directory, the users or groups must have an email address. In a production environment, users and groups nearly always have an email address, but in a simple testing environment, you might need to add email addresses to user accounts or groups.
+        blalflasdlasldasldsald blalflasdlasldasldsald
         
-        ###### More information about **Add any authenticated users** 
-        This setting doesn't restrict who can access the content that the label protects, while still encrypting the content and providing you with options to restrict how the content can be used (permissions), and accessed (expiry and offline access). However, the application opening the protected content must be able to support the authentication being used. For this reason, federated social providers such as Google, and onetime passcode authentication should be used for email only, and only when you use Exchange Online and the new capabilities from Office 365 Message Encryption. Microsoft accounts can be used with the Azure Information Protection viewer and Office 2016 Click-to-Run. 
-          
-        Some typical scenarios for the any authenticated users setting:
-            - You don't mind who views the content, but you want to restrict how it is used. For example, you do not want the content to be edited, copied, or printed.  
-            - You don't need to restrict who accesses the content, but you want to be able to track who opens it and potentially, revoke it.  
-            - You have a requirement that the content must be encrypted at rest and in transit, but it doesn't require access controls.
+        ###### <a name="more-information-about-add-any-authenticated-users"></a>blalflasdlasldasldsald 
+        blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald 
         
-    - Choose **Enter details** to manually specify email addresses for individual users or groups (internal or external). Or, use this option to specify all users in another organization by entering any domain name from that organization. You can also use this option for social providers, by entering their domain name such as **gmail.com**, **hotmail.com**, or **outlook.com**.
-
--   <span data-ttu-id="cc05c-167">각 ATA 센터는 Active Directory 포리스트 하나를 모니터링할 수 있습니다.</span><span class="sxs-lookup"><span data-stu-id="cc05c-167">One ATA Center can monitor a single Active Directory forest.</span></span> <span data-ttu-id="cc05c-168">Active Directory 포리스트가 둘 이상인 경우에는 Active Directory 포리스트당 최소 하나의 ATA 센터가 필요합니다.</span><span class="sxs-lookup"><span data-stu-id="cc05c-168">If you have more than one Active Directory forest, you need a minimum of one ATA Center per Active Directory forest.</span></span>
-
--    <span data-ttu-id="cc05c-169">대규모 Active Directory 배포에서는 ATA 센터 하나가 모든 도메인 컨트롤러의 트래픽을 모두 처리하지 못할 수도 있습니다.</span><span class="sxs-lookup"><span data-stu-id="cc05c-169">In large Active Directory deployments, a single ATA Center might not be able to handle all the traffic of all your domain controllers.</span></span> <span data-ttu-id="cc05c-170">이 경우 ATA 센터가 여러 개 있어야 합니다.</span><span class="sxs-lookup"><span data-stu-id="cc05c-170">In this case, multiple ATA Centers are required.</span></span> <span data-ttu-id="cc05c-171">ATA 센터의 수는 [ATA 용량 계획](ata-capacity-planning.md)에 따라 결정해야 합니다.</span><span class="sxs-lookup"><span data-stu-id="cc05c-171">The number of ATA Centers should be dictated by [ATA capacity planning](ata-capacity-planning.md).</span></span>
-
-
-
-
-
-
+        blalflasdlasldasldsald  
+        - blalflasdlasldasldsald blalflasdlasldasldsald  
+        - blalflasdlasldasldsald  
+        - blalflasdlasldasldsald  
+        
+    - blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald
+        
+    >[!NOTE]
+    >blalflasdlasldasldsald
+    
+    blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald 
+    
+    blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald
+    
+    blalflasdlasldasldsald blalflasdlasldasldsald
+    
 |<span data-ttu-id="5d6ca-101">Part</span><span class="sxs-lookup"><span data-stu-id="5d6ca-101">Part</span></span>|<span data-ttu-id="5d6ca-102">Description</span><span class="sxs-lookup"><span data-stu-id="5d6ca-102">Description</span></span>|
 |---|---|
 |`End`|<span data-ttu-id="5d6ca-103">Required.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-103">Required.</span></span> <span data-ttu-id="5d6ca-104">Terminates the definition of the programming element.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-104">Terminates the definition of the programming element.</span></span>|
