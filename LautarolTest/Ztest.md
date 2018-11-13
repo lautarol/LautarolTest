@@ -1,4 +1,4 @@
----
+ ---
 title: When and how should I file a bug report?
 ms.topic: article
 ms.prod: xamarin
@@ -9,10 +9,10 @@ ms.author: amburns
 ---
 wtf
 
->[!NOTE]
+>[!NOTE] 
 >[!INCLUDE[SQL2016]]<span data-ttu-id="6a529-106">(../includes/ztest2.md)] Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
 
-> [!NOTE]
+> [!NOTE] 
 > [!INCLUDE[SQL2016]]<span data-ttu-id="6a529-106">(../includes/ztest2.md)] Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
 
 ## How to integrate Azure ATP with Windows Defender ATP
