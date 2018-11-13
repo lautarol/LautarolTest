@@ -9,12 +9,14 @@ ms.author: amburns
 ---
 
 wtf
+>[!NOTE]
+>[!INCLUDE[SQL2016](../includes/ztest2.md)] <span data-ttu-id="6a529-106">Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
 
->[!NOTE] 
->[!INCLUDE[SQL2016]]<span data-ttu-id="6a529-106">(../includes/ztest2.md)] Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
+>[!NOTE]
+><span data-ttu-id="6a529-106">[!INCLUDE[SQL2016](../includes/ztest2.md)] Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
 
-> [!NOTE] 
-> [!INCLUDE[SQL2016]]<span data-ttu-id="6a529-106">(../includes/ztest2.md)] Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
+> [!NOTE]
+> <span data-ttu-id="6a529-106">[!INCLUDE[SQL2016](../includes/ztest2.md)] Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
 
 ## How to integrate Azure ATP with Windows Defender ATP
 
