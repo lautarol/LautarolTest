@@ -7,66 +7,11 @@ ms.technology: xamarin-cross-platform
 author: asb3993
 ms.author: amburns
 ---
+>[!NOTE]
+>[!INCLUDE[SQL2016]]<span data-ttu-id="6a529-106">(../includes/ztest2.md)] Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
 
-7. blalflasdlasldasldsald 
-    
-    blalflasdlasldasldsald
-    
-    - blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald
-        
-      blalflasdlasldasldsald blalflasdlasldasldsald
-        
-      ###### <a name="more-information-about-add-any-authenticated-users"></a>blalflasdlasldasldsald 
-        blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald 
-        
-      blalflasdlasldasldsald  
-     - blalflasdlasldasldsald blalflasdlasldasldsald  
-     - blalflasdlasldasldsald  
-     - blalflasdlasldasldsald  
-        
-    - blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald
-        
-    >[!NOTE]
-    >blalflasdlasldasldsald
-    
-    blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald 
-    
-    blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald blalflasdlasldasldsald
-    
-    blalflasdlasldasldsald blalflasdlasldasldsald
-    
-|<span data-ttu-id="5d6ca-101">Part</span><span class="sxs-lookup"><span data-stu-id="5d6ca-101">Part</span></span>|<span data-ttu-id="5d6ca-102">Description</span><span class="sxs-lookup"><span data-stu-id="5d6ca-102">Description</span></span>|
-|---|---|
-|`End`|<span data-ttu-id="5d6ca-103">Required.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-103">Required.</span></span> <span data-ttu-id="5d6ca-104">Terminates the definition of the programming element.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-104">Terminates the definition of the programming element.</span></span>|
-|`AddHandler`|<span data-ttu-id="5d6ca-105">Required to terminate an `AddHandler` accessor begun by a matching `AddHandler` statement in a custom [Event Statement](event-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-105">Required to terminate an `AddHandler` accessor begun by a matching `AddHandler` statement in a custom [Event Statement](event-statement.md).</span></span>|
-|`Class`|<span data-ttu-id="5d6ca-106">Required to terminate a class definition begun by a matching [Class Statement](class-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-106">Required to terminate a class definition begun by a matching [Class Statement](class-statement.md).</span></span>|
-|`Enum`|<span data-ttu-id="5d6ca-107">Required to terminate an enumeration definition begun by a matching [Enum Statement](enum-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-107">Required to terminate an enumeration definition begun by a matching [Enum Statement](enum-statement.md).</span></span>|
-|`Event`|<span data-ttu-id="5d6ca-108">Required to terminate a `Custom` event definition begun by a matching [Event Statement](event-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-108">Required to terminate a `Custom` event definition begun by a matching [Event Statement](event-statement.md).</span></span>|  
-|`Function`|<span data-ttu-id="5d6ca-109">Required to terminate a `Function` procedure definition begun by a matching [Function Statement](function-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-109">Required to terminate a `Function` procedure definition begun by a matching [Function Statement](function-statement.md).</span></span> <span data-ttu-id="5d6ca-110">If execution encounters an `End Function` statement, control returns to the calling code.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-110">If execution encounters an `End Function` statement, control returns to the calling code.</span></span>|
-|`Get`|<span data-ttu-id="5d6ca-111">Required to terminate a `Property` procedure definition begun by a matching [Get Statement](get-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-111">Required to terminate a `Property` procedure definition begun by a matching [Get Statement](get-statement.md).</span></span> <span data-ttu-id="5d6ca-112">If execution encounters an `End Get` statement, control returns to the statement requesting the property's value.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-112">If execution encounters an `End Get` statement, control returns to the statement requesting the property's value.</span></span>|
-|`If`|<span data-ttu-id="5d6ca-113">Required to terminate an `If`...`Then`...`Else` block definition begun by a matching `If` statement.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-113">Required to terminate an `If`...`Then`...`Else` block definition begun by a matching `If` statement.</span></span> <span data-ttu-id="5d6ca-114">See [If...Then...Else Statement](if-then-else-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-114">See [If...Then...Else Statement](if-then-else-statement.md).</span></span>|
-|`Interface`|<span data-ttu-id="5d6ca-115">Required to terminate an interface definition begun by a matching [Interface Statement](interface-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-115">Required to terminate an interface definition begun by a matching [Interface Statement](interface-statement.md).</span></span>|
-|`Module`|<span data-ttu-id="5d6ca-116">Required to terminate a module definition begun by a matching [Module Statement](module-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-116">Required to terminate a module definition begun by a matching [Module Statement](module-statement.md).</span></span>|
-|`Namespace`|<span data-ttu-id="5d6ca-117">Required to terminate a namespace definition begun by a matching [Namespace Statement](namespace-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-117">Required to terminate a namespace definition begun by a matching [Namespace Statement](namespace-statement.md).</span></span>|
-|`Operator`|<span data-ttu-id="5d6ca-118">Required to terminate an operator definition begun by a matching [Operator Statement](operator-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-118">Required to terminate an operator definition begun by a matching [Operator Statement](operator-statement.md).</span></span>|
-|`Property`|<span data-ttu-id="5d6ca-119">Required to terminate a property definition begun by a matching [Property Statement](property-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-119">Required to terminate a property definition begun by a matching [Property Statement](property-statement.md).</span></span>|
-|`RaiseEvent`|<span data-ttu-id="5d6ca-120">Required to terminate a `RaiseEvent` accessor begun by a matching `RaiseEvent` statement in a custom [Event Statement](event-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-120">Required to terminate a `RaiseEvent` accessor begun by a matching `RaiseEvent` statement in a custom [Event Statement](event-statement.md).</span></span>|
-|`RemoveHandler`|<span data-ttu-id="5d6ca-121">Required to terminate a `RemoveHandler` accessor begun by a matching `RemoveHandler` statement in a custom [Event Statement](event-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-121">Required to terminate a `RemoveHandler` accessor begun by a matching `RemoveHandler` statement in a custom [Event Statement](event-statement.md).</span></span>|
-|`Select`|<span data-ttu-id="5d6ca-122">Required to terminate a `Select`...`Case` block definition begun by a matching `Select` statement.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-122">Required to terminate a `Select`...`Case` block definition begun by a matching `Select` statement.</span></span> <span data-ttu-id="5d6ca-123">See [Select...Case Statement](select-case-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-123">See [Select...Case Statement](select-case-statement.md).</span></span>  
-|`Set`|<span data-ttu-id="5d6ca-124">Required to terminate a `Property` procedure definition begun by a matching [Set Statement](set-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-124">Required to terminate a `Property` procedure definition begun by a matching [Set Statement](set-statement.md).</span></span> <span data-ttu-id="5d6ca-125">If execution encounters an `End Set` statement, control returns to the statement setting the property's value.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-125">If execution encounters an `End Set` statement, control returns to the statement setting the property's value.</span></span>  
-|`Structure`|<span data-ttu-id="5d6ca-126">Required to terminate a structure definition begun by a matching [Structure Statement](structure-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-126">Required to terminate a structure definition begun by a matching [Structure Statement](structure-statement.md).</span></span>  
-|`Sub`|<span data-ttu-id="5d6ca-127">Required to terminate a `Sub` procedure definition begun by a matching [Sub Statement](sub-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-127">Required to terminate a `Sub` procedure definition begun by a matching [Sub Statement](sub-statement.md).</span></span> <span data-ttu-id="5d6ca-128">If execution encounters an `End Sub` statement, control returns to the calling code.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-128">If execution encounters an `End Sub` statement, control returns to the calling code.</span></span>  
-|`SyncLock`|<span data-ttu-id="5d6ca-129">Required to terminate a `SyncLock` block definition begun by a matching `SyncLock` statement.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-129">Required to terminate a `SyncLock` block definition begun by a matching `SyncLock` statement.</span></span> <span data-ttu-id="5d6ca-130">See [SyncLock Statement](synclock-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-130">See [SyncLock Statement](synclock-statement.md).</span></span>  
-|`Try`|<span data-ttu-id="5d6ca-131">Required to terminate a `Try`...`Catch`...`Finally` block definition begun by a matching `Try` statement.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-131">Required to terminate a `Try`...`Catch`...`Finally` block definition begun by a matching `Try` statement.</span></span> <span data-ttu-id="5d6ca-132">See [Try...Catch...Finally Statement](try-catch-finally-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-132">See [Try...Catch...Finally Statement](try-catch-finally-statement.md).</span></span>  
-|`While`|<span data-ttu-id="5d6ca-133">Required to terminate a `While` loop definition begun by a matching `While` statement.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-133">Required to terminate a `While` loop definition begun by a matching `While` statement.</span></span> <span data-ttu-id="5d6ca-134">See [While...End While Statement](while-end-while-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-134">See [While...End While Statement](while-end-while-statement.md).</span></span>  
-|`With`| <span data-ttu-id="5d6ca-135">Required to terminate a `With` block definition begun by a matching `With` statement.</span><span class="sxs-lookup"><span data-stu-id="5d6ca-135">Required to terminate a `With` block definition begun by a matching `With` statement.</span></span> <span data-ttu-id="5d6ca-136">See [With...End With Statement](with-end-with-statement.md).</span><span class="sxs-lookup"><span data-stu-id="5d6ca-136">See [With...End With Statement](with-end-with-statement.md).</span></span>  
-|||
-  
-
-
-
-
-
+> [!NOTE]
+> [!INCLUDE[SQL2016]]<span data-ttu-id="6a529-106">(../includes/ztest2.md)] Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
 
 ## How to integrate Azure ATP with Windows Defender ATP
 
