@@ -7,6 +7,8 @@ ms.technology: xamarin-cross-platform
 author: asb3993
 ms.author: amburns
 ---
+wtf
+
 >[!NOTE]
 >[!INCLUDE[SQL2016]]<span data-ttu-id="6a529-106">(../includes/ztest2.md)] Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
 
