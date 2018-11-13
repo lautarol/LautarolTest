@@ -8,6 +8,18 @@ author: asb3993
 ms.author: amburns
 ---
 
+10. blalflasdlasldasldsald
+
+11. blalflasdlasldasldsald
+
+12. blalflasdlasldasldsald
+    
+    - blalflasdlasldasldsald 
+    
+    - blalflasdlasldasldsald
+    
+    - blalflasdlasldasldsald 
+
 7. If you selected **Set permissions** for **Azure (cloud key)**, this option lets you configure the same settings that you can configure in a template. 
     
     Select **Add permissions**, and on the **Add permissions** blade, select the first set of users and groups who will have rights to use the content that will be protected by the selected label:
