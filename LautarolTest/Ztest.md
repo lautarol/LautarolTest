@@ -1,4 +1,4 @@
- ---
+---
 title: When and how should I file a bug report?
 ms.topic: article
 ms.prod: xamarin
@@ -7,6 +7,7 @@ ms.technology: xamarin-cross-platform
 author: asb3993
 ms.author: amburns
 ---
+
 wtf
 
 >[!NOTE] 
@@ -17,7 +18,7 @@ wtf
 
 ## How to integrate Azure ATP with Windows Defender ATP
 
-1. Set the workspace you want to integrate as **Primary**. Only one workspace can be the Primary workspace and only a primary workspace can integrate with other services. If, at some point in the future, you should want to make this workspace no longer the primary workspace, you will first have to remove the integration before you can set it as non-primary.
+1. Set the [!INCLUDE[SQL2016]](../includes/ztest2.md)] workspace you want to integrate as **Primary**. Only one workspace can be the Primary workspace and only a primary workspace can integrate with other services. If, at some point in the future, you should want to make this workspace no longer the primary workspace, you will first have to remove the integration before you can set it as non-primary.
 
  ![primary workspace](./media/primary-workspace.png)
 
