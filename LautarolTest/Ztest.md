@@ -8,6 +8,22 @@ author: asb3993
 ms.author: amburns
 ---
 
+1.  Extract the files from the zip file. 
+    > [!NOTE] 
+    > Installing directly from the zip file fails.
+    
+1.  Run **Microsoft ATA Gateway Setup.exe** and follow the setup wizard.
+    
+1.  On the **Welcome** page, select your language and click **Next**.
+    
+1.  The installation wizard automatically checks if the server is a domain controller or a dedicated server. If it is a domain controller, the ATA Lightweight Gateway is installed, if it is a dedicated server, the ATA Gateway is installed. 
+    
+    For example, for an ATA Gateway, the following screen is displayed to let you know that an ATA Gateway will be installed on your dedicated server: ![ATA Gateway installation](images/cover-sml.png) Click **Next**.
+    
+    > [!NOTE] 
+    > If the domain controller or dedicated server does not meet the minimum hardware requirements for the installation, you receive a warning. This does not prevent you from clicking **Next** and proceeding with installation. This might be the right option for installation of ATA in a small lab test environment in which you don't need as much room for data storage. For production environments, it is highly recommended to work with ATA's [capacity planning](ata-capacity-planning.md) guide to make sure your domain controllers or dedicated servers meet the necessary requirements.
+
+
 wtf
 >[!NOTE]
 >[!INCLUDE[SQL2016](../LautarolTest/includes/ztest2.md)] <span data-ttu-id="6a529-106">Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
