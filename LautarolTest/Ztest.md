@@ -42,47 +42,46 @@ You build any .NET Core snippet or sample using the .NET Core CLI, which can be 
 
    This should include a brief description of the code, and refer people to the article that references the sample.
 
-
-1.	Run the following command on each domain controller: *winrm quickconfig*
-2.  From a command prompt type *gpedit.msc*.
-3.	Expand **Computer Configuration > Administrative Templates > Windows Components > Event Forwarding**
-
-  ![Local policy group editor image](media/wef%201%20local%20group%20policy%20editor.png)
-
-4.	Double-click **Configure target Subscription Manager**.
-   
-    1.	Select **Enabled**.
-    2.	Under **Options**, click **Show**.
-    3.	Under **SubscriptionManagers**, enter the following value and click **OK**:	*Server=http://<fqdnATAGateway>:5985/wsman/SubscriptionManager/WEC,Refresh=10* 
-      
-         *(For example: Server=http://atagateway9.contoso.com:5985/wsman/SubscriptionManager/WEC,Refresh=10)*
-      
-         ![Configure target subscription image](media/wef%202%20config%20target%20sub%20manager.png)
-      
-    4.	Click **OK**.
-    5.	From an elevated command prompt type *gpupdate /force*. 
-
-
-
-1.  Extract the files from the zip file. 
-    > [!NOTE] 
-    > Installing directly from the zip file fails.
-    
-1.  Run **Microsoft ATA Gateway Setup.exe** and follow the setup wizard.
-    
-1.  On the **Welcome** page, select your language and click **Next**.
-    
-1.  The installation wizard automatically checks if the server is a domain controller or a dedicated server. If it is a domain controller, the ATA Lightweight Gateway is installed, if it is a dedicated server, the ATA Gateway is installed. 
-    
-    For example, for an ATA Gateway, the following screen is displayed to let you know that an ATA Gateway will be installed on your dedicated server: ![ATA Gateway installation](images/cover-sml.png) Click **Next**.
-    
-    > [!NOTE] 
-    > If the domain controller or dedicated server does not meet the minimum hardware requirements for the installation, you receive a warning. This does not prevent you from clicking **Next** and proceeding with installation. This might be the right option for installation of ATA in a small lab test environment in which you don't need as much room for data storage. For production environments, it is highly recommended to work with ATA's [capacity planning](ata-capacity-planning.md) guide to make sure your domain controllers or dedicated servers meet the necessary requirements.
-
-
 wtf
 >[!NOTE]
 >[!INCLUDE[SQL2016](../LautarolTest/includes/ztest2.md)] <span data-ttu-id="6a529-106">Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
+
+<span data-ttu-id="1baab-101">To create a sample:</span><span class="sxs-lookup"><span data-stu-id="1baab-101">To create a sample:</span></span>
+
+1. <span data-ttu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment to an existing one that you are working on it.</span><span class="sxs-lookup"><span data-stu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment to an existing one that you are working on it.</span></span>
+2. <span data-ttu-id="1baab-103">Write the topic that explains the concepts demonstrated in your sample (example: `docs/standard/linq/where-clause.md`).</span><span class="sxs-lookup"><span data-stu-id="1baab-103">Write the topic that explains the concepts demonstrated in your sample (example: `docs/standard/linq/where-clause.md`).</span></span>
+3. <span data-ttu-id="1baab-104">Write your sample (example: `WhereClause-Sample1.cs`).</span><span class="sxs-lookup"><span data-stu-id="1baab-104">Write your sample (example: `WhereClause-Sample1.cs`).</span></span>
+4. <span data-ttu-id="1baab-105">Create a Program.cs with a Main entry point that calls your samples.</span><span class="sxs-lookup"><span data-stu-id="1baab-105">Create a Program.cs with a Main entry point that calls your samples.</span></span> <span data-ttu-id="1baab-106">If there is already one there, add the call to your sample:</span><span class="sxs-lookup"><span data-stu-id="1baab-106">If there is already one there, add the call to your sample:</span></span>
+    ```csharp
+    public class Program
+    {
+        public void Main(string[] args)
+        {
+            WhereClause1.QuerySyntaxExample();
+
+            // Add the method syntax as an example.
+            WhereClause1.MethodSyntaxExample();
+        }
+    }
+    ```
+<span data-ttu-id="1baab-107">You build any .NET Core snippet or sample using the .NET Core CLI, which can be installed with [the .NET Core SDK](https://www.microsoft.com/net/download).</span><span class="sxs-lookup"><span data-stu-id="1baab-107">You build any .NET Core snippet or sample using the .NET Core CLI, which can be installed with [the .NET Core SDK](https://www.microsoft.com/net/download).</span></span> <span data-ttu-id="1baab-108">To build and run your sample:</span><span class="sxs-lookup"><span data-stu-id="1baab-108">To build and run your sample:</span></span>
+
+1. <span data-ttu-id="1baab-109">Go to the sample folder and build to check for errors:</span><span class="sxs-lookup"><span data-stu-id="1baab-109">Go to the sample folder and build to check for errors:</span></span>
+
+    ```console
+    dotnet build
+    ```
+2. <span data-ttu-id="1baab-110">Run your sample:</span><span class="sxs-lookup"><span data-stu-id="1baab-110">Run your sample:</span></span>
+
+    ```console
+    dotnet run
+    ```
+
+3. <span data-ttu-id="1baab-111">Add a readme.md to the root directory of your sample.</span><span class="sxs-lookup"><span data-stu-id="1baab-111">Add a readme.md to the root directory of your sample.</span></span> 
+
+   <span data-ttu-id="1baab-112">This should include a brief description of the code, and refer people to the article that references the sample.</span><span class="sxs-lookup"><span data-stu-id="1baab-112">This should include a brief description of the code, and refer people to the article that references the sample.</span></span>
+
+
 
 >[!NOTE]
 ><span data-ttu-id="6a529-106">[!INCLUDE[SQL2016](../LautarolTest/includes/ztest2.md)] Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
@@ -112,10 +111,7 @@ wtf
 
 5. To check the status of the integration, in the Azure ATP workspace portal, go to **Settings** and then **Windows Defender ATP integration**. You can see the status of the integration; if something is wrong you see an error. You can also see which workspace is integrated with Windows Defender ATP.
 
-
 test test 
-
-
 
 
 ## How to integrate Azure ATP with Windows Defender ATP
