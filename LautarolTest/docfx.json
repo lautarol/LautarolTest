@@ -32,7 +32,9 @@
     "externalReference": [],
     "globalMetadata": {},
     "fileMetadata": {},
-    "template": [],
+    "template": [
+      "docs.html"
+    ],
     "dest": "LautarolTest"
   }
 }
