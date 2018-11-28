@@ -9,10 +9,11 @@ ms.author: amburns
 ---
 
 
-1. <span data-ttu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment [!INCLUDE[at](../LautarolTest/includes/at.md)] to an existing one that you are working on it.</span><span class="sxs-lookup"><span data-stu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment [!INCLUDE[at](../LautarolTest/includes/at.md)] to an existing one that you are working on it.</span></span>
+1. <span data-ttu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment [!INCLUDE[at](../LautarolTest/includes/at.md)] to an [issue](https://github.com/dotnet/docs/issues) existing one that you are working on it.</span><span class="sxs-lookup"><span data-stu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment [!INCLUDE[at](../LautarolTest/includes/at.md)] to an [issue](https://github.com/dotnet/docs/issues) existing one that you are working on it.</span></span>
 2. <span data-ttu-id="1baab-103">Write the topic that explains the concepts demonstrated in your sample (example: `docs/standard/linq/where-clause.md`).</span><span class="sxs-lookup"><span data-stu-id="1baab-103">Write the topic that explains the concepts demonstrated in your sample (example: `docs/standard/linq/where-clause.md`).</span></span>
-3. <span data-ttu-id="1baab-104">Write your sample (example: `WhereClause-Sample1.cs`).</span><span class="sxs-lookup"><span data-stu-id="1baab-104">Write your sample (example: `WhereClause-Sample1.cs`).</span></span>
-4. <span data-ttu-id="1baab-105">Create a Program.cs with a Main entry point that calls your samples.</span><span class="sxs-lookup"><span data-stu-id="1baab-105">Create a Program.cs with a Main entry point that calls your samples.</span></span> <span data-ttu-id="1baab-106">If there is already one there, add the call to your sample:</span><span class="sxs-lookup"><span data-stu-id="1baab-106">If there is already one there, add the call to your sample:</span></span>
+
+
+1. <span data-ttu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment "@" to an [issue](https://github.com/dotnet/docs/issues) existing one that you are working on it.</span><span class="sxs-lookup"><span data-stu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment "@" to an [issue](https://github.com/dotnet/docs/issues) existing one that you are working on it.</span></span>
 
     ```csharp
     public class Program
