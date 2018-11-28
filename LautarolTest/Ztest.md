@@ -7,48 +7,9 @@ ms.technology: xamarin-cross-platform
 author: asb3993
 ms.author: amburns
 ---
-To create a sample:
 
-1. File an [issue](https://github.com/dotnet/docs/issues) or add a comment to an existing one that you are working on it.
-2. Write the topic that explains the concepts demonstrated in your sample (example: `docs/standard/linq/where-clause.md`).
-3. Write your sample (example: `WhereClause-Sample1.cs`).
-4. Create a Program.cs with a Main entry point that calls your samples. If there is already one there, add the call to your sample:
-    ```csharp
-    public class Program
-    {
-        public void Main(string[] args)
-        {
-            WhereClause1.QuerySyntaxExample();
 
-            // Add the method syntax as an example.
-            WhereClause1.MethodSyntaxExample();
-        }
-    }
-    ```
-You build any .NET Core snippet or sample using the .NET Core CLI, which can be installed with [the .NET Core SDK](https://www.microsoft.com/net/download). To build and run your sample:
-
-1. Go to the sample folder and build to check for errors:
-
-    ```console
-    dotnet build
-    ```
-2. Run your sample:
-
-    ```console
-    dotnet run
-    ```
-
-3. Add a readme.md to the root directory of your sample. 
-
-   This should include a brief description of the code, and refer people to the article that references the sample.
-
-wtf
->[!NOTE]
->[!INCLUDE[SQL2016](../LautarolTest/includes/ztest2.md)] <span data-ttu-id="6a529-106">Service Pack 2 und höher stellt die vollständige Unterstützung für verteilte Transaktionen in Verfügbarkeitsgruppen bereit.</span>
-
-<span data-ttu-id="1baab-101">To create a sample:</span><span class="sxs-lookup"><span data-stu-id="1baab-101">To create a sample:</span></span>
-
-1. <span data-ttu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment to an existing one that you are working on it.</span><span class="sxs-lookup"><span data-stu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment to an existing one that you are working on it.</span></span>
+1. <span data-ttu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment "[!INCLUDE[at]](https://github.com/lautarol/LautarolTest/blob/master/LautarolTest/includes/at.md)" to an existing one that you are working on it.</span><span class="sxs-lookup"><span data-stu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment "[!INCLUDE[at]](https://github.com/lautarol/LautarolTest/blob/master/LautarolTest/includes/at.md)" to an existing one that you are working on it.</span></span>
 2. <span data-ttu-id="1baab-103">Write the topic that explains the concepts demonstrated in your sample (example: `docs/standard/linq/where-clause.md`).</span><span class="sxs-lookup"><span data-stu-id="1baab-103">Write the topic that explains the concepts demonstrated in your sample (example: `docs/standard/linq/where-clause.md`).</span></span>
 3. <span data-ttu-id="1baab-104">Write your sample (example: `WhereClause-Sample1.cs`).</span><span class="sxs-lookup"><span data-stu-id="1baab-104">Write your sample (example: `WhereClause-Sample1.cs`).</span></span>
 4. <span data-ttu-id="1baab-105">Create a Program.cs with a Main entry point that calls your samples.</span><span class="sxs-lookup"><span data-stu-id="1baab-105">Create a Program.cs with a Main entry point that calls your samples.</span></span> <span data-ttu-id="1baab-106">If there is already one there, add the call to your sample:</span><span class="sxs-lookup"><span data-stu-id="1baab-106">If there is already one there, add the call to your sample:</span></span>
