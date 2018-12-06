@@ -27,6 +27,8 @@ ms.author: amburns
 
 1. <span data-ttu-id="1baab-102">File an or add a comment "@" to an  existing one that you are working on it.</span><span class="sxs-lookup"><span data-stu-id="1baab-102">File an  or add a comment "@" to an existing one that you are working on it.</span></span>
 
+Example : `/TestCaseFilter:"TestCategory=Nightly\|FullyQualifiedName=Namespace.ClassName.MethodName"` test
+
     ```csharp
     public class Program
     {
