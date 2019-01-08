@@ -22,27 +22,27 @@ Q&A is interactive and even fun, and, more often than not, one question will lea
 ## Part 1: Use Q&A on a dashboard in Power BI service (app.powerbi.com)
 A dashboard contains tiles pinned from one or more datasets, so you can ask questions about any of the data contained in any of those datasets. To see what reports and datasets were used to create the dashboard, select **View related** from the menubar.
 
-![](LautarolTest/images/power-bi-view-related.png)
+![](images/power-bi-view-related.png)
 
 The Q&A question box is located in the upper-left corner of your dashboard, and this is where you type your question using natural language. Q&A recognizes the words you type and figures out where (which dataset) to find the answer. Q&A also helps you form your question with auto-completion, restatement, and other textual and visual aids.
 
-![](LautarolTest/images/powerbi-qna.png)
+![](images/powerbi-qna.png)
 
 The answer to your question is displayed as an interactive visualization and updates as you modify the question.
 
 1. Open a dashboard and place your cursor in the question box. Even before you start typing, Q&A displays a new screen with suggestions to help you form your question. You'll see the names of
 
-   ![](LautarolTest/images/powerbi-qna-cursor.png)
+   ![](images/powerbi-qna-cursor.png)
 
    You can always choose one of these questions as a starting point and continue to refine the question to find the specific answer you are looking for. Or, use a table name to help you word a new question.
 
 2. Select from the dataset options or begin typing your own question and select from the dropdown suggestions.
 
-   ![](LautarolTest/images/powerbi-qna-list.png)
+   ![](images/powerbi-qna-list.png)
 
 3. As you type a question, Q&A picks the bion changes dynamically as you modify the question.
 
-   ![](LautarolTest/images/powerbi-qna-viz.png)
+   ![](images/powerbi-qna-viz.png)
 
 4. When you type a question, Power BI looks for the best answer using any dataset that has a tile on that dashboard.  If all the tiles are from *datasetA*, then your answer will come from *datasetA*.  If there are tiles from *datasetA* and *datasetB*, then Q&A will search for the best answer from those 2 datasets.
 
@@ -52,41 +52,41 @@ The answer to your question is displayed as an interactive visualization and upd
    >
 5. When you're happy with the rerner. If the dashboard has been shared with you, or is part of an app, you won't be able to pin.
 
-   ![](LautarolTest/images/pbi_qna_finish-typing-question.jpg)
+   ![](images/pbi_qna_finish-typing-question.jpg)
 
 ##    Part 2: Use Q&A in a report in Power BI service or Power BI Desktop
 
 Use Q&A to explore your dataset and to add visualizations to the report and to dashboards. A report is based on a single dataset and may be completely blank or contain pages full of visualizations. But just because a report is blank, doesn't mean there isn't any data for you to explore -- the dataset is linked to the report and is waiting for you to explore and create visualizations.  To see which dataset is being used to create a report, open the report in Power BI service Reading view and select **View related** from the menubar.
 
-![](LautarolTest/images/power-bi-view-related.png)
+![](images/power-bi-view-related.png)
 
 In order to use Q&A in reports, you musrred to this as a *creator* scenario. So if you are, instead, *consuming* a report that has been shared with you, Q&A will not be available.
 
 1. Open a report in Editing view (Power BI service) or Report view (Power BI Desktop) and select **Ask a question** from the menubar.
 
     **Desktop**    
-    ![](LautarolTest/images/power-bi-desktop-question.png)
+    ![](images/power-bi-desktop-question.png)
 
     **Service**    
-    ![](LautarolTest/images/power-bi-service.png)
+    ![](images/power-bi-service.png)
 
 2. A Q&A question box displays on your report canvas. In the example below, the question box displays on top of another visualization. This is fine, but it might be better to add a blank page to the report before asking a question.
 
-    ![](LautarolTest/images/power-bi-ask-question.png)
+    ![](images/power-bi-ask-question.png)
 
 3. Place your cursor in the question box. As you type, Q&A displays suggestions to help you form your question.
 
-   ![](LautarolTest/images/power-bi-q-and-a-suggestions.png)
+   ![](images/power-bi-q-and-a-suggestions.png)
 
 4. As you type a question, Q&A picks thualization changes dynamically as you modify the question.
 
-   ![](LautarolTest/images/power-bi-q-and-a-visual.png)
+   ![](images/power-bi-q-and-a-visual.png)
 
 5. When you have the visualization you like, select ENTER. To save the visualization with the report, select **File > Save**.
 
 6. Interact with the new visualization. It doesn't matter how you created the visualization -- all the same interactivity, formatting, and features are available.
 
-   ![](LautarolTest/images/power-bi-q-and-a-ellipses.png)
+   ![](images/power-bi-q-and-a-ellipses.png)
 
    If you've created the visualization in Power BI service, you ca
 
