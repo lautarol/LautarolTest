@@ -8,9 +8,14 @@ author: asb3993
 ms.author: amburns
 ---
 
+wtf
+
+<br/>
+
 <iframe height='500' scrolling='no' title='<span data-ttu-id="b4bf8-145">Aggiungere eventi del mouse all'indicatore HTML predefinito</span><span class="sxs-lookup"><span data-stu-id="b4bf8-145">Adding Mouse Events to default HTML Marker</span></span>' src='//codepen.io/azuremaps/embed/ZmZLBa/?height=500&theme-id=0&default-tab=js,result&embed-version=2&editable=true' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'><span data-ttu-id="b4bf8-146">Vedere l'elemento 2078801 <a href='https://codepen.io/azuremaps/pen/ZmZLBa/'>Aggiungere eventi del mouse all'indicatore HTML predefinito</a> di Mappe di Azure (<a href='https://codepen.io/azuremaps'>@azuremaps</a>) in <a href='https://codepen.io'>CodePen</a>.</span><span class="sxs-lookup"><span data-stu-id="b4bf8-146">See the Pen <a href='https://codepen.io/azuremaps/pen/ZmZLBa/'>Adding Mouse Events to default HTML Marker</a> by Azure Maps (<a href='https://codepen.io/azuremaps'>@azuremaps</a>) on <a href='https://codepen.io'>CodePen</a>.</span></span>
 </iframe>
 
+<br/>
 
 | <span data-ttu-id="7e440-101">Format specifier</span><span class="sxs-lookup"><span data-stu-id="7e440-101">Format specifier</span></span> | <span data-ttu-id="7e440-102">Description</span><span class="sxs-lookup"><span data-stu-id="7e440-102">Description</span></span> | <span data-ttu-id="7e440-103">Examples</span><span class="sxs-lookup"><span data-stu-id="7e440-103">Examples</span></span> |
 | ---------------------- | ----------------- | -------------- |
@@ -18,8 +23,12 @@ ms.author: amburns
 |<span data-ttu-id="7e440-107">\\|The escape character.</span><span class="sxs-lookup"><span data-stu-id="7e440-107">\\|The escape character.</span></span><br /><br /> <span data-ttu-id="7e440-108">More information: [Character literals](#Literals) and [Using the Escape Character](#escape).</span><span class="sxs-lookup"><span data-stu-id="7e440-108">More information: [Character literals](#Literals) and [Using the Escape Character](#escape).</span></span>|<span data-ttu-id="7e440-109">2009-06-15T13:45:30 (h \h) -> 1 h</span><span class="sxs-lookup"><span data-stu-id="7e440-109">2009-06-15T13:45:30 (h \h) -> 1 h</span></span>|
 |<span data-ttu-id="7e440-110">Any other character</span><span class="sxs-lookup"><span data-stu-id="7e440-110">Any other character</span></span>|<span data-ttu-id="7e440-111">The character is copied to the result string unchanged.</span><span class="sxs-lookup"><span data-stu-id="7e440-111">The character is copied to the result string unchanged.</span></span><br /><br /> <span data-ttu-id="7e440-112">More information: [Character literals](#Literals).</span><span class="sxs-lookup"><span data-stu-id="7e440-112">More information: [Character literals](#Literals).</span></span>|<span data-ttu-id="7e440-113">2009-06-15T01:45:30 (arr hh:mm t) -> arr 01:45 A</span><span class="sxs-lookup"><span data-stu-id="7e440-113">2009-06-15T01:45:30 (arr hh:mm t) -> arr 01:45 A</span></span>|
 
+<br/>
+
 <iframe height='500' scrolling='no' title='<span data-ttu-id="b4bf8-145">Aggiungere eventi del mouse all'indicatore HTML predefinito</span><span class="sxs-lookup"><span data-stu-id="b4bf8-145">Adding Mouse Events to default HTML Marker</span></span>' src='//codepen.io/azuremaps/embed/ZmZLBa/?height=500&theme-id=0&default-tab=js,result&embed-version=2&editable=true' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'><span data-ttu-id="b4bf8-146">Vedere l'elemento 2078801 <a href='https://codepen.io/azuremaps/pen/ZmZLBa/'>Aggiungere eventi del mouse all indicatore HTML predefinito</a> di Mappe di Azure (<a href='https://codepen.io/azuremaps'>@azuremaps</a>) in <a href='https://codepen.io'>CodePen</a>.</span><span class="sxs-lookup"><span data-stu-id="b4bf8-146">See the Pen <a href='https://codepen.io/azuremaps/pen/ZmZLBa/'>Adding Mouse Events to default HTML Marker</a> by Azure Maps (<a href='https://codepen.io/azuremaps'>@azuremaps</a>) on <a href='https://codepen.io'>CodePen</a>.</span></span>
 </iframe>
+
+<br/>
 
 1. <span data-ttu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment "[!INCLUDE[at](../LautarolTest/includes/at.md)]" to an [issue](https://github.com/dotnet/docs/issues) existing one that you are working on it.</span><span class="sxs-lookup"><span data-stu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment "[!INCLUDE[at](../LautarolTest/includes/at.md)]" to an [issue](https://github.com/dotnet/docs/issues) existing one that you are working on it.</span></span>
 2. <span data-ttu-id="1baab-103">Write the topic that explains the concepts demonstrated in your sample (example: `docs/standard/linq/where-clause.md`).</span><span class="sxs-lookup"><span data-stu-id="1baab-103">Write the topic that explains the concepts demonstrated in your sample (example: `docs/standard/linq/where-clause.md`).</span></span>
