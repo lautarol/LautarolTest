@@ -30,6 +30,11 @@ wtf
 
 <br/>
 
+<iframe height='500' scrolling='no' title='<span data-ttu-id="17732-145">Hinzufügen von Mausereignissen zum Standard-HTML-Marker</span><span class="sxs-lookup"><span data-stu-id="17732-145">Adding Mouse Events to default HTML Marker</span></span>' src='//codepen.io/azuremaps/embed/ZmZLBa/?height=500&theme-id=0&default-tab=js,result&embed-version=2&editable=true' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'><span data-ttu-id="17732-146">Weitere Informationen finden Sie unter dem Pen <a href='https://codepen.io/azuremaps/pen/ZmZLBa/'>Adding Mouse Events to default HTML Marker</a> (Hinzufügen von Mausereignissen zum Standard-HTML-Marker) von Azure Maps (<a href='https://codepen.io/azuremaps'>@azuremaps</a>) auf <a href='https://codepen.io'>CodePen</a>.</span><span class="sxs-lookup"><span data-stu-id="17732-146">See the Pen <a href='https://codepen.io/azuremaps/pen/ZmZLBa/'>Adding Mouse Events to default HTML Marker</a> by Azure Maps (<a href='https://codepen.io/azuremaps'>@azuremaps</a>) on <a href='https://codepen.io'>CodePen</a>.</span></span>
+</iframe>
+
+wtf
+
 1. <span data-ttu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment "[!INCLUDE[at](../LautarolTest/includes/at.md)]" to an [issue](https://github.com/dotnet/docs/issues) existing one that you are working on it.</span><span class="sxs-lookup"><span data-stu-id="1baab-102">File an [issue](https://github.com/dotnet/docs/issues) or add a comment "[!INCLUDE[at](../LautarolTest/includes/at.md)]" to an [issue](https://github.com/dotnet/docs/issues) existing one that you are working on it.</span></span>
 2. <span data-ttu-id="1baab-103">Write the topic that explains the concepts demonstrated in your sample (example: `docs/standard/linq/where-clause.md`).</span><span class="sxs-lookup"><span data-stu-id="1baab-103">Write the topic that explains the concepts demonstrated in your sample (example: `docs/standard/linq/where-clause.md`).</span></span>
 
