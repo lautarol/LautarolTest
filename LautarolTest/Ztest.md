@@ -7,7 +7,22 @@ ms.technology: xamarin-cross-platform
 author: asb3993
 ms.author: amburns
 ---
-
+ 
+ In the example, after demo reset, you may see something like  
+  
+```  
+SELECT SUM(df.size) * 8 / 1024 AS [On-disk size in MB]  
+FROM sys.filegroups f JOIN sys.database_files df   
+   ON f.data_space_id=df.data_space_id  
+WHERE f.type=N'FX'  
+```  
+  
+||  
+|-|  
+|**On-disk size in MB**|  
+|11839|  
+  
+ At nearly 12GB, this is significantly more than the 9GB we had before the demo reset. This is because some checkpoint file merges have been started, but some of the merge targets have not yet been installed, and some of the merge source files have not yet been cleaned up, as can be seen from the following:  
 wtf
 
 <br/>
