@@ -1,231 +1,260 @@
 ---
-title: Stream processing with Azure Stream Analytics
-titleSuffix: Azure Reference Architectures
-description: Create an end-to-end stream processing pipeline in Azure.
-author: MikeWasson
-ms.date: 11/06/2018
-ms.topic: reference-architecture
-ms.service: architecture-center
-ms.subservice: reference-architecture
-ms.custom: seodec18
+title: 'Tutorial: Simulate a failure in accessing read access redundant storage in Azure | Microsoft Docs'
+description: Simulate an error in accessing read access geo-redundant storage
+services: storage 
+author: tamram
+
+
+ms.service: storage 
+ms.topic: tutorial
+ms.date: 01/03/2019
+ms.author: tamram 
+---  
+
+# Tutorial: Simulate a failure in accessing read-access redundant storage
+
+This tutorial is part two of a series. In it, you learn about the benefits of a [read-access geo-redundant](../common/storage-redundancy-grs.md#read-access-geo-redundant-storage) (RA-GRS) by simulating a failure.
+
+In order to simulate a failure, you can use either [Fiddler](#simulate-a-failure-with-fiddler) or [Static Routing](#simulate-a-failure-with-an-invalid-static-route). Either method will allow you to simulate failure for requests to the primary endpoint of your [read-access geo-redundant](../common/storage-redundancy-grs.md#read-access-geo-redundant-storage) (RA-GRS) storage account, causing the application read from the secondary endpoint instead.
+
+If you don't have an Azure subscription, [create a free account](https://azure.microsoft.com/free/) before you begin.
+
+In part two of the series, you learn how to:
+
+> [!div class="checklist"]
+> * Run and pause the application
+> * Simulate a failure with [fiddler](#simulate-a-failure-with-fiddler) or [an invalid static route](#simulate-a-failure-with-an-invalid-static-route) 
+> * Simulate primary endpoint restoration
+
+## Prerequisites
+
+Before you begin this tutorial, complete the previous tutorial: [Make your application data highly available with Azure storage][previous-tutorial].
+
+To simulate a failure using Fiddler: 
+
+* Download and [install Fiddler](https://www.telerik.com/download/fiddler)
+
+## Simulate a failure with Fiddler
+
+To simulate failure with Fiddler, you inject a failed response for requests to the primary endpoint of your RA-GRS storage account.
+
+The following sections depict how to simulate a failure and primary endpoint restoration with fiddler.
+
+### Launch fiddler
+
+Open Fiddler, select **Rules** and **Customize Rules**.
+
+![Customize Fiddler rules](media/storage-simulate-failure-ragrs-account-app/figure1.png)
+
+The Fiddler ScriptEditor launches and displays the **SampleRules.js** file. This file is used to customize Fiddler.
+
+Paste the following code sample in the `OnBeforeResponse` function. The new code is commented out to ensure that the logic it creates is not implemented immediately.
+
+Once complete, select **File** and **Save** to save your changes.
+
+```javascript
+	/*
+		// Simulate data center failure
+		// After it is successfully downloading the blob, pause the code in the sample,
+		// uncomment these lines of script, and save the script.
+		// It will intercept the (probably successful) responses and send back a 503 error. 
+		// When you're ready to stop sending back errors, comment these lines of script out again 
+		//     and save the changes.
+
+		if ((oSession.hostname == "contosoragrs.blob.core.windows.net") 
+	    	&& (oSession.PathAndQuery.Contains("HelloWorld"))) {
+			oSession.responseCode = 503;  
+		}
+	*/
+```
+
+![Paste customized rule](media/storage-simulate-failure-ragrs-account-app/figure2.png)
+
+### Interrupting the application
+
+# [.NET, Python, and Java v7] (#tab/dotnet-python-java-v7)
+
+Run the application in your IDE or shell.
+
+Once the application begins reading from the primary endpoint, press **any key** in the console window to pause the application.
+
+![Scenario app](media/storage-simulate-failure-ragrs-account-app/scenario.png)
+
+# [Java v10] (#tab/Java-v10)
+
+Run the application in your IDE or shell.
+
+Since you control the sample, you do not need to interrupt it in order to simulate a failure. Just make sure that the file has been uploaded to your storage account by running the sample and entering **P**.
+
+![Scenario app](media/storage-simulate-failure-ragrs-account-app/Java-put-list-output.png)
+
 ---
 
-# <a name="create-a-stream-processing-pipeline-with-azure-stream-analytics"></a><span data-ttu-id="86b1c-103">Create a stream processing pipeline with Azure Stream Analytics</span><span class="sxs-lookup"><span data-stu-id="86b1c-103">Create a stream processing pipeline with Azure Stream Analytics</span></span>
+### Simulate failure
 
-<span data-ttu-id="86b1c-104">This reference architecture shows an end-to-end [stream processing](/azure/architecture/data-guide/big-data/real-time-processing) pipeline.</span><span class="sxs-lookup"><span data-stu-id="86b1c-104">This reference architecture shows an end-to-end [stream processing](/azure/architecture/data-guide/big-data/real-time-processing) pipeline.</span></span> <span data-ttu-id="86b1c-105">The pipeline ingests data from two sources, correlates records in the two streams, and calculates a rolling average across a time window.</span><span class="sxs-lookup"><span data-stu-id="86b1c-105">The pipeline ingests data from two sources, correlates records in the two streams, and calculates a rolling average across a time window.</span></span> <span data-ttu-id="86b1c-106">The results are stored for further analysis.</span><span class="sxs-lookup"><span data-stu-id="86b1c-106">The results are stored for further analysis.</span></span>
+While the application is paused, uncomment the custom rule we saved in Fiddler.
 
-<span data-ttu-id="86b1c-107">A reference implementation for this architecture is available on [GitHub][github].</span><span class="sxs-lookup"><span data-stu-id="86b1c-107">A reference implementation for this architecture is available on [GitHub][github].</span></span>
+The code sample looks for requests to the RA-GRS storage account and, if the path contains the name of the file `HelloWorld`, returns a response code of `503 - Service Unavailable`.
 
-![Reference architecture for creating a stream processing pipeline with Azure Stream Analytics](./images/stream-processing-asa/stream-processing-asa.png)
+Navigate to Fiddler and select **Rules** -> **Customize Rules...**.
 
-<span data-ttu-id="86b1c-109">**Scenario**: A taxi company collects data about each taxi trip.</span><span class="sxs-lookup"><span data-stu-id="86b1c-109">**Scenario**: A taxi company collects data about each taxi trip.</span></span> <span data-ttu-id="86b1c-110">For this scenario, we assume there are two separate devices sending data.</span><span class="sxs-lookup"><span data-stu-id="86b1c-110">For this scenario, we assume there are two separate devices sending data.</span></span> <span data-ttu-id="86b1c-111">The taxi has a meter that sends information about each ride &mdash; the duration, distance, and pickup and dropoff locations.</span><span class="sxs-lookup"><span data-stu-id="86b1c-111">The taxi has a meter that sends information about each ride &mdash; the duration, distance, and pickup and dropoff locations.</span></span> <span data-ttu-id="86b1c-112">A separate device accepts payments from customers and sends data about fares.</span><span class="sxs-lookup"><span data-stu-id="86b1c-112">A separate device accepts payments from customers and sends data about fares.</span></span> <span data-ttu-id="86b1c-113">The taxi company wants to calculate the average tip per mile driven, in real time, in order to spot trends.</span><span class="sxs-lookup"><span data-stu-id="86b1c-113">The taxi company wants to calculate the average tip per mile driven, in real time, in order to spot trends.</span></span>
+Uncomment the following lines, replace `STORAGEACCOUNTNAME` with the name of your storage account. Select **File** -> **Save** to save your changes. 
 
-## <a name="architecture"></a><span data-ttu-id="86b1c-114">Architecture</span><span class="sxs-lookup"><span data-stu-id="86b1c-114">Architecture</span></span>
+> [!NOTE]
+> If you are running the sample application on Linux, you need to restart Fiddler whenever you edit the **CustomRule.js** file, in order for Fiddler to install the custom logic.
 
-<span data-ttu-id="86b1c-115">The architecture consists of the following components.</span><span class="sxs-lookup"><span data-stu-id="86b1c-115">The architecture consists of the following components.</span></span>
-
-<span data-ttu-id="86b1c-116">**Data sources**.</span><span class="sxs-lookup"><span data-stu-id="86b1c-116">**Data sources**.</span></span> <span data-ttu-id="86b1c-117">In this architecture, there are two data sources that generate data streams in real time.</span><span class="sxs-lookup"><span data-stu-id="86b1c-117">In this architecture, there are two data sources that generate data streams in real time.</span></span> <span data-ttu-id="86b1c-118">The first stream contains ride information, and the second contains fare information.</span><span class="sxs-lookup"><span data-stu-id="86b1c-118">The first stream contains ride information, and the second contains fare information.</span></span> <span data-ttu-id="86b1c-119">The reference architecture includes a simulated data generator that reads from a set of static files and pushes the data to Event Hubs.</span><span class="sxs-lookup"><span data-stu-id="86b1c-119">The reference architecture includes a simulated data generator that reads from a set of static files and pushes the data to Event Hubs.</span></span> <span data-ttu-id="86b1c-120">In a real application, the data sources would be devices installed in the taxi cabs.</span><span class="sxs-lookup"><span data-stu-id="86b1c-120">In a real application, the data sources would be devices installed in the taxi cabs.</span></span>
-
-<span data-ttu-id="86b1c-121">**Azure Event Hubs**.</span><span class="sxs-lookup"><span data-stu-id="86b1c-121">**Azure Event Hubs**.</span></span> <span data-ttu-id="86b1c-122">[Event Hubs](/azure/event-hubs/) is an event ingestion service.</span><span class="sxs-lookup"><span data-stu-id="86b1c-122">[Event Hubs](/azure/event-hubs/) is an event ingestion service.</span></span> <span data-ttu-id="86b1c-123">This architecture uses two event hub instances, one for each data source.</span><span class="sxs-lookup"><span data-stu-id="86b1c-123">This architecture uses two event hub instances, one for each data source.</span></span> <span data-ttu-id="86b1c-124">Each data source sends a stream of data to the associated event hub.</span><span class="sxs-lookup"><span data-stu-id="86b1c-124">Each data source sends a stream of data to the associated event hub.</span></span>
-
-<span data-ttu-id="86b1c-125">**Azure Stream Analytics**.</span><span class="sxs-lookup"><span data-stu-id="86b1c-125">**Azure Stream Analytics**.</span></span> <span data-ttu-id="86b1c-126">[Stream Analytics](/azure/stream-analytics/) is an event-processing engine.</span><span class="sxs-lookup"><span data-stu-id="86b1c-126">[Stream Analytics](/azure/stream-analytics/) is an event-processing engine.</span></span> <span data-ttu-id="86b1c-127">A Stream Analytics job reads the data streams from the two event hubs and performs stream processing.</span><span class="sxs-lookup"><span data-stu-id="86b1c-127">A Stream Analytics job reads the data streams from the two event hubs and performs stream processing.</span></span>
-
-<span data-ttu-id="86b1c-128">**Cosmos DB**.</span><span class="sxs-lookup"><span data-stu-id="86b1c-128">**Cosmos DB**.</span></span> <span data-ttu-id="86b1c-129">The output from the Stream Analytics job is a series of records, which are written as JSON documents to a Cosmos DB document database.</span><span class="sxs-lookup"><span data-stu-id="86b1c-129">The output from the Stream Analytics job is a series of records, which are written as JSON documents to a Cosmos DB document database.</span></span>
-
-<span data-ttu-id="86b1c-130">**Microsoft Power BI**.</span><span class="sxs-lookup"><span data-stu-id="86b1c-130">**Microsoft Power BI**.</span></span> <span data-ttu-id="86b1c-131">Power BI is a suite of business analytics tools to analyze data for business insights.</span><span class="sxs-lookup"><span data-stu-id="86b1c-131">Power BI is a suite of business analytics tools to analyze data for business insights.</span></span> <span data-ttu-id="86b1c-132">In this architecture, it loads the data from Cosmos DB.</span><span class="sxs-lookup"><span data-stu-id="86b1c-132">In this architecture, it loads the data from Cosmos DB.</span></span> <span data-ttu-id="86b1c-133">This allows users to analyze the complete set of historical data that's been collected.</span><span class="sxs-lookup"><span data-stu-id="86b1c-133">This allows users to analyze the complete set of historical data that's been collected.</span></span> <span data-ttu-id="86b1c-134">You could also stream the results directly from Stream Analytics to Power BI for a real-time view of the data.</span><span class="sxs-lookup"><span data-stu-id="86b1c-134">You could also stream the results directly from Stream Analytics to Power BI for a real-time view of the data.</span></span> <span data-ttu-id="86b1c-135">For more information, see [Real-time streaming in Power BI](/power-bi/service-real-time-streaming).</span><span class="sxs-lookup"><span data-stu-id="86b1c-135">For more information, see [Real-time streaming in Power BI](/power-bi/service-real-time-streaming).</span></span>
-
-<span data-ttu-id="86b1c-136">**Azure Monitor**.</span><span class="sxs-lookup"><span data-stu-id="86b1c-136">**Azure Monitor**.</span></span> <span data-ttu-id="86b1c-137">[Azure Monitor](/azure/monitoring-and-diagnostics/) collects performance metrics about the Azure services deployed in the solution.</span><span class="sxs-lookup"><span data-stu-id="86b1c-137">[Azure Monitor](/azure/monitoring-and-diagnostics/) collects performance metrics about the Azure services deployed in the solution.</span></span> <span data-ttu-id="86b1c-138">By visualizing these in a dashboard, you can get insights into the health of the solution.</span><span class="sxs-lookup"><span data-stu-id="86b1c-138">By visualizing these in a dashboard, you can get insights into the health of the solution.</span></span>
-
-## <a name="data-ingestion"></a><span data-ttu-id="86b1c-139">Data ingestion</span><span class="sxs-lookup"><span data-stu-id="86b1c-139">Data ingestion</span></span>
-
-<!-- markdownlint-disable MD033 -->
-
-<span data-ttu-id="86b1c-140">To simulate a data source, this reference architecture uses the [New York City Taxi Data](https://uofi.app.box.com/v/NYCtaxidata/folder/2332218797) dataset<sup>[[1]](#note1)</sup>.</span><span class="sxs-lookup"><span data-stu-id="86b1c-140">To simulate a data source, this reference architecture uses the [New York City Taxi Data](https://uofi.app.box.com/v/NYCtaxidata/folder/2332218797) dataset<sup>[[1]](#note1)</sup>.</span></span> <span data-ttu-id="86b1c-141">This dataset contains data about taxi trips in New York City over a 4-year period (2010 &ndash; 2013).</span><span class="sxs-lookup"><span data-stu-id="86b1c-141">This dataset contains data about taxi trips in New York City over a 4-year period (2010 &ndash; 2013).</span></span> <span data-ttu-id="86b1c-142">It contains two types of record: Ride data and fare data.</span><span class="sxs-lookup"><span data-stu-id="86b1c-142">It contains two types of record: Ride data and fare data.</span></span> <span data-ttu-id="86b1c-143">Ride data includes trip duration, trip distance, and pickup and dropoff location.</span><span class="sxs-lookup"><span data-stu-id="86b1c-143">Ride data includes trip duration, trip distance, and pickup and dropoff location.</span></span> <span data-ttu-id="86b1c-144">Fare data includes fare, tax, and tip amounts.</span><span class="sxs-lookup"><span data-stu-id="86b1c-144">Fare data includes fare, tax, and tip amounts.</span></span> <span data-ttu-id="86b1c-145">Common fields in both record types include medallion number, hack license, and vendor ID.</span><span class="sxs-lookup"><span data-stu-id="86b1c-145">Common fields in both record types include medallion number, hack license, and vendor ID.</span></span> <span data-ttu-id="86b1c-146">Together these three fields uniquely identify a taxi plus a driver.</span><span class="sxs-lookup"><span data-stu-id="86b1c-146">Together these three fields uniquely identify a taxi plus a driver.</span></span> <span data-ttu-id="86b1c-147">The data is stored in CSV format.</span><span class="sxs-lookup"><span data-stu-id="86b1c-147">The data is stored in CSV format.</span></span>
-
-<span data-ttu-id="86b1c-148"><span id="note1">[1]</span> Donovan, Brian; Work, Dan (2016): New York City Taxi Trip Data (2010-2013).</span><span class="sxs-lookup"><span data-stu-id="86b1c-148"><span id="note1">[1]</span> Donovan, Brian; Work, Dan (2016): New York City Taxi Trip Data (2010-2013).</span></span> <span data-ttu-id="86b1c-149">University of Illinois at Urbana-Champaign.</span><span class="sxs-lookup"><span data-stu-id="86b1c-149">University of Illinois at Urbana-Champaign.</span></span> <https://doi.org/10.13012/J8PN93H8>
-
-<!-- markdownlint-enable MD033 -->
-
-<span data-ttu-id="86b1c-150">The data generator is a .NET Core application that reads the records and sends them to Azure Event Hubs.</span><span class="sxs-lookup"><span data-stu-id="86b1c-150">The data generator is a .NET Core application that reads the records and sends them to Azure Event Hubs.</span></span> <span data-ttu-id="86b1c-151">The generator sends ride data in JSON format and fare data in CSV format.</span><span class="sxs-lookup"><span data-stu-id="86b1c-151">The generator sends ride data in JSON format and fare data in CSV format.</span></span>
-
-<span data-ttu-id="86b1c-152">Event Hubs uses [partitions](/azure/event-hubs/event-hubs-features#partitions) to segment the data.</span><span class="sxs-lookup"><span data-stu-id="86b1c-152">Event Hubs uses [partitions](/azure/event-hubs/event-hubs-features#partitions) to segment the data.</span></span> <span data-ttu-id="86b1c-153">Partitions allow a consumer to read each partition in parallel.</span><span class="sxs-lookup"><span data-stu-id="86b1c-153">Partitions allow a consumer to read each partition in parallel.</span></span> <span data-ttu-id="86b1c-154">When you send data to Event Hubs, you can specify the partition key explicitly.</span><span class="sxs-lookup"><span data-stu-id="86b1c-154">When you send data to Event Hubs, you can specify the partition key explicitly.</span></span> <span data-ttu-id="86b1c-155">Otherwise, records are assigned to partitions in round-robin fashion.</span><span class="sxs-lookup"><span data-stu-id="86b1c-155">Otherwise, records are assigned to partitions in round-robin fashion.</span></span>
-
-<span data-ttu-id="86b1c-156">In this particular scenario, ride data and fare data should end up with the same partition ID for a given taxi cab.</span><span class="sxs-lookup"><span data-stu-id="86b1c-156">In this particular scenario, ride data and fare data should end up with the same partition ID for a given taxi cab.</span></span> <span data-ttu-id="86b1c-157">This enables Stream Analytics to apply a degree of parallelism when it correlates the two streams.</span><span class="sxs-lookup"><span data-stu-id="86b1c-157">This enables Stream Analytics to apply a degree of parallelism when it correlates the two streams.</span></span> <span data-ttu-id="86b1c-158">A record in partition *n* of the ride data will match a record in partition *n* of the fare data.</span><span class="sxs-lookup"><span data-stu-id="86b1c-158">A record in partition *n* of the ride data will match a record in partition *n* of the fare data.</span></span>
-
-![Diagram of stream processing with Azure Stream Analytics and Event Hubs](./images/stream-processing-asa/stream-processing-eh.png)
-
-<span data-ttu-id="86b1c-160">In the data generator, the common data model for both record types has a `PartitionKey` property which is the concatenation of `Medallion`, `HackLicense`, and `VendorId`.</span><span class="sxs-lookup"><span data-stu-id="86b1c-160">In the data generator, the common data model for both record types has a `PartitionKey` property which is the concatenation of `Medallion`, `HackLicense`, and `VendorId`.</span></span>
-
-```csharp
-public abstract class TaxiData
-{
-    public TaxiData()
-    {
-    }
-
-    [JsonProperty]
-    public long Medallion { get; set; }
-
-    [JsonProperty]
-    public long HackLicense { get; set; }
-
-    [JsonProperty]
-    public string VendorId { get; set; }
-
-    [JsonProperty]
-    public DateTimeOffset PickupTime { get; set; }
-
-    [JsonIgnore]
-    public string PartitionKey
-    {
-        get => $"{Medallion}_{HackLicense}_{VendorId}";
-    }
+```javascript
+         if ((oSession.hostname == "STORAGEACCOUNTNAME.blob.core.windows.net")
+         && (oSession.PathAndQuery.Contains("HelloWorld"))) {
+         oSession.responseCode = 503;
+         }
 ```
 
-<span data-ttu-id="86b1c-161">This property is used to provide an explicit partition key when sending to Event Hubs:</span><span class="sxs-lookup"><span data-stu-id="86b1c-161">This property is used to provide an explicit partition key when sending to Event Hubs:</span></span>
+# [.NET, Python, and Java v7] (#tab/dotnet-python-java-v7)
 
-```csharp
-using (var client = pool.GetObject())
-{
-    return client.Value.SendAsync(new EventData(Encoding.UTF8.GetBytes(
-        t.GetData(dataFormat))), t.PartitionKey);
-}
+To resume the application, press **any key**.
+
+Once the application starts running again, the requests to the primary endpoint begin to fail. The application attempts to reconnect to the primary endpoint 5 times. After the failure threshold of five attempts, it requests the image from the secondary read-only endpoint. When the application successfully retrieves the image 20 times from the secondary endpoint it will attempt to connect to the primary endpoint. If the primary endpoint is still unreachable, the application resumes reading from the secondary endpoint.
+
+This pattern is the [Circuit Breaker](https://docs.microsoft.com/azure/architecture/patterns/circuit-breaker) pattern described in the previous tutorial.
+
+![Paste customized rule](media/storage-simulate-failure-ragrs-account-app/figure3.png)
+
+# [Java v10] (#tab/Java-v10)
+
+Now that you've introduced the failure, enter **G** to test the failure.
+
+It will inform you that it is using the secondary pipeline as opposed to the primary pipeline.
+
+---
+
+### Simulate primary endpoint restoration
+
+# [.NET, Python, and Java v7] (#tab/dotnet-python-java-v7)
+
+With the Fiddler custom rule set in the preceding step, requests to the primary endpoint fail.
+
+In order to simulate the primary endpoint functioning again, you remove the logic to inject the `503` error.
+
+To pause the application, press **any key**.
+
+Navigate to Fiddler and select **Rules** and **Customize Rules...**. 
+
+Comment or remove the custom logic in the `OnBeforeResponse` function, leaving the default function.
+
+Select **File** and **Save** to save the changes.
+
+![Remove customized rule](media/storage-simulate-failure-ragrs-account-app/figure5.png)
+
+When complete, press **any key** to resume the application. The application continues reading from the primary endpoint until it hits 999 reads.
+
+![Resume application](media/storage-simulate-failure-ragrs-account-app/figure4.png)
+
+# [Java v10] (#tab/Java-v10)
+
+With the Fiddler custom rule set in the preceding step, requests to the primary endpoint fail.
+
+In order to simulate the primary endpoint functioning again, you remove the logic to inject the `503` error.
+
+Navigate to Fiddler and select **Rules** and **Customize Rules...**.  Comment or remove the custom logic in the `OnBeforeResponse` function, leaving the default function.
+
+Select **File** and **Save** to save the changes.
+
+When complete, enter **G** to test the download. The application will report that it is now using the primary pipeline again.
+
+---
+
+## Simulate a failure with an invalid static route
+
+You can create an invalid static route for all requests to the primary endpoint of your [read-access geo-redundant](../common/storage-redundancy-grs.md#read-access-geo-redundant-storage) (RA-GRS) storage account. In this tutorial, the local host is used as the gateway for routing requests to the storage account. Using the local host as the gateway causes all requests to your storage account primary endpoint to loop back inside the host, which subsequently leads to failure. Follow the following steps to simulate a failure, and primary endpoint restoration with an invalid static route. 
+
+### Start and pause the application
+
+# [.NET, Python, and Java v7] (#tab/dotnet-python-java-v7)
+
+Run the application in your IDE or shell. Once the application begins reading from the primary endpoint, press **any key** in the console window to pause the application.
+
+# [Java v10] (#tab/Java-v10)
+
+Since you control the sample, you do not need to interrupt it in order to test failure.
+
+Make sure that the file has been uploaded to your storage account by running the sample and entering **P**.
+
+---
+
+### Simulate failure
+
+With the application paused, start command prompt on Windows as an administrator or run terminal as root on Linux.
+
+Get information about the storage account primary endpoint domain by entering the following command on a command prompt or terminal.
+
 ```
+nslookup STORAGEACCOUNTNAME.blob.core.windows.net
+``` 
+ Replace `STORAGEACCOUNTNAME` with the name of your storage account. Copy to the IP address of your storage account to a text editor for later use.
 
-## <a name="stream-processing"></a><span data-ttu-id="86b1c-162">Stream processing</span><span class="sxs-lookup"><span data-stu-id="86b1c-162">Stream processing</span></span>
+To get the IP address of your local host, type `ipconfig` on the Windows command prompt, or `ifconfig` on the Linux terminal. 
 
-<span data-ttu-id="86b1c-163">The stream processing job is defined using a SQL query with several distinct steps.</span><span class="sxs-lookup"><span data-stu-id="86b1c-163">The stream processing job is defined using a SQL query with several distinct steps.</span></span> <span data-ttu-id="86b1c-164">The first two steps simply select records from the two input streams.</span><span class="sxs-lookup"><span data-stu-id="86b1c-164">The first two steps simply select records from the two input streams.</span></span>
+To add a static route for a destination host, type the following command on a Windows command prompt or Linux terminal. 
 
-```sql
-WITH
-Step1 AS (
-    SELECT PartitionId,
-           TRY_CAST(Medallion AS nvarchar(max)) AS Medallion,
-           TRY_CAST(HackLicense AS nvarchar(max)) AS HackLicense,
-           VendorId,
-           TRY_CAST(PickupTime AS datetime) AS PickupTime,
-           TripDistanceInMiles
-    FROM [TaxiRide] PARTITION BY PartitionId
-),
-Step2 AS (
-    SELECT PartitionId,
-           medallion AS Medallion,
-           hack_license AS HackLicense,
-           vendor_id AS VendorId,
-           TRY_CAST(pickup_datetime AS datetime) AS PickupTime,
-           tip_amount AS TipAmount
-    FROM [TaxiFare] PARTITION BY PartitionId
-),
-```
+#### Linux
 
-<span data-ttu-id="86b1c-165">The next step joins the two input streams to select matching records from each stream.</span><span class="sxs-lookup"><span data-stu-id="86b1c-165">The next step joins the two input streams to select matching records from each stream.</span></span>
+`route add <destination_ip> gw <gateway_ip>`
 
-```sql
-Step3 AS (
-  SELECT
-         tr.Medallion,
-         tr.HackLicense,
-         tr.VendorId,
-         tr.PickupTime,
-         tr.TripDistanceInMiles,
-         tf.TipAmount
-    FROM [Step1] tr
-    PARTITION BY PartitionId
-    JOIN [Step2] tf PARTITION BY PartitionId
-      ON tr.Medallion = tf.Medallion
-     AND tr.HackLicense = tf.HackLicense
-     AND tr.VendorId = tf.VendorId
-     AND tr.PickupTime = tf.PickupTime
-     AND tr.PartitionId = tf.PartitionId
-     AND DATEDIFF(minute, tr, tf) BETWEEN 0 AND 15
-)
-```
+#### Windows
 
-<span data-ttu-id="86b1c-166">This query joins records on a set of fields that uniquely identify matching records (Medallion, HackLicense, VendorId, and PickupTime).</span><span class="sxs-lookup"><span data-stu-id="86b1c-166">This query joins records on a set of fields that uniquely identify matching records (Medallion, HackLicense, VendorId, and PickupTime).</span></span> <span data-ttu-id="86b1c-167">The `JOIN` statement also includes the partition ID.</span><span class="sxs-lookup"><span data-stu-id="86b1c-167">The `JOIN` statement also includes the partition ID.</span></span> <span data-ttu-id="86b1c-168">As mentioned, this takes advantage of the fact that matching records always have the same partition ID in this scenario.</span><span class="sxs-lookup"><span data-stu-id="86b1c-168">As mentioned, this takes advantage of the fact that matching records always have the same partition ID in this scenario.</span></span>
+`route add <destination_ip> <gateway_ip>`
 
-<span data-ttu-id="86b1c-169">In Stream Analytics, joins are *temporal*, meaning records are joined within a particular window of time.</span><span class="sxs-lookup"><span data-stu-id="86b1c-169">In Stream Analytics, joins are *temporal*, meaning records are joined within a particular window of time.</span></span> <span data-ttu-id="86b1c-170">Otherwise, the job might need to wait indefinitely for a match.</span><span class="sxs-lookup"><span data-stu-id="86b1c-170">Otherwise, the job might need to wait indefinitely for a match.</span></span> <span data-ttu-id="86b1c-171">The [DATEDIFF](https://msdn.microsoft.com/azure/stream-analytics/reference/join-azure-stream-analytics) function specifies how far two matching records can be separated in time for a match.</span><span class="sxs-lookup"><span data-stu-id="86b1c-171">The [DATEDIFF](https://msdn.microsoft.com/azure/stream-analytics/reference/join-azure-stream-analytics) function specifies how far two matching records can be separated in time for a match.</span></span>
+Replace  `<destination_ip>` with your storage account IP address, and `<gateway_ip>` with your local host IP address.
 
-<span data-ttu-id="86b1c-172">The last step in the job computes the average tip per mile, grouped by a hopping window of 5 minutes.</span><span class="sxs-lookup"><span data-stu-id="86b1c-172">The last step in the job computes the average tip per mile, grouped by a hopping window of 5 minutes.</span></span>
+# [.NET, Python, and Java v7] (#tab/dotnet-python-java-v7)
 
-```sql
-SELECT System.Timestamp AS WindowTime,
-       SUM(tr.TipAmount) / SUM(tr.TripDistanceInMiles) AS AverageTipPerMile
-  INTO [TaxiDrain]
-  FROM [Step3] tr
-  GROUP BY HoppingWindow(Duration(minute, 5), Hop(minute, 1))
-```
+To resume the application, press **any key**.
 
-<span data-ttu-id="86b1c-173">Stream Analytics provides several [windowing functions](/azure/stream-analytics/stream-analytics-window-functions).</span><span class="sxs-lookup"><span data-stu-id="86b1c-173">Stream Analytics provides several [windowing functions](/azure/stream-analytics/stream-analytics-window-functions).</span></span> <span data-ttu-id="86b1c-174">A hopping window moves forward in time by a fixed period, in this case 1 minute per hop.</span><span class="sxs-lookup"><span data-stu-id="86b1c-174">A hopping window moves forward in time by a fixed period, in this case 1 minute per hop.</span></span> <span data-ttu-id="86b1c-175">The result is to calculate a moving average over the past 5 minutes.</span><span class="sxs-lookup"><span data-stu-id="86b1c-175">The result is to calculate a moving average over the past 5 minutes.</span></span>
+Once the application starts running again, the requests to the primary endpoint begin to fail. The application attempts to reconnect to the primary endpoint five times. After the failure threshold of five attempts, it requests the image from the secondary read-only endpoint. After the application successfully retrieves the image 20 times from the secondary endpoint, the application attempts to connect to the primary endpoint. If the primary endpoint is still unreachable, the application resumes reading from the secondary endpoint. This pattern is the [Circuit Breaker](/azure/architecture/patterns/circuit-breaker) pattern described in the previous tutorial.
 
-<span data-ttu-id="86b1c-176">In the architecture shown here, only the results of the Stream Analytics job are saved to Cosmos DB.</span><span class="sxs-lookup"><span data-stu-id="86b1c-176">In the architecture shown here, only the results of the Stream Analytics job are saved to Cosmos DB.</span></span> <span data-ttu-id="86b1c-177">For a big data scenario, consider also using [Event Hubs Capture](/azure/event-hubs/event-hubs-capture-overview) to save the raw event data into Azure Blob storage.</span><span class="sxs-lookup"><span data-stu-id="86b1c-177">For a big data scenario, consider also using [Event Hubs Capture](/azure/event-hubs/event-hubs-capture-overview) to save the raw event data into Azure Blob storage.</span></span> <span data-ttu-id="86b1c-178">Keeping the raw data will allow you to run batch queries over your historical data at later time, in order to derive new insights from the data.</span><span class="sxs-lookup"><span data-stu-id="86b1c-178">Keeping the raw data will allow you to run batch queries over your historical data at later time, in order to derive new insights from the data.</span></span>
+# [Java v10] (#tab/Java-v10)
 
-## <a name="scalability-considerations"></a><span data-ttu-id="86b1c-179">Scalability considerations</span><span class="sxs-lookup"><span data-stu-id="86b1c-179">Scalability considerations</span></span>
+Now that you've introduced the failure, enter **G** to test the failure. It will inform you that it is using the secondary pipeline as opposed to the primary pipeline.
 
-### <a name="event-hubs"></a><span data-ttu-id="86b1c-180">Event Hubs</span><span class="sxs-lookup"><span data-stu-id="86b1c-180">Event Hubs</span></span>
+---
 
-<span data-ttu-id="86b1c-181">The throughput capacity of Event Hubs is measured in [throughput units](/azure/event-hubs/event-hubs-features#throughput-units).</span><span class="sxs-lookup"><span data-stu-id="86b1c-181">The throughput capacity of Event Hubs is measured in [throughput units](/azure/event-hubs/event-hubs-features#throughput-units).</span></span> <span data-ttu-id="86b1c-182">You can autoscale an event hub by enabling [auto-inflate](/azure/event-hubs/event-hubs-auto-inflate), which automatically scales the throughput units based on traffic, up to a configured maximum.</span><span class="sxs-lookup"><span data-stu-id="86b1c-182">You can autoscale an event hub by enabling [auto-inflate](/azure/event-hubs/event-hubs-auto-inflate), which automatically scales the throughput units based on traffic, up to a configured maximum.</span></span>
+### Simulate primary endpoint restoration
 
-### <a name="stream-analytics"></a><span data-ttu-id="86b1c-183">Stream Analytics</span><span class="sxs-lookup"><span data-stu-id="86b1c-183">Stream Analytics</span></span>
+To simulate the primary endpoint functioning again, delete the static route of the primary endpoint from the routing table. This allows all requests to the primary endpoint to be routed through the default gateway.
 
-<span data-ttu-id="86b1c-184">For Stream Analytics, the computing resources allocated to a job are measured in Streaming Units.</span><span class="sxs-lookup"><span data-stu-id="86b1c-184">For Stream Analytics, the computing resources allocated to a job are measured in Streaming Units.</span></span> <span data-ttu-id="86b1c-185">Stream Analytics jobs scale best if the job can be parallelized.</span><span class="sxs-lookup"><span data-stu-id="86b1c-185">Stream Analytics jobs scale best if the job can be parallelized.</span></span> <span data-ttu-id="86b1c-186">That way, Stream Analytics can distribute the job across multiple compute nodes.</span><span class="sxs-lookup"><span data-stu-id="86b1c-186">That way, Stream Analytics can distribute the job across multiple compute nodes.</span></span>
+To delete the static route of a destination host, the storage account, type the following command on a Windows command prompt or linux terminal.
 
-<span data-ttu-id="86b1c-187">For Event Hubs input, use the `PARTITION BY` keyword to partition the Stream Analytics job.</span><span class="sxs-lookup"><span data-stu-id="86b1c-187">For Event Hubs input, use the `PARTITION BY` keyword to partition the Stream Analytics job.</span></span> <span data-ttu-id="86b1c-188">The data will be divided into subsets based on the Event Hubs partitions.</span><span class="sxs-lookup"><span data-stu-id="86b1c-188">The data will be divided into subsets based on the Event Hubs partitions.</span></span>
+#### Linux
 
-<span data-ttu-id="86b1c-189">Windowing functions and temporal joins require additional SU.</span><span class="sxs-lookup"><span data-stu-id="86b1c-189">Windowing functions and temporal joins require additional SU.</span></span> <span data-ttu-id="86b1c-190">When possible, use `PARTITION BY` so that each partition is processed separately.</span><span class="sxs-lookup"><span data-stu-id="86b1c-190">When possible, use `PARTITION BY` so that each partition is processed separately.</span></span> <span data-ttu-id="86b1c-191">For more information, see [Understand and adjust Streaming Units](/azure/stream-analytics/stream-analytics-streaming-unit-consumption#windowed-aggregates).</span><span class="sxs-lookup"><span data-stu-id="86b1c-191">For more information, see [Understand and adjust Streaming Units](/azure/stream-analytics/stream-analytics-streaming-unit-consumption#windowed-aggregates).</span></span>
+`route del <destination_ip> gw <gateway_ip>`
 
-<span data-ttu-id="86b1c-192">If it's not possible to parallelize the entire Stream Analytics job, try to break the job into multiple steps, starting with one or more parallel steps.</span><span class="sxs-lookup"><span data-stu-id="86b1c-192">If it's not possible to parallelize the entire Stream Analytics job, try to break the job into multiple steps, starting with one or more parallel steps.</span></span> <span data-ttu-id="86b1c-193">That way, the first steps can run in parallel.</span><span class="sxs-lookup"><span data-stu-id="86b1c-193">That way, the first steps can run in parallel.</span></span> <span data-ttu-id="86b1c-194">For example, in this reference architecture:</span><span class="sxs-lookup"><span data-stu-id="86b1c-194">For example, in this reference architecture:</span></span>
+#### Windows
 
-- <span data-ttu-id="86b1c-195">Steps 1 and 2 are simple `SELECT` statements that select records within a single partition.</span><span class="sxs-lookup"><span data-stu-id="86b1c-195">Steps 1 and 2 are simple `SELECT` statements that select records within a single partition.</span></span>
-- <span data-ttu-id="86b1c-196">Step 3 performs a partitioned join across two input streams.</span><span class="sxs-lookup"><span data-stu-id="86b1c-196">Step 3 performs a partitioned join across two input streams.</span></span> <span data-ttu-id="86b1c-197">This step takes advantage of the fact that matching records share the same partition key, and so are guaranteed to have the same partition ID in each input stream.</span><span class="sxs-lookup"><span data-stu-id="86b1c-197">This step takes advantage of the fact that matching records share the same partition key, and so are guaranteed to have the same partition ID in each input stream.</span></span>
-- <span data-ttu-id="86b1c-198">Step 4 aggregates across all of the partitions.</span><span class="sxs-lookup"><span data-stu-id="86b1c-198">Step 4 aggregates across all of the partitions.</span></span> <span data-ttu-id="86b1c-199">This step cannot be parallelized.</span><span class="sxs-lookup"><span data-stu-id="86b1c-199">This step cannot be parallelized.</span></span>
+`route delete <destination_ip>`
 
-<span data-ttu-id="86b1c-200">Use the Stream Analytics [job diagram](/azure/stream-analytics/stream-analytics-job-diagram-with-metrics) to see how many partitions are assigned to each step in the job.</span><span class="sxs-lookup"><span data-stu-id="86b1c-200">Use the Stream Analytics [job diagram](/azure/stream-analytics/stream-analytics-job-diagram-with-metrics) to see how many partitions are assigned to each step in the job.</span></span> <span data-ttu-id="86b1c-201">The following diagram shows the job diagram for this reference architecture:</span><span class="sxs-lookup"><span data-stu-id="86b1c-201">The following diagram shows the job diagram for this reference architecture:</span></span>
+# [.NET, Python, and Java v7] (#tab/dotnet-python-java-v7)
 
-![Job diagram](./images/stream-processing-asa/job-diagram.png)
+Press **any key** to resume the application. The application continues reading from the primary endpoint until it hits 999 reads.
 
-### <a name="cosmos-db"></a><span data-ttu-id="86b1c-203">Cosmos DB</span><span class="sxs-lookup"><span data-stu-id="86b1c-203">Cosmos DB</span></span>
+![Resume application](media/storage-simulate-failure-ragrs-account-app/figure4.png)
 
-<span data-ttu-id="86b1c-204">Throughput capacity for Cosmos DB is measured in [Request Units](/azure/cosmos-db/request-units) (RU).</span><span class="sxs-lookup"><span data-stu-id="86b1c-204">Throughput capacity for Cosmos DB is measured in [Request Units](/azure/cosmos-db/request-units) (RU).</span></span> <span data-ttu-id="86b1c-205">In order to scale a Cosmos DB container past 10,000 RU, you must specify a [partition key](/azure/cosmos-db/partition-data) when you create the container, and include the partition key in every document.</span><span class="sxs-lookup"><span data-stu-id="86b1c-205">In order to scale a Cosmos DB container past 10,000 RU, you must specify a [partition key](/azure/cosmos-db/partition-data) when you create the container, and include the partition key in every document.</span></span>
 
-<span data-ttu-id="86b1c-206">In this reference architecture, new documents are created only once per minute (the hopping window interval), so the throughput requirements are quite low.</span><span class="sxs-lookup"><span data-stu-id="86b1c-206">In this reference architecture, new documents are created only once per minute (the hopping window interval), so the throughput requirements are quite low.</span></span> <span data-ttu-id="86b1c-207">For that reason, there's no need to assign a partition key in this scenario.</span><span class="sxs-lookup"><span data-stu-id="86b1c-207">For that reason, there's no need to assign a partition key in this scenario.</span></span>
+# [Java v10] (#tab/Java-v10)
 
-## <a name="monitoring-considerations"></a><span data-ttu-id="86b1c-208">Monitoring considerations</span><span class="sxs-lookup"><span data-stu-id="86b1c-208">Monitoring considerations</span></span>
+Enter **G** to test the download. The application will report that it is now using the primary pipeline again.
 
-<span data-ttu-id="86b1c-209">With any stream processing solution, it's important to monitor the performance and health of the system.</span><span class="sxs-lookup"><span data-stu-id="86b1c-209">With any stream processing solution, it's important to monitor the performance and health of the system.</span></span> <span data-ttu-id="86b1c-210">[Azure Monitor](/azure/monitoring-and-diagnostics/) collects metrics and diagnostics logs for the Azure services used in the architecture.</span><span class="sxs-lookup"><span data-stu-id="86b1c-210">[Azure Monitor](/azure/monitoring-and-diagnostics/) collects metrics and diagnostics logs for the Azure services used in the architecture.</span></span> <span data-ttu-id="86b1c-211">Azure Monitor is built into the Azure platform and does not require any additional code in your application.</span><span class="sxs-lookup"><span data-stu-id="86b1c-211">Azure Monitor is built into the Azure platform and does not require any additional code in your application.</span></span>
+![Resume application](media/storage-simulate-failure-ragrs-account-app/java-get-pipeline-example-v10.png)
 
-<span data-ttu-id="86b1c-212">Any of the following warning signals indicate that you should scale out the relevant Azure resource:</span><span class="sxs-lookup"><span data-stu-id="86b1c-212">Any of the following warning signals indicate that you should scale out the relevant Azure resource:</span></span>
+---
 
-- <span data-ttu-id="86b1c-213">Event Hubs throttles requests or is close to the daily message quota.</span><span class="sxs-lookup"><span data-stu-id="86b1c-213">Event Hubs throttles requests or is close to the daily message quota.</span></span>
-- <span data-ttu-id="86b1c-214">The Stream Analytics job consistently uses more than 80% of allocated Streaming Units (SU).</span><span class="sxs-lookup"><span data-stu-id="86b1c-214">The Stream Analytics job consistently uses more than 80% of allocated Streaming Units (SU).</span></span>
-- <span data-ttu-id="86b1c-215">Cosmos DB begins to throttle requests.</span><span class="sxs-lookup"><span data-stu-id="86b1c-215">Cosmos DB begins to throttle requests.</span></span>
+## Next steps
 
-<span data-ttu-id="86b1c-216">The reference architecture includes a custom dashboard, which is deployed to the Azure portal.</span><span class="sxs-lookup"><span data-stu-id="86b1c-216">The reference architecture includes a custom dashboard, which is deployed to the Azure portal.</span></span> <span data-ttu-id="86b1c-217">After you deploy the architecture, you can view the dashboard by opening the [Azure Portal](https://portal.azure.com) and selecting `TaxiRidesDashboard` from list of dashboards.</span><span class="sxs-lookup"><span data-stu-id="86b1c-217">After you deploy the architecture, you can view the dashboard by opening the [Azure Portal](https://portal.azure.com) and selecting `TaxiRidesDashboard` from list of dashboards.</span></span> <span data-ttu-id="86b1c-218">For more information about creating and deploying custom dashboards in the Azure portal, see [Programmatically create Azure Dashboards](/azure/azure-portal/azure-portal-dashboards-create-programmatically).</span><span class="sxs-lookup"><span data-stu-id="86b1c-218">For more information about creating and deploying custom dashboards in the Azure portal, see [Programmatically create Azure Dashboards](/azure/azure-portal/azure-portal-dashboards-create-programmatically).</span></span>
+In part two of the series, you learned about simulating a failure to test read access geo-redundant storage.
 
-<span data-ttu-id="86b1c-219">The following image shows the dashboard after the Stream Analytics job ran for about an hour.</span><span class="sxs-lookup"><span data-stu-id="86b1c-219">The following image shows the dashboard after the Stream Analytics job ran for about an hour.</span></span>
+To learn more about how RA-GRS storage works, as well as its associated risks, read the following article:
 
-![Screenshot of the Taxi Rides dashboard](./images/stream-processing-asa/asa-dashboard.png)
+> [!div class="nextstepaction"]
+> [Designing HA apps with RA-GRS](../common/storage-designing-ha-apps-with-ragrs.md)
 
-<span data-ttu-id="86b1c-221">The panel on the lower left shows that the SU consumption for the Stream Analytics job climbs during the first 15 minutes and then levels off.</span><span class="sxs-lookup"><span data-stu-id="86b1c-221">The panel on the lower left shows that the SU consumption for the Stream Analytics job climbs during the first 15 minutes and then levels off.</span></span> <span data-ttu-id="86b1c-222">This is a typical pattern as the job reaches a steady state.</span><span class="sxs-lookup"><span data-stu-id="86b1c-222">This is a typical pattern as the job reaches a steady state.</span></span>
-
-<span data-ttu-id="86b1c-223">Notice that Event Hubs is throttling requests, shown in the upper right panel.</span><span class="sxs-lookup"><span data-stu-id="86b1c-223">Notice that Event Hubs is throttling requests, shown in the upper right panel.</span></span> <span data-ttu-id="86b1c-224">An occasional throttled request is not a problem, because the Event Hubs client SDK automatically retries when it receives a throttling error.</span><span class="sxs-lookup"><span data-stu-id="86b1c-224">An occasional throttled request is not a problem, because the Event Hubs client SDK automatically retries when it receives a throttling error.</span></span> <span data-ttu-id="86b1c-225">However, if you see consistent throttling errors, it means the event hub needs more throughput units.</span><span class="sxs-lookup"><span data-stu-id="86b1c-225">However, if you see consistent throttling errors, it means the event hub needs more throughput units.</span></span> <span data-ttu-id="86b1c-226">The following graph shows a test run using the Event Hubs auto-inflate feature, which automatically scales out the throughput units as needed.</span><span class="sxs-lookup"><span data-stu-id="86b1c-226">The following graph shows a test run using the Event Hubs auto-inflate feature, which automatically scales out the throughput units as needed.</span></span>
-
-![Screenshot of Event Hubs autoscaling](./images/stream-processing-asa/stream-processing-eh-autoscale.png)
-
-<span data-ttu-id="86b1c-228">Auto-inflate was enabled at about the 06:35 mark.</span><span class="sxs-lookup"><span data-stu-id="86b1c-228">Auto-inflate was enabled at about the 06:35 mark.</span></span> <span data-ttu-id="86b1c-229">You can see the p drop in throttled requests, as Event Hubs automatically scaled up to 3 throughput units.</span><span class="sxs-lookup"><span data-stu-id="86b1c-229">You can see the p drop in throttled requests, as Event Hubs automatically scaled up to 3 throughput units.</span></span>
-
-<span data-ttu-id="86b1c-230">Interestingly, this had the side effect of increasing the SU utilization in the Stream Analytics job.</span><span class="sxs-lookup"><span data-stu-id="86b1c-230">Interestingly, this had the side effect of increasing the SU utilization in the Stream Analytics job.</span></span> <span data-ttu-id="86b1c-231">By throttling, Event Hubs was artificially reducing the ingestion rate for the Stream Analytics job.</span><span class="sxs-lookup"><span data-stu-id="86b1c-231">By throttling, Event Hubs was artificially reducing the ingestion rate for the Stream Analytics job.</span></span> <span data-ttu-id="86b1c-232">It's actually common that resolving one performance bottleneck reveals another.</span><span class="sxs-lookup"><span data-stu-id="86b1c-232">It's actually common that resolving one performance bottleneck reveals another.</span></span> <span data-ttu-id="86b1c-233">In this case, allocating additional SU for the Stream Analytics job resolved the issue.</span><span class="sxs-lookup"><span data-stu-id="86b1c-233">In this case, allocating additional SU for the Stream Analytics job resolved the issue.</span></span>
-
-## <a name="deploy-the-solution"></a><span data-ttu-id="86b1c-234">Deploy the solution</span><span class="sxs-lookup"><span data-stu-id="86b1c-234">Deploy the solution</span></span>
-
-<span data-ttu-id="86b1c-235">To the deploy and run the reference implementation, follow the steps in the [GitHub readme][github].</span><span class="sxs-lookup"><span data-stu-id="86b1c-235">To the deploy and run the reference implementation, follow the steps in the [GitHub readme][github].</span></span>
-
-## <a name="related-resources"></a><span data-ttu-id="86b1c-236">Related resources</span><span class="sxs-lookup"><span data-stu-id="86b1c-236">Related resources</span></span>
-
-<span data-ttu-id="86b1c-237">You may wish to review the following [Azure example scenarios](/azure/architecture/example-scenario) that demonstrate specific solutions using some of the same technologies:</span><span class="sxs-lookup"><span data-stu-id="86b1c-237">You may wish to review the following [Azure example scenarios](/azure/architecture/example-scenario) that demonstrate specific solutions using some of the same technologies:</span></span>
-
-- [<span data-ttu-id="86b1c-238">IoT and data analytics in the construction industry</span><span class="sxs-lookup"><span data-stu-id="86b1c-238">IoT and data analytics in the construction industry</span></span>](/azure/architecture/example-scenario/data/big-data-with-iot)
-- [<span data-ttu-id="86b1c-239">Real-time fraud detection</span><span class="sxs-lookup"><span data-stu-id="86b1c-239">Real-time fraud detection</span></span>](/azure/architecture/example-scenario/data/fraud-detection)
-
-<!-- links -->
-
-[github]: https://github.com/mspnp/azure-stream-analytics-data-pipeline
+[previous-tutorial]: storage-create-geo-redundant-storage.md
