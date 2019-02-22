@@ -16,7 +16,7 @@ productPesIds="15526"
 cloudEnvironments="Public"
 />
 # <a name="we-found-an-issue-related-to-a-network-virtual-appliance-used-in-this-connectivity-path"></a>我们发现了一个与此连接路径中使用的网络虚拟设备相关的问题 
-<!--issueDescription--> 我们评估了从源 VM **'<!--$SourceVM-->[SourceVM]<!--/$SourceVM-->'** 到 IP 为 **<!--$DestinationIP-->[DestinationIP]<!--/$DestinationIP-->** 的目标资源的路由，发现有一个名为 **'<!--$NvaVmName-->[NvaVmName]<!--/$NvaVmName-->'** 的用于管理流量的网络虚拟设备 (NVA)。 我们在检测的方案上运行了一些诊断，有了以下发现： 
+<!--issueDescription--> 我们评估了从源 VM **'[SourceVM]'** 到 IP 为 **[DestinationIP]** 的目标资源的路由，发现有一个名为 **'[NvaVmName]'** 的用于管理流量的网络虚拟设备 (NVA)。 我们在检测的方案上运行了一些诊断，有了以下发现： 
 
 - 检查了源虚拟运行状况：**<!--$SourceVmHealthStatus-->[SourceVmHealthStatus]<!--/$SourceVmHealthStatus-->** 
 - 检查了网络虚拟设备运行状况：**<!--$NvaHealthStatus-->[NvaHealthStatus]<!--/$NvaHealthStatus-->**
