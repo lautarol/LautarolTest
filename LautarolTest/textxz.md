@@ -222,8 +222,8 @@ The following additional hybrid features are also included in version 1702 of Co
     |Retire/wipe (remove all data\) |Remove a remote device|Remove device (local and remote)|
     |Retire/wipe (remove company data\) |Reset device|Reset device|
     |New or updated app deployments |Install available line-of-business apps |Device passcode reset|
-    |Remote lock| | |
-    |Passcode reset| | |		
+    |Remote lock|asdasd |asdasd |
+    |Passcode reset|asdasd | asdasd|		
 
 
 ## November 2016
