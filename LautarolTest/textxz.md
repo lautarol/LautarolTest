@@ -15,7 +15,7 @@
 
 # <a name="your-resource-was-impacted-by-a-resource-health-event"></a>El recurso se vio afectado por un evento de mantenimiento de recursos.
 
-<!--issueDescription--> A las <!--$startTime-->startTime<!--/$startTime--> UTC, el sistema de supervisión de Azure recibió la información siguiente sobre su base de datos:
+de <!--issueDescription--> A las <!--$startTime-->startTime<!--/$startTime--> UTC, el sistema de supervisión de Azure recibió la información siguiente sobre su base de datos:
 
 SQL Data Warehouse está experimentando problemas que le impiden iniciar sesión. Estamos trabajando para restaurar el acceso.
 <!--/issueDescription-->
