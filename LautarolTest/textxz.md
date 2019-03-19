@@ -19,7 +19,7 @@ supportTopicIds="32411835,32411844,32411877,32411817,32411885,32411841,32411816,
 
 [Azure Advisor](https://docs.microsoft.com/azure/advisor/advisor-overview) hat Empfehlungen zu den bewährten Methoden für <!--$resourceType-->resourceType<!--/$resourceType--> **<!--$resourceName-->resourceName<!--/$resourceName-->** ermittelt. Advisor ist ein kostenloses Angebot und dient zum Analysieren der Ressourcenkonfiguration und Nutzung, um Lösungen zu empfehlen, mit denen die Kosteneffizienz, Leistung, Hochverfügbarkeit und Sicherheit von Azure-Ressourcen verbessert werden kann.
 
-Wir haben die folgenden Empfehlungen für <!--$resourceType-->resourceType<!--/$resourceType--> **<!--$resourceName-->resourceName<!--/$resourceName-->** gefunden.
+<!--$resourceType-->resourceType<!--/$resourceType--> Wir haben die folgenden Empfehlungen für  **<!--$resourceName-->resourceName<!--/$resourceName-->** gefunden.
 
 <!--$recommendationsList-->recommendationsList<!--/$recommendationsList-->
 
