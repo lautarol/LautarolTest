@@ -14,64 +14,66 @@ ms.collection: M365-identity-device-management
 ---
 
 
-# <a name="create-and-deploy-windows-defender-application-guard-policy"></a><span data-ttu-id="d52ca-103">Create and deploy Windows Defender Application Guard policy</span><span class="sxs-lookup"><span data-stu-id="d52ca-103">Create and deploy Windows Defender Application Guard policy</span></span> 
-<span data-ttu-id="d52ca-104">*Applies to: System Center Configuration Manager (Current Branch)*</span><span class="sxs-lookup"><span data-stu-id="d52ca-104">*Applies to: System Center Configuration Manager (Current Branch)*</span></span>
-<!-- 1351960 -->
-<span data-ttu-id="d52ca-105">You can create and deploy [Windows Defender Application Guard](https://docs.microsoft.com/windows/threat-protection/windows-defender-application-guard/wd-app-guard-overview) policies by using the Configuration Manager endpoint protection.</span><span class="sxs-lookup"><span data-stu-id="d52ca-105">You can create and deploy [Windows Defender Application Guard](https://docs.microsoft.com/windows/threat-protection/windows-defender-application-guard/wd-app-guard-overview) policies by using the Configuration Manager endpoint protection.</span></span> <span data-ttu-id="d52ca-106">These policies help protect your users by opening untrusted web sites in a secure isolated container that is not accessible by other parts of the operating system.</span><span class="sxs-lookup"><span data-stu-id="d52ca-106">These policies help protect your users by opening untrusted web sites in a secure isolated container that is not accessible by other parts of the operating system.</span></span>
+## <a name="create-azure-storage-account"></a>Azure ストレージ アカウントを作成する
 
-## <a name="prerequisites"></a><span data-ttu-id="d52ca-107">Prerequisites</span><span class="sxs-lookup"><span data-stu-id="d52ca-107">Prerequisites</span></span>
+1. Azure portal で、[+ リソースの作成] を選択し、[Marketplace の検索] ボックスに「ストレージ アカウント」と入力して、その結果から [ストレージ アカウント - Blob、File、Table、Queue] を選択し、[作成] を選択します。
 
-<span data-ttu-id="d52ca-108">To create and deploy a Windows Defender Application Guard policy, you must use the Windows 10 Fall Creator’s Update (1709).</span><span class="sxs-lookup"><span data-stu-id="d52ca-108">To create and deploy a Windows Defender Application Guard policy, you must use the Windows 10 Fall Creator’s Update (1709).</span></span> <span data-ttu-id="d52ca-109">Also, the Windows 10 devices to which you deploy the policy must be configured with a network isolation policy.</span><span class="sxs-lookup"><span data-stu-id="d52ca-109">Also, the Windows 10 devices to which you deploy the policy must be configured with a network isolation policy.</span></span> <span data-ttu-id="d52ca-110">For more information, see the [Windows Defender Application Guard overview](https://docs.microsoft.com/windows/threat-protection/windows-defender-application-guard/wd-app-guard-overview).</span><span class="sxs-lookup"><span data-stu-id="d52ca-110">For more information, see the [Windows Defender Application Guard overview](https://docs.microsoft.com/windows/threat-protection/windows-defender-application-guard/wd-app-guard-overview).</span></span> 
+![ストレージ アカウントの追加オプションが強調表示されている Azure portal のスクリーン ショット](../media/add-resource.png)
 
+1. [ストレージ アカウントの作成] ブレードで、次のように入力します。
 
-## <a name="create-a-policy-and-to-browse-the-available-settings"></a><span data-ttu-id="d52ca-111">Create a policy, and to browse the available settings:</span><span class="sxs-lookup"><span data-stu-id="d52ca-111">Create a policy, and to browse the available settings:</span></span>
+   - [サブスクリプション\]: このモジュールで使用しているサブスクリプションを選択します。
+   - _[リソース グループ]_: モジュール リソース グループを選びます。
+   - _[ストレージ アカウント名]_: 一意の名前を入力します (緑のチェックボックスが表示されます)。
+   - _[場所]_: このモジュールでリソースとして使用する場所を選択します。
+   - _[パフォーマンス]_: [Standard] を選択します。
+   - _[アカウントの種類]_: [ストレージ (汎用 v1)] を選択します。
+   - _[レプリケーション]_: [ローカル冗長ストレージ (LRS)] を選択します。
 
-1. <span data-ttu-id="d52ca-112">In the Configuration Manager console, choose **Assets and Compliance**.</span><span class="sxs-lookup"><span data-stu-id="d52ca-112">In the Configuration Manager console, choose **Assets and Compliance**.</span></span>
-2. <span data-ttu-id="d52ca-113">In the **Assets and Compliance** workspace, choose **Overview** > **Endpoint Protection** > **Windows Defender Application Guard**.</span><span class="sxs-lookup"><span data-stu-id="d52ca-113">In the **Assets and Compliance** workspace, choose **Overview** > **Endpoint Protection** > **Windows Defender Application Guard**.</span></span>
-3. <span data-ttu-id="d52ca-114">In the **Home** tab, in the **Create** group, click **Create Windows Defender Application Guard Policy**.</span><span class="sxs-lookup"><span data-stu-id="d52ca-114">In the **Home** tab, in the **Create** group, click **Create Windows Defender Application Guard Policy**.</span></span>
-4. <span data-ttu-id="d52ca-115">Using the [article](https://docs.microsoft.com/windows/security/threat-protection/windows-defender-application-guard/configure-wd-app-guard) as a reference, you can browse and configure the available settings.</span><span class="sxs-lookup"><span data-stu-id="d52ca-115">Using the [article](https://docs.microsoft.com/windows/security/threat-protection/windows-defender-application-guard/configure-wd-app-guard) as a reference, you can browse and configure the available settings.</span></span> <span data-ttu-id="d52ca-116">Configuration Manager allows you to set certain policy settings see [host interaction settings](#BKMK_HIS) and [application behavior](#BKMK_AppB).</span><span class="sxs-lookup"><span data-stu-id="d52ca-116">Configuration Manager allows you to set certain policy settings see [host interaction settings](#BKMK_HIS) and [application behavior](#BKMK_AppB).</span></span>
-5. <span data-ttu-id="d52ca-117">On the **Network Definition** page, specify the corporate identity, and define your corporate network boundary.</span><span class="sxs-lookup"><span data-stu-id="d52ca-117">On the **Network Definition** page, specify the corporate identity, and define your corporate network boundary.</span></span>
+![[ストレージ アカウントの作成] 画面のスクリーンショット](../media/create-storage-account.png)
 
-    > [!NOTE]
-    > <span data-ttu-id="d52ca-118">Windows 10 PCs store only one network isolation list on the client.</span><span class="sxs-lookup"><span data-stu-id="d52ca-118">Windows 10 PCs store only one network isolation list on the client.</span></span> <span data-ttu-id="d52ca-119">You can create two different kinds of network isolation lists and deploy them to the client:</span><span class="sxs-lookup"><span data-stu-id="d52ca-119">You can create two different kinds of network isolation lists and deploy them to the client:</span></span>
-    >
-    >  - <span data-ttu-id="d52ca-120">one from Windows Information Protection</span><span class="sxs-lookup"><span data-stu-id="d52ca-120">one from Windows Information Protection</span></span>
-    >  - <span data-ttu-id="d52ca-121">one from Windows Defender Application Guard</span><span class="sxs-lookup"><span data-stu-id="d52ca-121">one from Windows Defender Application Guard</span></span>
-    >
-    > <span data-ttu-id="d52ca-122">If you deploy both policies, these network isolation lists must match.</span><span class="sxs-lookup"><span data-stu-id="d52ca-122">If you deploy both policies, these network isolation lists must match.</span></span> <span data-ttu-id="d52ca-123">If you deploy lists that don’t match to the same client, the deployment will fail.</span><span class="sxs-lookup"><span data-stu-id="d52ca-123">If you deploy lists that don’t match to the same client, the deployment will fail.</span></span> <span data-ttu-id="d52ca-124">For more information, see the [Windows Information Protection documentation](https://docs.microsoft.com/windows/threat-protection/windows-information-protection/create-wip-policy-using-sccm).</span><span class="sxs-lookup"><span data-stu-id="d52ca-124">For more information, see the [Windows Information Protection documentation](https://docs.microsoft.com/windows/threat-protection/windows-information-protection/create-wip-policy-using-sccm).</span></span>
-    > 
-    > 
+1. [次へ: **詳細 >]** を選択します。
+1. [詳細] タブで、次のように選択します。
 
-6. <span data-ttu-id="d52ca-125">When you are finished, complete the wizard, and deploy the policy to one or more Windows 10 1709 devices.</span><span class="sxs-lookup"><span data-stu-id="d52ca-125">When you are finished, complete the wizard, and deploy the policy to one or more Windows 10 1709 devices.</span></span>
+    - _[安全な転送が必須]_: [無効] を選択します。
+    - _[仮想ネットワーク]_: [なし] を選択します。
 
-### <a name="bkmk_HIS"></a> <span data-ttu-id="d52ca-126">Host interaction settings</span><span class="sxs-lookup"><span data-stu-id="d52ca-126">Host interaction settings</span></span>
-<span data-ttu-id="d52ca-127">Configures interactions between host devices and the Application Guard container.</span><span class="sxs-lookup"><span data-stu-id="d52ca-127">Configures interactions between host devices and the Application Guard container.</span></span> <span data-ttu-id="d52ca-128">Before Configuration Manager version 1802, both application behavior and host interaction were under the **Settings** tab.</span><span class="sxs-lookup"><span data-stu-id="d52ca-128">Before Configuration Manager version 1802, both application behavior and host interaction were under the **Settings** tab.</span></span>
+![[ストレージ アカウントの作成] の [詳細] タブのスクリーンショット](../media/create-storage-account-advanced.png)
 
-- <span data-ttu-id="d52ca-129">**Clipboard** - Under settings prior to Configuration Manager 1802</span><span class="sxs-lookup"><span data-stu-id="d52ca-129">**Clipboard** - Under settings prior to Configuration Manager 1802</span></span>
-    - <span data-ttu-id="d52ca-130">Permitted content type</span><span class="sxs-lookup"><span data-stu-id="d52ca-130">Permitted content type</span></span>
-        - <span data-ttu-id="d52ca-131">Text</span><span class="sxs-lookup"><span data-stu-id="d52ca-131">Text</span></span>
-        - <span data-ttu-id="d52ca-132">Images</span><span class="sxs-lookup"><span data-stu-id="d52ca-132">Images</span></span>
-- <span data-ttu-id="d52ca-133">**Printing:**</span><span class="sxs-lookup"><span data-stu-id="d52ca-133">**Printing:**</span></span>
-    - <span data-ttu-id="d52ca-134">Enable printing to XPS</span><span class="sxs-lookup"><span data-stu-id="d52ca-134">Enable printing to XPS</span></span>
-    - <span data-ttu-id="d52ca-135">Enable printing to PDF</span><span class="sxs-lookup"><span data-stu-id="d52ca-135">Enable printing to PDF</span></span>
-    - <span data-ttu-id="d52ca-136">Enable printing to local printers</span><span class="sxs-lookup"><span data-stu-id="d52ca-136">Enable printing to local printers</span></span>
-    - <span data-ttu-id="d52ca-137">Enable printing to network printers</span><span class="sxs-lookup"><span data-stu-id="d52ca-137">Enable printing to network printers</span></span>
-- <span data-ttu-id="d52ca-138">**Graphics:** (starting with Configuration Manager version 1802)</span><span class="sxs-lookup"><span data-stu-id="d52ca-138">**Graphics:** (starting with Configuration Manager version 1802)</span></span>
-    - <span data-ttu-id="d52ca-139">Virtual graphics processor access</span><span class="sxs-lookup"><span data-stu-id="d52ca-139">Virtual graphics processor access</span></span>
-- <span data-ttu-id="d52ca-140">**Files:** (starting with Configuration Manager version 1802)</span><span class="sxs-lookup"><span data-stu-id="d52ca-140">**Files:** (starting with Configuration Manager version 1802)</span></span>
-    - <span data-ttu-id="d52ca-141">Save downloaded files to host</span><span class="sxs-lookup"><span data-stu-id="d52ca-141">Save downloaded files to host</span></span>
+1. **[確認および作成]** を選択します。
+1. 確認のタブで、**[作成]** を選択します。
 
-### <a name="bkmk_ABS"></a> <span data-ttu-id="d52ca-142">Application behavior settings</span><span class="sxs-lookup"><span data-stu-id="d52ca-142">Application behavior settings</span></span>
-<span data-ttu-id="d52ca-143">Configures application behavior inside the Application Guard session.</span><span class="sxs-lookup"><span data-stu-id="d52ca-143">Configures application behavior inside the Application Guard session.</span></span> <span data-ttu-id="d52ca-144">Before Configuration Manager version 1802, both application behavior and host interaction were under the **Settings** tab.</span><span class="sxs-lookup"><span data-stu-id="d52ca-144">Before Configuration Manager version 1802, both application behavior and host interaction were under the **Settings** tab.</span></span>
+## <a name="acquire-account-name-and-key"></a>アカウントの名前とキーを取得する
 
-- <span data-ttu-id="d52ca-145">**Content:**</span><span class="sxs-lookup"><span data-stu-id="d52ca-145">**Content:**</span></span>
-   - <span data-ttu-id="d52ca-146">Enterprise sites can load non-enterprise content, such as third-party plug-ins.</span><span class="sxs-lookup"><span data-stu-id="d52ca-146">Enterprise sites can load non-enterprise content, such as third-party plug-ins.</span></span>
-- <span data-ttu-id="d52ca-147">**Other:**</span><span class="sxs-lookup"><span data-stu-id="d52ca-147">**Other:**</span></span>
-    - <span data-ttu-id="d52ca-148">Retain user generated browser data</span><span class="sxs-lookup"><span data-stu-id="d52ca-148">Retain user generated browser data</span></span>
-    - <span data-ttu-id="d52ca-149">Audit security events in the isolated application guard session</span><span class="sxs-lookup"><span data-stu-id="d52ca-149">Audit security events in the isolated application guard session</span></span>
+1. プロビジョニングされたら、そのストレージ アカウントに移動します。
+1. 左側のメニューから **[アクセス キー]** を選択し、後で使用するときのために、ストレージ アカウントの名前と key1 のキー値をメモ帳などのテキスト エディターにコピーします。
 
+![ストレージ アカウントの [アクセス キー] ページのスクリーンショット](../media/access-keys.png)
 
+## <a name="create-the-dwtemp-container"></a>dwtemp コンテナーを作成する
 
-## <a name="next-steps"></a><span data-ttu-id="d52ca-150">Next steps</span><span class="sxs-lookup"><span data-stu-id="d52ca-150">Next steps</span></span>
-<span data-ttu-id="d52ca-151">To read more about Windows Defender Application Guard: [Windows Defender Application Guard Overview](https://docs.microsoft.com/windows/security/threat-protection/windows-defender-application-guard/wd-app-guard-overview).</span><span class="sxs-lookup"><span data-stu-id="d52ca-151">To read more about Windows Defender Application Guard: [Windows Defender Application Guard Overview](https://docs.microsoft.com/windows/security/threat-protection/windows-defender-application-guard/wd-app-guard-overview).</span></span>
-<span data-ttu-id="d52ca-152">[Windows Defender Application Guard FAQ](https://docs.microsoft.com/windows/security/threat-protection/windows-defender-application-guard/faq-wd-app-guard).</span><span class="sxs-lookup"><span data-stu-id="d52ca-152">[Windows Defender Application Guard FAQ](https://docs.microsoft.com/windows/security/threat-protection/windows-defender-application-guard/faq-wd-app-guard).</span></span>
+1. 左側のメニューから [BLOB] を選択し、**[+ コンテナー]** を選択して新しいコンテナーを作成します。
+1. コンテナー名として「_dwtemp_」を入力します。
+1. パブリック アクセス レベルは、_[プライベート]_ を選択したままにします。
+1. **[OK]** を選択します。
+
+![コンテナーの追加ページのスクリーン ショット](../media/add-container.png)
+
+## <a name="create-azure-data-factory"></a>Azure データ ファクトリを作成する
+
+1. [Azure portal](https://portal.azure.com) に移動します。
+1. **[+ リソースの作成]** を選択し、検索バーに「データ ファクトリ」と入力して、その結果から [データ ファクトリ] を選び、**[作成]** を選択します。
+
+![新しい Azure データ ファクトリを追加するオプションが強調表示された Azure portal のスクリーンショット](../media/add-resource-data-factory.png)
+
+1. データ ファクトリの作成フォームでは、次の構成を設定します。
+
+    - _[名前]_: グローバルに一意な名前を入力します (緑のチェックマークが表示されます)。
+    - _[サブスクリプション]_: このワークショップで使用しているサブスクリプションを選択します。
+    - _[リソース グループ]_: [既存のものを選択] を選び、このワークショップで使用しているリソース グループを選択します。
+    - _[バージョン]_: V2
+    - _[場所]_: リージョンを選択します。
+
+![[新しいデータ ファクトリ] ページのスクリーンショット](../media/add-new-data-factory.png)
+
+1. **[作成]** を選択して ADF v2 をプロビジョニングします。
