@@ -1,32 +1,26 @@
 ---
-title: Expected '@' | Microsoft Docs
-ms.date: 01/18/2017
-ms.prod: visual-studio-windows
-ms.technology: vs-javascript
-ms.topic: reference
-f1_keywords:
-  - VS.WebClient.Help.SCRIPT1032
-dev_langs:
-  - JavaScript
-  - TypeScript
-  - DHTML
-ms.assetid: 82ff8b74-1710-4358-9a26-dc92ab29c53b
-author: mikejo5000
-ms.author: mikejo
-manager: ghogen
+ms.assetid: 3fc0d06c-cbac-4ca1-9cda-a0fe5bc72e16
+title: Orchestrator 的系統需求
+description: 本文描述 System Center Orchestrator 的軟體和硬體系統需求。
+author: JYOTHIRMAISURI
+ms.author: V-jysur
+manager: vvithal
+ms.date: 04/14/2019
+ms.topic: article
+ms.prod: system-center
+ms.technology: orchestrator
+ms.openlocfilehash: 29857a8946ad759d20df2de76c919e39c897f9b7
+ms.sourcegitcommit: 5598d16fefca5b17f6dd8f2d443e5fd775ffa731
+ms.translationtype: MT
+ms.contentlocale: zh-TW
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57969853"
 ---
-# <a name="expected-"></a><span data-ttu-id="70f8e-102">Expected '@'</span><span class="sxs-lookup"><span data-stu-id="70f8e-102">Expected '@'</span></span>
-<span data-ttu-id="70f8e-103">You attempted to create a variable to be used with conditional compilation statements using the `@set` statement, but did not place an at sign "**@**" before the variable name.</span><span class="sxs-lookup"><span data-stu-id="70f8e-103">You attempted to create a variable to be used with conditional compilation statements using the `@set` statement, but did not place an at sign "**@**" before the variable name.</span></span>  
-  
-### <a name="to-correct-this-error"></a><span data-ttu-id="70f8e-104">To correct this error</span><span class="sxs-lookup"><span data-stu-id="70f8e-104">To correct this error</span></span>  
-  
--   <span data-ttu-id="70f8e-105">Add an at sign "**@**" immediately before the variable name.</span><span class="sxs-lookup"><span data-stu-id="70f8e-105">Add an at sign "**@**" immediately before the variable name.</span></span> <span data-ttu-id="70f8e-106">For example:</span><span class="sxs-lookup"><span data-stu-id="70f8e-106">For example:</span></span>  
-  
-    ```JavaScript  
-    @set @myvar = 1  
-    ```  
-  
-## <a name="see-also"></a><span data-ttu-id="70f8e-107">See Also</span><span class="sxs-lookup"><span data-stu-id="70f8e-107">See Also</span></span>  
- <span data-ttu-id="70f8e-108">[@set Statement](../../javascript/reference/at-set-statement-javascript.md) </span><span class="sxs-lookup"><span data-stu-id="70f8e-108">[@set Statement](../../javascript/reference/at-set-statement-javascript.md) </span></span>  
- <span data-ttu-id="70f8e-109">[Conditional Compilation](../../javascript/advanced/conditional-compilation-javascript.md) </span><span class="sxs-lookup"><span data-stu-id="70f8e-109">[Conditional Compilation](../../javascript/advanced/conditional-compilation-javascript.md) </span></span>  
- [<span data-ttu-id="70f8e-110">Conditional Compilation Variables</span><span class="sxs-lookup"><span data-stu-id="70f8e-110">Conditional Compilation Variables</span></span>](../../javascript/advanced/conditional-compilation-variables-javascript.md)
+
+# test 1 
+
+[!INCLUDE [testz](..//LautarolTest/Ztest.md)]
+
+test  
+
+test  
