@@ -1,67 +1,113 @@
 <properties
-	pageTitle="VNET Peering Troubleshooting"
-	description="VNET Peering Troubleshooting"
-	authors="KristinaNeyens"
-	selfHelpType="problemScopingQuestions"
-	articleid="cannotconnectVMinapeeredVNET"
-	supportTopicIds="32584249"
-	productPesIds="15526"
-	cloudEnvironments="public"
-	schemaVersion="1"
+    articleid="vpngwpointtositeconn"
+    pageTitle="Point-to-Site VPN connectivity issues information"
+    description="Сведения о проблемах с VPN-подключением точка — сеть"
+    authors="radwiv"
+        ms.author="radwiv"
+    selfHelpType="problemScopingQuestions"
+    supportTopicIds="32591156"
+    productPesIds="16094"
+    cloudEnvironments="public,fairfax,blackforest,mooncake"
+    schemaVersion="1"
 />
-# VNET Peering Troubleshooting
-```
+# <a name="point-to-site-vpn-connectivity-issues-information"></a>Сведения о проблемах с VPN-подключением "точка — сеть"
+---
 {
-    "resourceRequired": true,
-    "title": "VM Information",
-    "fileAttachmentHint": "",
+    "resourceRequired": false,
+    "title": "Проблемы с подключением \"точка — сеть\"",
+    "fileAttachmentHint": "Загрузите свой профиль VPN, чтобы ускорить предоставление поддержки. В целях безопасности измените или удалите данные сертификата клиента.",
     "formElements": [
         {
-            "id": "source_vm internal IP address",
+            "id": "problem_start_time",
             "order": 1,
+            "controlType": "datetimepicker",
+            "displayLabel": "Когда появилась проблема?",
+            "required": true
+        },
+        {
+            "id": "P2S_connectivity_issues",
+            "order": 2,
             "controlType": "dropdown",
-            "displayLabel": "Please select the source virtual machine",
-            "watermarkText": "Choose an option",
-            "dynamicDropdownOptions": {
-                "uri": "/subscriptions/{subscriptionid}/resourceGroups/{resourcegroup}/providers/Microsoft.Network/virtualNetworks/{resourcename}/virtualMachines/$ref?api-version=2017-09-01",
-                "jTokenPath": "value",
-                "textProperty": "id",
-                "valueProperty": "id",
-                "textPropertyRegex": "[^/]+$"
-            },
+            "displayLabel": "Выберите проблему, которая у вас возникла.",
+            "watermarkText": "Выбрать параметр.",
             "dropdownOptions": [
                 {
-                    "value": "Unable to get the list of VM's",
-                    "text": "Unable to get the list of VM's"
+                    "value": "Connectionnotestablishing",
+                    "text": "Подключение не устанавливается или часто отключается"
+                },
+                {
+                    "value": "Notreachingdestination",
+                    "text": "Не удалось достичь определенного места назначения"
+                },
+                {
+                    "value": "Packet drops",
+                    "text": "Удаление пакетов"
+                },
+                {
+                    "value": "Throughput",
+                    "text": "Пропускная способность"
+                },
+                {
+                    "value": "Latency",
+                    "text": "Latency"
+                },
+                {
+                    "value": "Other",
+                    "text": "Другие"
                 }
             ],
             "required": true
         },
         {
-            "id": "destination_vm internal IP address",
-            "order": 2,
+            "id": "source_dest_IP_address",
+            "order": 3,
             "controlType": "textbox",
-            "displayLabel": "Please provide the destination Virtual Machine internal IP address",
-            "watermarkText": "Enter destination Virtual Machine",
-            "required": true
+            "displayLabel": "Укажите исходный и конечный IP-адреса (IP-адреса локальной и (или) виртуальной сети)",
+            "required": false,
+            "useAsAdditionalDetails": false
         },
         {
             "id": "problem_description",
-            "order": 3,
+            "order": 4,
             "controlType": "multilinetextbox",
-            "useAsAdditionalDetails": true,
-            "displayLabel": "Additional details",
-            "watermarkText": "Provide additional information about your issue",
+            "displayLabel": "Укажите ОС устройства",
             "required": true,
-            "hints": []
+            "useAsAdditionalDetails": true,
+            "hints": [
+                {
+                    "text": "Описание проблемы"
+                },
+                {
+                    "text": "ОС устройства (версия ОС платформы клиента)"
+                }
+            ]
         },
         {
-            "id": "problem_start_time",
-            "order": 4,
-            "controlType": "datetimepicker",
-            "displayLabel": "Problem start time",
+            "id": "P2S_tunneltype",
+            "order": 5,
+            "controlType": "dropdown",
+            "displayLabel": "Выберите тип туннеля",
+            "watermarkText": "Выбрать параметр.",
+            "dropdownOptions": [
+                {
+                    "value": "IKEv2",
+                    "text": "IKEv2"
+                },
+                {
+                    "value": "OpenVPN",
+                    "text": "OpenVPN"
+                },
+                {
+                    "value": "SSTP",
+                    "text": "SSTP"
+                },
+                {
+                    "value": "dont_know_answer",
+                    "text": "Другое, затрудняюсь ответить или нет данных"
+                }
+            ],
             "required": true
         }
     ]
 }
-```
+---
