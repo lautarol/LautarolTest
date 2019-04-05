@@ -19,7 +19,7 @@ ms.locfileid: "57969853"
 
 # test 1 
 
-[!INCLUDE [testz](..//LautarolTest/Ztest.md)]
+[!INCLUDE [testz](..//LautarolTest/ztestz.md)]
 
 test  
 
