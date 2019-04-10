@@ -1,101 +1,658 @@
 ---
-ms.assetid: c3c34c0d-4f06-489a-aaba-0a96b9d8eaf9
-title: Include 檔案
-description: 包含提供 System Center 2016 - Orchestrator 系統需求的檔案，其中也包含設計規劃 Orchestrator 部署時所要考量的一般效能和延展性指導。
-author: rayne-wiselman
-manager: carmon
-ms.date: 05/17/2018
-ms.prod: system-center-threshold
-ms.technology: Orchestrator
-ms.topic: include
-ms-author: raynew
-ms.openlocfilehash: f95664efbef0fc34c977026abad68c7e0333f598
-ms.sourcegitcommit: e9ab1b68e1dce67c533d69ca3eaefb1b719a3500
-ms.translationtype: MT
-ms.contentlocale: zh-TW
-ms.lasthandoff: 03/22/2019
-ms.locfileid: "58395544"
+title: Custom video transport controls
+description: 'This article explains how to implement custom transport controls in a video player application, using Xamarin.Forms.'
+ms.prod: xamarin
+ms.assetid: CE9E955D-A9AC-4019-A5D7-6390D80DECA1
+ms.technology: xamarin-forms
+author: davidbritch
+ms.author: dabritch
+ms.date: 02/12/2018
 ---
-## <a name="system-requirements-for-system-center-2016---orchestrator"></a><span data-ttu-id="990a0-103">System Center 2016 - Orchestrator 的系統需求</span><span class="sxs-lookup"><span data-stu-id="990a0-103">System requirements for System Center 2016 - Orchestrator</span></span>
 
-<span data-ttu-id="990a0-104">下列各節描述適用於 System Center 2016 - Orchestrator 的一般效能與延展性指導，並針對各種不同的工作負載建議硬體設定。</span><span class="sxs-lookup"><span data-stu-id="990a0-104">The following sections describe general performance and scalability guidance for System Center 2016 - Orchestrator, and recommends hardware configurations for a variety of workloads.</span></span> <span data-ttu-id="990a0-105">由於 System Center 2016 的設計理念是保障靈活性與可調整性，因此特定案例的實際硬體需求可能不同於此處所提供指導方針。</span><span class="sxs-lookup"><span data-stu-id="990a0-105">As System Center 2016 is built to be flexible and scalable, the actual hardware requirements for specific scenarios may differ from the guidelines that are presented here.</span></span>
+# <span data-ttu-id="ea896-103">Custom video transport controls</span><span class="sxs-lookup"><span data-stu-id="ea896-103">Custom video transport controls</span></span>
 
-## <a name="hardware"></a><span data-ttu-id="990a0-106">硬體</span><span class="sxs-lookup"><span data-stu-id="990a0-106">Hardware</span></span>
+[![D<span data-ttu-id="ea896-104">ownload Sample]</span><span class="sxs-lookup"><span data-stu-id="ea896-104">ownload Sample]</span></span>(~/media/shared/download.png) <span data-ttu-id="ea896-105">Download the sample</span><span class="sxs-lookup"><span data-stu-id="ea896-105">Download the sample</span></span>](https://developer.xamarin.com/samples/xamarin-forms/customrenderers/VideoPlayerDemos/)
 
-| <span data-ttu-id="990a0-107">Orchestrator 伺服器角色</span><span class="sxs-lookup"><span data-stu-id="990a0-107">Orchestrator Server Role</span></span> | <span data-ttu-id="990a0-108">x64 處理器 (最低)</span><span class="sxs-lookup"><span data-stu-id="990a0-108">x64 Processor (min)</span></span> | <span data-ttu-id="990a0-109">記憶體 (最低)</span><span class="sxs-lookup"><span data-stu-id="990a0-109">Memory (min)</span></span> | <span data-ttu-id="990a0-110">磁碟空間 (最低)</span><span class="sxs-lookup"><span data-stu-id="990a0-110">Disk space (min)</span></span> |
-|:-----|:----|:---- |:---- |
-|<span data-ttu-id="990a0-111">所有伺服器角色</span><span class="sxs-lookup"><span data-stu-id="990a0-111">All server roles</span></span>|<span data-ttu-id="990a0-112">2.1 GHz，雙核心 CPU</span><span class="sxs-lookup"><span data-stu-id="990a0-112">2.1 GHz, dual-core CPU</span></span> |<span data-ttu-id="990a0-113">2 GB</span><span class="sxs-lookup"><span data-stu-id="990a0-113">2 GB</span></span>|<span data-ttu-id="990a0-114">200 MB</span><span class="sxs-lookup"><span data-stu-id="990a0-114">200 MB</span></span>
+<span data-ttu-id="ea896-106">The transport controls of a video player include the buttons that perform the functions **Play**, **Pause**, and **Stop**.</span><span class="sxs-lookup"><span data-stu-id="ea896-106">The transport controls of a video player include the buttons that perform the functions **Play**, **Pause**, and **Stop**.</span></span> <span data-ttu-id="ea896-107">These buttons are generally identified with familiar icons rather than text, and the **Play** and **Pause** functions are generally combined into one button.</span><span class="sxs-lookup"><span data-stu-id="ea896-107">These buttons are generally identified with familiar icons rather than text, and the **Play** and **Pause** functions are generally combined into one button.</span></span>
 
-## <a name="server-operating-system"></a><span data-ttu-id="990a0-115">伺服器作業系統</span><span class="sxs-lookup"><span data-stu-id="990a0-115">Server operating system</span></span>
+<span data-ttu-id="ea896-108">By default, the `VideoPlayer` displays transport controls supported by each platform.</span><span class="sxs-lookup"><span data-stu-id="ea896-108">By default, the `VideoPlayer` displays transport controls supported by each platform.</span></span> <span data-ttu-id="ea896-109">When you set the `AreTransportControlsEnabled` property to `false`, these controls are suppressed.</span><span class="sxs-lookup"><span data-stu-id="ea896-109">When you set the `AreTransportControlsEnabled` property to `false`, these controls are suppressed.</span></span> <span data-ttu-id="ea896-110">You can then control the `VideoPlayer` programmatically or supply your own transport controls.</span><span class="sxs-lookup"><span data-stu-id="ea896-110">You can then control the `VideoPlayer` programmatically or supply your own transport controls.</span></span>
 
-<span data-ttu-id="990a0-116">支援下列 Windows Server 作業系統版本。</span><span class="sxs-lookup"><span data-stu-id="990a0-116">The following versions of Windows Server operating system are supported.</span></span>
+## <span data-ttu-id="ea896-111">The Play, Pause, and Stop methods</span><span class="sxs-lookup"><span data-stu-id="ea896-111">The Play, Pause, and Stop methods</span></span>
 
-| <span data-ttu-id="990a0-117">元件</span><span class="sxs-lookup"><span data-stu-id="990a0-117">Component</span></span> | <span data-ttu-id="990a0-118">Windows Server 2012 R2 Standard、Datacenter</span><span class="sxs-lookup"><span data-stu-id="990a0-118">Windows Server 2012 R2 Standard, Datacenter</span></span> | <span data-ttu-id="990a0-119">Windows Server 2016 Standard、Datacenter (含桌面體驗)</span><span class="sxs-lookup"><span data-stu-id="990a0-119">Windows Server 2016 Standard, Datacenter with Desktop Experience</span></span> | <span data-ttu-id="990a0-120">Windows Server Core 2016</span><span class="sxs-lookup"><span data-stu-id="990a0-120">Windows Server Core 2016</span></span> |
-|:--- |:---|:--- |:--- |
-|<span data-ttu-id="990a0-121">所有伺服器角色</span><span class="sxs-lookup"><span data-stu-id="990a0-121">All server roles</span></span>|<span data-ttu-id="990a0-122">支援</span><span class="sxs-lookup"><span data-stu-id="990a0-122">Supported</span></span>|<span data-ttu-id="990a0-123">支援</span><span class="sxs-lookup"><span data-stu-id="990a0-123">Supported</span></span>|<span data-ttu-id="990a0-124">不支援</span><span class="sxs-lookup"><span data-stu-id="990a0-124">Not Supported</span></span>
+<span data-ttu-id="ea896-112">The `VideoPlayer` class defines three methods named `Play`, `Pause`, and `Stop` that are implemented by firing events:</span><span class="sxs-lookup"><span data-stu-id="ea896-112">The `VideoPlayer` class defines three methods named `Play`, `Pause`, and `Stop` that are implemented by firing events:</span></span>
+
+```csharp
+namespace FormsVideoLibrary
+{
+    public class VideoPlayer : View, IVideoPlayerController
+    {
+        ···
+        public event EventHandler PlayRequested;
+
+        public void Play()
+        {
+            PlayRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        public event EventHandler PauseRequested;
+
+        public void Pause()
+        {
+            PauseRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        public event EventHandler StopRequested;
+
+        public void Stop()
+        {
+            StopRequested?.Invoke(this, EventArgs.Empty);
+        }
+    }
+}
+```
+
+<span data-ttu-id="ea896-113">Event handlers for these events are set by the `VideoPlayerRenderer` class in each platform, as shown below:</span><span class="sxs-lookup"><span data-stu-id="ea896-113">Event handlers for these events are set by the `VideoPlayerRenderer` class in each platform, as shown below:</span></span>
+
+### <span data-ttu-id="ea896-114">iOS transport implementations</span><span class="sxs-lookup"><span data-stu-id="ea896-114">iOS transport implementations</span></span>
+
+<span data-ttu-id="ea896-115">The iOS version of `VideoPlayerRenderer` uses the `OnElementChanged` method to set handlers for these three events when the `NewElement` property is not `null` and detaches the event handlers when `OldElement` is not `null`:</span><span class="sxs-lookup"><span data-stu-id="ea896-115">The iOS version of `VideoPlayerRenderer` uses the `OnElementChanged` method to set handlers for these three events when the `NewElement` property is not `null` and detaches the event handlers when `OldElement` is not `null`:</span></span>
+
+```csharp
+namespace FormsVideoLibrary.iOS
+{
+    public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, UIView>
+    {
+        AVPlayer player;
+        ···
+        protected override void OnElementChanged(ElementChangedEventArgs<VideoPlayer> args)
+        {
+            ···
+            if (args.NewElement != null)
+            {
+                ···
+                args.NewElement.PlayRequested += OnPlayRequested;
+                args.NewElement.PauseRequested += OnPauseRequested;
+                args.NewElement.StopRequested += OnStopRequested;
+            }
+
+            if (args.OldElement != null)
+            {
+                ···
+                args.OldElement.PlayRequested -= OnPlayRequested;
+                args.OldElement.PauseRequested -= OnPauseRequested;
+                args.OldElement.StopRequested -= OnStopRequested;
+            }
+        }
+        ···
+        // Event handlers to implement methods
+        void OnPlayRequested(object sender, EventArgs args)
+        {
+            player.Play();
+        }
+
+        void OnPauseRequested(object sender, EventArgs args)
+        {
+            player.Pause();
+        }
+
+        void OnStopRequested(object sender, EventArgs args)
+        {
+            player.Pause();
+            player.Seek(new CMTime(0, 1));
+        }
+    }
+}
+```
+
+<span data-ttu-id="ea896-116">The event handlers are implemented by calling methods on the `AVPlayer` object.</span><span class="sxs-lookup"><span data-stu-id="ea896-116">The event handlers are implemented by calling methods on the `AVPlayer` object.</span></span> <span data-ttu-id="ea896-117">There is no `Stop` method for `AVPlayer`, so it's simulated by pausing the video and moving the position to the beginning.</span><span class="sxs-lookup"><span data-stu-id="ea896-117">There is no `Stop` method for `AVPlayer`, so it's simulated by pausing the video and moving the position to the beginning.</span></span>
+
+### <span data-ttu-id="ea896-118">Android transport implementations</span><span class="sxs-lookup"><span data-stu-id="ea896-118">Android transport implementations</span></span>
+
+<span data-ttu-id="ea896-119">The Android implementation is similar to the iOS implementation.</span><span class="sxs-lookup"><span data-stu-id="ea896-119">The Android implementation is similar to the iOS implementation.</span></span> <span data-ttu-id="ea896-120">The handlers for the three functions are set when `NewElement` is not `null` and detached when `OldElement` is not `null`:</span><span class="sxs-lookup"><span data-stu-id="ea896-120">The handlers for the three functions are set when `NewElement` is not `null` and detached when `OldElement` is not `null`:</span></span>
+
+```csharp
+namespace FormsVideoLibrary.Droid
+{
+    public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, ARelativeLayout>
+    {
+        VideoView videoView;
+        ···
+        protected override void OnElementChanged(ElementChangedEventArgs<VideoPlayer> args)
+        {
+            ···
+            if (args.NewElement != null)
+            {
+                ···
+                args.NewElement.PlayRequested += OnPlayRequested;
+                args.NewElement.PauseRequested += OnPauseRequested;
+                args.NewElement.StopRequested += OnStopRequested;
+            }
+
+            if (args.OldElement != null)
+            {
+                ···
+                args.OldElement.PlayRequested -= OnPlayRequested;
+                args.OldElement.PauseRequested -= OnPauseRequested;
+                args.OldElement.StopRequested -= OnStopRequested;
+            }
+        }
+        ···
+        void OnPlayRequested(object sender, EventArgs args)
+        {
+            videoView.Start();
+        }
+
+        void OnPauseRequested(object sender, EventArgs args)
+        {
+            videoView.Pause();
+        }
+
+        void OnStopRequested(object sender, EventArgs args)
+        {
+            videoView.StopPlayback();
+        }
+    }
+}
+```
+
+<span data-ttu-id="ea896-121">The three functions call methods defined by `VideoView`.</span><span class="sxs-lookup"><span data-stu-id="ea896-121">The three functions call methods defined by `VideoView`.</span></span>
+
+### <span data-ttu-id="ea896-122">UWP transport implementations</span><span class="sxs-lookup"><span data-stu-id="ea896-122">UWP transport implementations</span></span>
+
+<span data-ttu-id="ea896-123">The UWP implementation of the three transport functions is very similar to both the iOS and Android implementations:</span><span class="sxs-lookup"><span data-stu-id="ea896-123">The UWP implementation of the three transport functions is very similar to both the iOS and Android implementations:</span></span>
+
+```csharp
+namespace FormsVideoLibrary.UWP
+{
+    public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, MediaElement>
+    {
+        protected override void OnElementChanged(ElementChangedEventArgs<VideoPlayer> args)
+        {
+            ···
+            if (args.NewElement != null)
+            {
+                ···
+                args.NewElement.PlayRequested += OnPlayRequested;
+                args.NewElement.PauseRequested += OnPauseRequested;
+                args.NewElement.StopRequested += OnStopRequested;
+            }
+
+            if (args.OldElement != null)
+            {
+                ···
+                args.OldElement.PlayRequested -= OnPlayRequested;
+                args.OldElement.PauseRequested -= OnPauseRequested;
+                args.OldElement.StopRequested -= OnStopRequested;
+            }
+        }
+        ···
+        // Event handlers to implement methods
+        void OnPlayRequested(object sender, EventArgs args)
+        {
+            Control.Play();
+        }
+
+        void OnPauseRequested(object sender, EventArgs args)
+        {
+            Control.Pause();
+        }
+
+        void OnStopRequested(object sender, EventArgs args)
+        {
+            Control.Stop();
+        }
+    }
+}
+```
+
+## <span data-ttu-id="ea896-124">The video player status</span><span class="sxs-lookup"><span data-stu-id="ea896-124">The video player status</span></span>
+
+<span data-ttu-id="ea896-125">Implementing the **Play**, **Pause**, and **Stop** functions is not sufficient for supporting transport controls.</span><span class="sxs-lookup"><span data-stu-id="ea896-125">Implementing the **Play**, **Pause**, and **Stop** functions is not sufficient for supporting transport controls.</span></span> <span data-ttu-id="ea896-126">Often the **Play** and **Pause** commands are implemented with the same button that changes its appearance to indicate whether the video is currently playing or paused.</span><span class="sxs-lookup"><span data-stu-id="ea896-126">Often the **Play** and **Pause** commands are implemented with the same button that changes its appearance to indicate whether the video is currently playing or paused.</span></span> <span data-ttu-id="ea896-127">Moreover, the button shouldn't even be enabled if the video has not yet loaded.</span><span class="sxs-lookup"><span data-stu-id="ea896-127">Moreover, the button shouldn't even be enabled if the video has not yet loaded.</span></span>
+
+<span data-ttu-id="ea896-128">These requirements imply that the video player needs to make available a current status indicating if it's playing or paused, or if it's not yet ready to play a video.</span><span class="sxs-lookup"><span data-stu-id="ea896-128">These requirements imply that the video player needs to make available a current status indicating if it's playing or paused, or if it's not yet ready to play a video.</span></span> <span data-ttu-id="ea896-129">(Each platform also supports properties that indicate if the video can be paused, or can be moved to a new position, but these properties are applicable for streaming video rather than video files, so they are not supported in the `VideoPlayer` described here.)</span><span class="sxs-lookup"><span data-stu-id="ea896-129">(Each platform also supports properties that indicate if the video can be paused, or can be moved to a new position, but these properties are applicable for streaming video rather than video files, so they are not supported in the `VideoPlayer` described here.)</span></span>
+
+<span data-ttu-id="ea896-130">The **VideoPlayerDemos** project includes a `VideoStatus` enumeration with three members:</span><span class="sxs-lookup"><span data-stu-id="ea896-130">The **VideoPlayerDemos** project includes a `VideoStatus` enumeration with three members:</span></span>
+
+```csharp
+namespace FormsVideoLibrary
+{
+    public enum VideoStatus
+    {
+        NotReady,
+        Playing,
+        Paused
+    }
+}
+```
+
+<span data-ttu-id="ea896-131">The `VideoPlayer` class defines a real-only bindable property named `Status` of type `VideoStatus`.</span><span class="sxs-lookup"><span data-stu-id="ea896-131">The `VideoPlayer` class defines a real-only bindable property named `Status` of type `VideoStatus`.</span></span> <span data-ttu-id="ea896-132">This property is defined as read-only because it should only be set from the platform renderer:</span><span class="sxs-lookup"><span data-stu-id="ea896-132">This property is defined as read-only because it should only be set from the platform renderer:</span></span>
+
+```csharp
+using System;
+using Xamarin.Forms;
+
+namespace FormsVideoLibrary
+{
+    public class VideoPlayer : View, IVideoPlayerController
+    {
+        ···
+        // Status read-only property
+        private static readonly BindablePropertyKey StatusPropertyKey =
+            BindableProperty.CreateReadOnly(nameof(Status), typeof(VideoStatus), typeof(VideoPlayer), VideoStatus.NotReady);
+
+        public static readonly BindableProperty StatusProperty = StatusPropertyKey.BindableProperty;
+
+        public VideoStatus Status
+        {
+            get { return (VideoStatus)GetValue(StatusProperty); }
+        }
+
+        VideoStatus IVideoPlayerController.Status
+        {
+            set { SetValue(StatusPropertyKey, value); }
+            get { return Status; }
+        }
+        ···
+    }
+}
+```
+
+<span data-ttu-id="ea896-133">Usually, a read-only bindable property would have a private `set` accessor on the `Status` property to allow it to be set from within the class.</span><span class="sxs-lookup"><span data-stu-id="ea896-133">Usually, a read-only bindable property would have a private `set` accessor on the `Status` property to allow it to be set from within the class.</span></span> <span data-ttu-id="ea896-134">For a `View` derivative supported by renderers, however, the property must be set from outside the class, but only by the platform renderer.</span><span class="sxs-lookup"><span data-stu-id="ea896-134">For a `View` derivative supported by renderers, however, the property must be set from outside the class, but only by the platform renderer.</span></span>
+
+<span data-ttu-id="ea896-135">For this reason, another property is defined with the name `IVideoPlayerController.Status`.</span><span class="sxs-lookup"><span data-stu-id="ea896-135">For this reason, another property is defined with the name `IVideoPlayerController.Status`.</span></span> <span data-ttu-id="ea896-136">This is an explicit interface implementation, and is made possible by the `IVideoPlayerController` interface that the `VideoPlayer` class implements:</span><span class="sxs-lookup"><span data-stu-id="ea896-136">This is an explicit interface implementation, and is made possible by the `IVideoPlayerController` interface that the `VideoPlayer` class implements:</span></span>
+
+```csharp
+namespace FormsVideoLibrary
+{
+    public interface IVideoPlayerController
+    {
+        VideoStatus Status { set; get; }
+
+        TimeSpan Duration { set; get; }
+    }
+}
+```
+
+<span data-ttu-id="ea896-137">This is similar to how the [`WebView`](xref:Xamarin.Forms.WebView) control uses the [`IWebViewController`](xref:Xamarin.Forms.IWebViewController) interface to implement the `CanGoBack` and `CanGoForward` properties.</span><span class="sxs-lookup"><span data-stu-id="ea896-137">This is similar to how the [`WebView`](xref:Xamarin.Forms.WebView) control uses the [`IWebViewController`](xref:Xamarin.Forms.IWebViewController) interface to implement the `CanGoBack` and `CanGoForward` properties.</span></span> <span data-ttu-id="ea896-138">(See the source code of [`WebView`](https://github.com/xamarin/Xamarin.Forms/blob/master/Xamarin.Forms.Core/WebView.cs) and its renderers for details.)</span><span class="sxs-lookup"><span data-stu-id="ea896-138">(See the source code of [`WebView`](https://github.com/xamarin/Xamarin.Forms/blob/master/Xamarin.Forms.Core/WebView.cs) and its renderers for details.)</span></span>
+
+<span data-ttu-id="ea896-139">This makes it possible for a class external to `VideoPlayer` to set the `Status` property by referencing the `IVideoPlayerController` interface.</span><span class="sxs-lookup"><span data-stu-id="ea896-139">This makes it possible for a class external to `VideoPlayer` to set the `Status` property by referencing the `IVideoPlayerController` interface.</span></span> <span data-ttu-id="ea896-140">(You'll see the code shortly.) The property can be set from other classes as well, but it's unlikely to be set inadvertently.</span><span class="sxs-lookup"><span data-stu-id="ea896-140">(You'll see the code shortly.) The property can be set from other classes as well, but it's unlikely to be set inadvertently.</span></span> <span data-ttu-id="ea896-141">Most importantly, the `Status` property cannot be set through a data binding.</span><span class="sxs-lookup"><span data-stu-id="ea896-141">Most importantly, the `Status` property cannot be set through a data binding.</span></span>
+
+<span data-ttu-id="ea896-142">To assist the renderers in keeping this `Status` property updated, the `VideoPlayer` class defines an `UpdateStatus` event that is triggered every tenth of a second:</span><span class="sxs-lookup"><span data-stu-id="ea896-142">To assist the renderers in keeping this `Status` property updated, the `VideoPlayer` class defines an `UpdateStatus` event that is triggered every tenth of a second:</span></span>
+
+```csharp
+namespace FormsVideoLibrary
+{
+    public class VideoPlayer : View, IVideoPlayerController
+    {
+        public event EventHandler UpdateStatus;
+
+        public VideoPlayer()
+        {
+            Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
+            {
+                UpdateStatus?.Invoke(this, EventArgs.Empty);
+                return true;
+            });
+        }
+        ···
+    }
+}
+```
+
+### <span data-ttu-id="ea896-143">The iOS status setting</span><span class="sxs-lookup"><span data-stu-id="ea896-143">The iOS status setting</span></span>
+
+<span data-ttu-id="ea896-144">The iOS `VideoPlayerRenderer` sets a handler for the `UpdateStatus` event (and detaches that handler when the underlying `VideoPlayer` element is absent), and uses the handler to set the `Status` property:</span><span class="sxs-lookup"><span data-stu-id="ea896-144">The iOS `VideoPlayerRenderer` sets a handler for the `UpdateStatus` event (and detaches that handler when the underlying `VideoPlayer` element is absent), and uses the handler to set the `Status` property:</span></span>
+
+```csharp
+namespace FormsVideoLibrary.iOS
+{
+    public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, UIView>
+    {
+        ···
+        protected override void OnElementChanged(ElementChangedEventArgs<VideoPlayer> args)
+        {
+            ···
+            if (args.NewElement != null)
+            {
+                ···
+                args.NewElement.UpdateStatus += OnUpdateStatus;
+                ···
+            }
+
+            if (args.OldElement != null)
+            {
+                args.OldElement.UpdateStatus -= OnUpdateStatus;
+                ···
+            }
+        }
+        ···
+        void OnUpdateStatus(object sender, EventArgs args)
+        {
+            VideoStatus videoStatus = VideoStatus.NotReady;
+
+            switch (player.Status)
+            {
+                case AVPlayerStatus.ReadyToPlay:
+                    switch (player.TimeControlStatus)
+                    {
+                        case AVPlayerTimeControlStatus.Playing:
+                            videoStatus = VideoStatus.Playing;
+                            break;
+
+                        case AVPlayerTimeControlStatus.Paused:
+                            videoStatus = VideoStatus.Paused;
+                            break;
+                    }
+                    break;
+                }
+            }
+
+            ((IVideoPlayerController)Element).Status = videoStatus;
+            ···
+        }
+        ···
+    }
+}
+```
+
+<span data-ttu-id="ea896-145">Two properties of `AVPlayer` must be accessed: The [`Status`](xref:AVFoundation.AVPlayer.Status*) property of type `AVPlayerStatus` and the [`TimeControlStatus`](xref:AVFoundation.AVPlayer.TimeControlStatus*) property of type `AVPlayerTimeControlStatus`.</span><span class="sxs-lookup"><span data-stu-id="ea896-145">Two properties of `AVPlayer` must be accessed: The [`Status`](xref:AVFoundation.AVPlayer.Status*) property of type `AVPlayerStatus` and the [`TimeControlStatus`](xref:AVFoundation.AVPlayer.TimeControlStatus*) property of type `AVPlayerTimeControlStatus`.</span></span> <span data-ttu-id="ea896-146">Notice that the `Element` property (which is the `VideoPlayer`) must be cast to `IVideoPlayerController` to set the `Status` property.</span><span class="sxs-lookup"><span data-stu-id="ea896-146">Notice that the `Element` property (which is the `VideoPlayer`) must be cast to `IVideoPlayerController` to set the `Status` property.</span></span>
+
+### <span data-ttu-id="ea896-147">The Android status setting</span><span class="sxs-lookup"><span data-stu-id="ea896-147">The Android status setting</span></span>
+
+<span data-ttu-id="ea896-148">The [`IsPlaying`](https://developer.xamarin.com/api/property/Android.Widget.VideoView.IsPlaying/) property of the Android `VideoView` is a Boolean that only indicates if the video is playing or paused.</span><span class="sxs-lookup"><span data-stu-id="ea896-148">The [`IsPlaying`](https://developer.xamarin.com/api/property/Android.Widget.VideoView.IsPlaying/) property of the Android `VideoView` is a Boolean that only indicates if the video is playing or paused.</span></span> <span data-ttu-id="ea896-149">To determine if the `VideoView` can neither play nor pause the video yet, the `Prepared` event of `VideoView` must be handled.</span><span class="sxs-lookup"><span data-stu-id="ea896-149">To determine if the `VideoView` can neither play nor pause the video yet, the `Prepared` event of `VideoView` must be handled.</span></span> <span data-ttu-id="ea896-150">These two handlers are set in the `OnElementChanged` method, and detached during the `Dispose` override:</span><span class="sxs-lookup"><span data-stu-id="ea896-150">These two handlers are set in the `OnElementChanged` method, and detached during the `Dispose` override:</span></span>
+
+```csharp
+namespace FormsVideoLibrary.Droid
+{
+    public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, ARelativeLayout>
+    {
+        VideoView videoView;
+        ···
+        bool isPrepared;
+
+        protected override void OnElementChanged(ElementChangedEventArgs<VideoPlayer> args)
+        {
+            ···
+            if (args.NewElement != null)
+            {
+                if (Control == null)
+                {
+                    ···
+                    videoView.Prepared += OnVideoViewPrepared;
+                    ···
+                }
+                ···
+                args.NewElement.UpdateStatus += OnUpdateStatus;
+                ···
+            }
+
+            if (args.OldElement != null)
+            {
+                args.OldElement.UpdateStatus -= OnUpdateStatus;
+                ···
+            }
+
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (Control != null && videoView != null)
+            {
+                videoView.Prepared -= OnVideoViewPrepared;
+            }
+            if (Element != null)
+            {
+                Element.UpdateStatus -= OnUpdateStatus;
+            }
+
+            base.Dispose(disposing);
+        }
+        ···
+    }
+}
+```
+
+<span data-ttu-id="ea896-151">The `UpdateStatus` handler uses the `isPrepared` field (set in the `Prepared` handler) and the `IsPlaying` property to set the `Status` property:</span><span class="sxs-lookup"><span data-stu-id="ea896-151">The `UpdateStatus` handler uses the `isPrepared` field (set in the `Prepared` handler) and the `IsPlaying` property to set the `Status` property:</span></span>
+
+```csharp
+namespace FormsVideoLibrary.Droid
+{
+    public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, ARelativeLayout>
+    {
+        VideoView videoView;
+        ···
+        bool isPrepared;
+        ···
+        void OnVideoViewPrepared(object sender, EventArgs args)
+        {
+            isPrepared = true;
+            ···
+        }
+        ···
+        void OnUpdateStatus(object sender, EventArgs args)
+        {
+            VideoStatus status = VideoStatus.NotReady;
+
+            if (isPrepared)
+            {
+                status = videoView.IsPlaying ? VideoStatus.Playing : VideoStatus.Paused;
+            }
+            ···
+        }
+        ···
+    }
+}
+```
+
+### <span data-ttu-id="ea896-152">The UWP status setting</span><span class="sxs-lookup"><span data-stu-id="ea896-152">The UWP status setting</span></span>
+
+<span data-ttu-id="ea896-153">The UWP `VideoPlayerRenderer` makes use of the `UpdateStatus` event, but it does not need it for setting the `Status` property.</span><span class="sxs-lookup"><span data-stu-id="ea896-153">The UWP `VideoPlayerRenderer` makes use of the `UpdateStatus` event, but it does not need it for setting the `Status` property.</span></span> <span data-ttu-id="ea896-154">The `MediaElement` defines a [`CurrentStateChanged`](xref:Windows.UI.Xaml.Controls.MediaElement.CurrentStateChanged) event that allows the renderer to be notified when the [`CurrentState`](xref:Windows.UI.Xaml.Controls.MediaElement.CurrentState*) property has changed.</span><span class="sxs-lookup"><span data-stu-id="ea896-154">The `MediaElement` defines a [`CurrentStateChanged`](xref:Windows.UI.Xaml.Controls.MediaElement.CurrentStateChanged) event that allows the renderer to be notified when the [`CurrentState`](xref:Windows.UI.Xaml.Controls.MediaElement.CurrentState*) property has changed.</span></span> <span data-ttu-id="ea896-155">The property is detached in the `Dispose` override:</span><span class="sxs-lookup"><span data-stu-id="ea896-155">The property is detached in the `Dispose` override:</span></span>
+
+```csharp
+namespace FormsVideoLibrary.UWP
+{
+    public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, MediaElement>
+    {
+        protected override void OnElementChanged(ElementChangedEventArgs<VideoPlayer> args)
+        {
+            base.OnElementChanged(args);
+
+            if (args.NewElement != null)
+            {
+                if (Control == null)
+                {
+                    ···
+                    mediaElement.CurrentStateChanged += OnMediaElementCurrentStateChanged;
+                };
+                ···
+            }
+            ···
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (Control != null)
+            {
+                ···
+                Control.CurrentStateChanged -= OnMediaElementCurrentStateChanged;
+            }
+
+            base.Dispose(disposing);
+        }
+        ···
+    }
+}
+```
+
+<span data-ttu-id="ea896-156">The `CurrentState` property is of type [`MediaElementState`](/uwp/api/windows.ui.xaml.media.mediaelementstate), and maps easily into `VideoStatus`:</span><span class="sxs-lookup"><span data-stu-id="ea896-156">The `CurrentState` property is of type [`MediaElementState`](/uwp/api/windows.ui.xaml.media.mediaelementstate), and maps easily into `VideoStatus`:</span></span>
+
+```csharp
+namespace FormsVideoLibrary.UWP
+{
+    public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, MediaElement>
+    {
+        ···
+        void OnMediaElementCurrentStateChanged(object sender, RoutedEventArgs args)
+        {
+            VideoStatus videoStatus = VideoStatus.NotReady;
+
+            switch (Control.CurrentState)
+            {
+                case MediaElementState.Playing:
+                    videoStatus = VideoStatus.Playing;
+                    break;
+
+                case MediaElementState.Paused:
+                case MediaElementState.Stopped:
+                    videoStatus = VideoStatus.Paused;
+                    break;
+            }
+
+            ((IVideoPlayerController)Element).Status = videoStatus;
+        }
+        ···
+    }
+}
+```
+
+## <span data-ttu-id="ea896-157">Play, Pause, and Stop Buttons</span><span class="sxs-lookup"><span data-stu-id="ea896-157">Play, Pause, and Stop Buttons</span></span>
+
+<span data-ttu-id="ea896-158">Using Unicode characters for symbolic **Play**, **Pause**, and **Stop** images is problematic.</span><span class="sxs-lookup"><span data-stu-id="ea896-158">Using Unicode characters for symbolic **Play**, **Pause**, and **Stop** images is problematic.</span></span> <span data-ttu-id="ea896-159">The [Miscellaneous Technical](https://unicode-table.com/en/blocks/miscellaneous-technical/) section of the Unicode standard defines three symbol characters seemingly appropriate for this purpose.</span><span class="sxs-lookup"><span data-stu-id="ea896-159">The [Miscellaneous Technical](https://unicode-table.com/en/blocks/miscellaneous-technical/) section of the Unicode standard defines three symbol characters seemingly appropriate for this purpose.</span></span> <span data-ttu-id="ea896-160">These are:</span><span class="sxs-lookup"><span data-stu-id="ea896-160">These are:</span></span>
+
+- <span data-ttu-id="ea896-161">0x23F5 (black medium right-pointing triangle) or &#x23F5; for **Play**</span><span class="sxs-lookup"><span data-stu-id="ea896-161">0x23F5 (black medium right-pointing triangle) or &#x23F5; for **Play**</span></span>
+- <span data-ttu-id="ea896-162">0x23F8 (double vertical bar) or &#x23F8; for **Pause**</span><span class="sxs-lookup"><span data-stu-id="ea896-162">0x23F8 (double vertical bar) or &#x23F8; for **Pause**</span></span>
+- <span data-ttu-id="ea896-163">0x23F9 (black square) or &#x23F9; for **Stop**</span><span class="sxs-lookup"><span data-stu-id="ea896-163">0x23F9 (black square) or &#x23F9; for **Stop**</span></span>
+
+<span data-ttu-id="ea896-164">Regardless how these symbols appear in your browser (and different browsers handle them in different ways), they are not displayed consistently on the platforms supported by Xamarin.Forms.</span><span class="sxs-lookup"><span data-stu-id="ea896-164">Regardless how these symbols appear in your browser (and different browsers handle them in different ways), they are not displayed consistently on the platforms supported by Xamarin.Forms.</span></span> <span data-ttu-id="ea896-165">On iOS and UWP devices, the **Pause** and **Stop** characters have a graphical appearance, with a blue 3D background and a white foreground.</span><span class="sxs-lookup"><span data-stu-id="ea896-165">On iOS and UWP devices, the **Pause** and **Stop** characters have a graphical appearance, with a blue 3D background and a white foreground.</span></span> <span data-ttu-id="ea896-166">This isn't the case on Android, where the symbol is simply blue.</span><span class="sxs-lookup"><span data-stu-id="ea896-166">This isn't the case on Android, where the symbol is simply blue.</span></span> <span data-ttu-id="ea896-167">However, the 0x23F5 codepoint for **Play** does not have that same appearance on the UWP, and it's not even supported on iOS and Android.</span><span class="sxs-lookup"><span data-stu-id="ea896-167">However, the 0x23F5 codepoint for **Play** does not have that same appearance on the UWP, and it's not even supported on iOS and Android.</span></span>
+
+<span data-ttu-id="ea896-168">For that reason, the 0x23F5 codepoint can't be used for **Play**.</span><span class="sxs-lookup"><span data-stu-id="ea896-168">For that reason, the 0x23F5 codepoint can't be used for **Play**.</span></span> <span data-ttu-id="ea896-169">A good substitute is:</span><span class="sxs-lookup"><span data-stu-id="ea896-169">A good substitute is:</span></span>
+
+- <span data-ttu-id="ea896-170">0x25B6 (black right-pointing triangle) or &#x25B6; for **Play**</span><span class="sxs-lookup"><span data-stu-id="ea896-170">0x25B6 (black right-pointing triangle) or &#x25B6; for **Play**</span></span>
+
+<span data-ttu-id="ea896-171">This is supported by each platform except that it's a plain black triangle that does not resemble the 3D appearance of **Pause** and **Stop**.</span><span class="sxs-lookup"><span data-stu-id="ea896-171">This is supported by each platform except that it's a plain black triangle that does not resemble the 3D appearance of **Pause** and **Stop**.</span></span> <span data-ttu-id="ea896-172">One possibility is to follow the 0x25B6 codepoint with a variant code:</span><span class="sxs-lookup"><span data-stu-id="ea896-172">One possibility is to follow the 0x25B6 codepoint with a variant code:</span></span>
+
+- <span data-ttu-id="ea896-173">0x25B6 followed by 0xFE0F (variant 16) or &#x25B6;&#xFE0F; for **Play**</span><span class="sxs-lookup"><span data-stu-id="ea896-173">0x25B6 followed by 0xFE0F (variant 16) or &#x25B6;&#xFE0F; for **Play**</span></span>
+
+<span data-ttu-id="ea896-174">This is what's used in the markup shown below.</span><span class="sxs-lookup"><span data-stu-id="ea896-174">This is what's used in the markup shown below.</span></span> <span data-ttu-id="ea896-175">On iOS, it gives the **Play** symbol the same 3D appearance as the **Pause** and **Stop** buttons, but the variant doesn't work on Android and the UWP.</span><span class="sxs-lookup"><span data-stu-id="ea896-175">On iOS, it gives the **Play** symbol the same 3D appearance as the **Pause** and **Stop** buttons, but the variant doesn't work on Android and the UWP.</span></span>
+
+<span data-ttu-id="ea896-176">The **Custom Transport** page sets the **AreTransportControlsEnabled** property to **false** and includes an `ActivityIndicator` displayed when the video is loading, and two buttons.</span><span class="sxs-lookup"><span data-stu-id="ea896-176">The **Custom Transport** page sets the **AreTransportControlsEnabled** property to **false** and includes an `ActivityIndicator` displayed when the video is loading, and two buttons.</span></span> `DataTrigger` <span data-ttu-id="ea896-177">objects are used to enable and disable the `ActivityIndicator` and the buttons, and to switch the first button between **Play** and **Pause**:</span><span class="sxs-lookup"><span data-stu-id="ea896-177">objects are used to enable and disable the `ActivityIndicator` and the buttons, and to switch the first button between **Play** and **Pause**:</span></span>
+
+```xaml
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:video="clr-namespace:FormsVideoLibrary"
+             x:Class="VideoPlayerDemos.CustomTransportPage"
+             Title="Custom Transport">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <video:VideoPlayer x:Name="videoPlayer"
+                           Grid.Row="0"
+                           AutoPlay="False"
+                           AreTransportControlsEnabled="False"
+                           Source="{StaticResource BigBuckBunny}" />
+
+        <ActivityIndicator Grid.Row="0"
+                           Color="Gray"
+                           IsVisible="False">
+            <ActivityIndicator.Triggers>
+                <DataTrigger TargetType="ActivityIndicator"
+                             Binding="{Binding Source={x:Reference videoPlayer},
+                                               Path=Status}"
+                             Value="{x:Static video:VideoStatus.NotReady}">
+                    <Setter Property="IsVisible" Value="True" />
+                    <Setter Property="IsRunning" Value="True" />
+                </DataTrigger>
+            </ActivityIndicator.Triggers>
+        </ActivityIndicator>
+
+        <StackLayout Grid.Row="1"
+                     Orientation="Horizontal"
+                     Margin="0, 10"
+                     BindingContext="{x:Reference videoPlayer}">
+
+            <Button Text="&#x25B6;&#xFE0F; Play"
+                    HorizontalOptions="CenterAndExpand"
+                    Clicked="OnPlayPauseButtonClicked">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static video:VideoStatus.Playing}">
+                        <Setter Property="Text" Value="&#x23F8; Pause" />
+                    </DataTrigger>
+
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static video:VideoStatus.NotReady}">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Button Text="&#x23F9; Stop"
+                    HorizontalOptions="CenterAndExpand"
+                    Clicked="OnStopButtonClicked">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static video:VideoStatus.NotReady}">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </StackLayout>
+    </Grid>
+</ContentPage>
+```
+
+<span data-ttu-id="ea896-178">Data triggers are described in detail in the article [Data Triggers](~/xamarin-forms/app-fundamentals/triggers.md#data).</span><span class="sxs-lookup"><span data-stu-id="ea896-178">Data triggers are described in detail in the article [Data Triggers](~/xamarin-forms/app-fundamentals/triggers.md#data).</span></span>
+
+<span data-ttu-id="ea896-179">The code-behind file has the handlers for the button `Clicked` events:</span><span class="sxs-lookup"><span data-stu-id="ea896-179">The code-behind file has the handlers for the button `Clicked` events:</span></span>
+
+```csharp
+namespace VideoPlayerDemos
+{
+    public partial class CustomTransportPage : ContentPage
+    {
+        public CustomTransportPage()
+        {
+            InitializeComponent();
+        }
+
+        void OnPlayPauseButtonClicked(object sender, EventArgs args)
+        {
+            if (videoPlayer.Status == VideoStatus.Playing)
+            {
+                videoPlayer.Pause();
+            }
+            else if (videoPlayer.Status == VideoStatus.Paused)
+            {
+                videoPlayer.Play();
+            }
+        }
+
+        void OnStopButtonClicked(object sender, EventArgs args)
+        {
+            videoPlayer.Stop();
+        }
+    }
+}
+```
+
+<span data-ttu-id="ea896-180">Because `AutoPlay` is set to `false` in the **CustomTransport.xaml** file, you'll need to press the **Play** button when it becomes enabled to begin the video.</span><span class="sxs-lookup"><span data-stu-id="ea896-180">Because `AutoPlay` is set to `false` in the **CustomTransport.xaml** file, you'll need to press the **Play** button when it becomes enabled to begin the video.</span></span> <span data-ttu-id="ea896-181">The buttons are defined so that the Unicode characters discussed above are accompanied by their text equivalents.</span><span class="sxs-lookup"><span data-stu-id="ea896-181">The buttons are defined so that the Unicode characters discussed above are accompanied by their text equivalents.</span></span> <span data-ttu-id="ea896-182">The buttons have a consistent appearance on each platform when the video is playing:</span><span class="sxs-lookup"><span data-stu-id="ea896-182">The buttons have a consistent appearance on each platform when the video is playing:</span></span>
+
+<span data-ttu-id="ea896-183">[![Custom Transport Playing](custom-transport-images/customtransportplaying-small.png "Custom Transport Playing")](custom-transport-images/customtransportplaying-large.png#lightbox "Custom Transport Playing")</span><span class="sxs-lookup"><span data-stu-id="ea896-183">[![Custom Transport Playing](custom-transport-images/customtransportplaying-small.png "Custom Transport Playing")](custom-transport-images/customtransportplaying-large.png#lightbox "Custom Transport Playing")</span></span>
+
+<span data-ttu-id="ea896-184">But on Android and UWP, the **Play** button looks very different when the video is paused:</span><span class="sxs-lookup"><span data-stu-id="ea896-184">But on Android and UWP, the **Play** button looks very different when the video is paused:</span></span>
+
+<span data-ttu-id="ea896-185">[![Custom Transport Paused](custom-transport-images/customtransportpaused-small.png "Custom Transport Paused")](custom-transport-images/customtransportpaused-large.png#lightbox "Custom Transport Paused")</span><span class="sxs-lookup"><span data-stu-id="ea896-185">[![Custom Transport Paused](custom-transport-images/customtransportpaused-small.png "Custom Transport Paused")](custom-transport-images/customtransportpaused-large.png#lightbox "Custom Transport Paused")</span></span>
+
+<span data-ttu-id="ea896-186">In a production application, you'll probably want to use your own bitmap images for the buttons to achieve visual uniformity.</span><span class="sxs-lookup"><span data-stu-id="ea896-186">In a production application, you'll probably want to use your own bitmap images for the buttons to achieve visual uniformity.</span></span>
 
 
-## <a name="client-operating-system"></a><span data-ttu-id="990a0-125">用戶端作業系統</span><span class="sxs-lookup"><span data-stu-id="990a0-125">Client operating system</span></span>
+## <span data-ttu-id="ea896-187">Related Links</span><span class="sxs-lookup"><span data-stu-id="ea896-187">Related Links</span></span>
 
-<span data-ttu-id="990a0-126">Orchestrator 支援下列 Windows 用戶端作業系統版本。</span><span class="sxs-lookup"><span data-stu-id="990a0-126">The following versions of Windows client operating system are supported for the Orchestrator.</span></span>
-
-|<span data-ttu-id="990a0-127">元件</span><span class="sxs-lookup"><span data-stu-id="990a0-127">Component</span></span>| <span data-ttu-id="990a0-128">Windows 7</span><span class="sxs-lookup"><span data-stu-id="990a0-128">Windows 7</span></span> | <span data-ttu-id="990a0-129">Windows 8</span><span class="sxs-lookup"><span data-stu-id="990a0-129">Windows 8</span></span> | <span data-ttu-id="990a0-130">Windows 8.1</span><span class="sxs-lookup"><span data-stu-id="990a0-130">Windows 8.1</span></span> | <span data-ttu-id="990a0-131">Windows 10 Enterprise</span><span class="sxs-lookup"><span data-stu-id="990a0-131">Windows 10 Enterprise</span></span> |
-|:--- |:---|:--- |:--- |:---|
-|<span data-ttu-id="990a0-132">Runbook Designer</span><span class="sxs-lookup"><span data-stu-id="990a0-132">Runbook Designer</span></span>|<span data-ttu-id="990a0-133">不支援</span><span class="sxs-lookup"><span data-stu-id="990a0-133">Not supported</span></span>|<span data-ttu-id="990a0-134">不支援</span><span class="sxs-lookup"><span data-stu-id="990a0-134">Not Supported</span></span>|<span data-ttu-id="990a0-135">不支援</span><span class="sxs-lookup"><span data-stu-id="990a0-135">Not Supported</span></span>|<span data-ttu-id="990a0-136">支援</span><span class="sxs-lookup"><span data-stu-id="990a0-136">Supported</span></span>
-
-## <a name="software"></a><span data-ttu-id="990a0-137">軟體</span><span class="sxs-lookup"><span data-stu-id="990a0-137">Software</span></span>
-
-<span data-ttu-id="990a0-138">若要將 Orchestrator 完整地安裝在單一電腦上，則需下列軟體：</span><span class="sxs-lookup"><span data-stu-id="990a0-138">The following software is required for a full installation of Orchestrator on a single computer:</span></span>
-
-* <span data-ttu-id="990a0-139">Microsoft SQL Server 2012、2014 或 2016 – Orchestrator 只需要 Database Engine 服務中的基本 SQL Server 功能。</span><span class="sxs-lookup"><span data-stu-id="990a0-139">Microsoft SQL Server 2012, 2014, or 2016 – Orchestrator requires only the basic SQL Server features found in the Database Engine Service.</span></span> <span data-ttu-id="990a0-140">不需要額外的功能。</span><span class="sxs-lookup"><span data-stu-id="990a0-140">No additional features are required.</span></span> <span data-ttu-id="990a0-141">Orchestrator 支援將 SQL_Latin1_General_CP1_CI_AS 作為定序。</span><span class="sxs-lookup"><span data-stu-id="990a0-141">Orchestrator supports SQL_Latin1_General_CP1_CI_AS for collation.</span></span> <span data-ttu-id="990a0-142">安裝精靈會使用 SQL_Latin1_General_CP1_CI_AS 作為預設定序來建立 Orchestrator 資料庫。</span><span class="sxs-lookup"><span data-stu-id="990a0-142">The installation wizard uses SQL_Latin1_General_CP1_CI_AS as the default collation to create the orchestration database.</span></span> <span data-ttu-id="990a0-143">如需詳細資訊，請參閱[＜SQL Server＞](#sql-server)一節。</span><span class="sxs-lookup"><span data-stu-id="990a0-143">For more information, see the section on [SQL Server](#sql-server).</span></span>
-
-> [!NOTE]
-> <span data-ttu-id="990a0-144">安裝在同一部電腦上的 Management 伺服器和 Runbook 伺服器必須使用相同的資料庫。</span><span class="sxs-lookup"><span data-stu-id="990a0-144">Management servers and runbook servers installed on the same computer must use the same database.</span></span> <span data-ttu-id="990a0-145">Management 伺服器必須以 32 位元應用程式的形式執行。</span><span class="sxs-lookup"><span data-stu-id="990a0-145">The management server must run as a 32-bit application.</span></span>
-
-* <span data-ttu-id="990a0-146">Microsoft Internet Information Services (IIS) – Orchestrator 安裝程式會啟用 IIS (如果尚未啟用)。</span><span class="sxs-lookup"><span data-stu-id="990a0-146">Microsoft Internet Information Services (IIS) – Orchestrator Setup enables IIS if it is not enabled.</span></span>
-
-* <span data-ttu-id="990a0-147">Microsoft .NET Framework 3.5 Service Pack 1 - Orchestrator 安裝程式會安裝及啟用 .NET Framework 3.5 SP1 (如果尚未安裝及啟用)。</span><span class="sxs-lookup"><span data-stu-id="990a0-147">Microsoft .NET Framework 3.5 Service Pack 1 - Orchestrator Setup installs and enables .NET Framework 3.5 SP1 if it is not installed and enabled.</span></span>
-
-* <span data-ttu-id="990a0-148">Microsoft .NET Framework 4</span><span class="sxs-lookup"><span data-stu-id="990a0-148">Microsoft .NET Framework 4</span></span>
-* [<span data-ttu-id="990a0-149">Microsoft SQL Server 2012 Native Client - QFE (適用於 SQL 2012/2014/2016)</span><span class="sxs-lookup"><span data-stu-id="990a0-149">Microsoft SQL Server 2012 Native Client - QFE   (applies to SQL 2012/2014/2016)</span></span>](https://www.microsoft.com/download/details.aspx?id=50402)
-
-<span data-ttu-id="990a0-150">將 Orchestrator 完整安裝在單一電腦上時，建議您採用下列軟體：</span><span class="sxs-lookup"><span data-stu-id="990a0-150">We recommend the following software for a full installation of Orchestrator on a single computer:</span></span>
-
-* <span data-ttu-id="990a0-151">將電腦加入 Active Directory 網域。</span><span class="sxs-lookup"><span data-stu-id="990a0-151">Join the computer to an Active Directory domain.</span></span>
-
-> [!NOTE]
-> <span data-ttu-id="990a0-152">第一次使用 Orchestration 主控台時，如果尚未在電腦上安裝 Microsoft Silverlight 4，則會跳出提示提醒安裝。</span><span class="sxs-lookup"><span data-stu-id="990a0-152">On first use of the Orchestration console, you are prompted to install Microsoft Silverlight 4 on the computer if it is not already installed.</span></span>
-
-## <a name="sql-server"></a><span data-ttu-id="990a0-153">SQL Server</span><span class="sxs-lookup"><span data-stu-id="990a0-153">SQL Server</span></span>
-
-> [!NOTE]
-> <span data-ttu-id="990a0-154">針對支援的 SQL 版本，請使用 Microsoft 目前支援的 Service Pack。</span><span class="sxs-lookup"><span data-stu-id="990a0-154">For the supported versions of SQL, use the service packs that are currently in support by Microsoft.</span></span>
-
-<span data-ttu-id="990a0-155">**SQL 版本**</span><span class="sxs-lookup"><span data-stu-id="990a0-155">**SQL version**</span></span> | <span data-ttu-id="990a0-156">**支援**</span><span class="sxs-lookup"><span data-stu-id="990a0-156">**Supported**</span></span>
---- | ---
-<span data-ttu-id="990a0-157">**SQL Server 2008**</span><span class="sxs-lookup"><span data-stu-id="990a0-157">**SQL Server 2008**</span></span>| <span data-ttu-id="990a0-158">N</span><span class="sxs-lookup"><span data-stu-id="990a0-158">N</span></span>
-<span data-ttu-id="990a0-159">**[這裡](https://support.microsoft.com/en-in/lifecycle/search?alpha=SQL%20server%202012%20service%20pack)提供 SQL Server 2012 和 SP 的詳細資訊**</span><span class="sxs-lookup"><span data-stu-id="990a0-159">**SQL Server 2012 and SPs as detailed [here](https://support.microsoft.com/en-in/lifecycle/search?alpha=SQL%20server%202012%20service%20pack)**</span></span> | <span data-ttu-id="990a0-160">Y</span><span class="sxs-lookup"><span data-stu-id="990a0-160">Y</span></span>
-<span data-ttu-id="990a0-161">**[這裡](https://support.microsoft.com/en-in/lifecycle/search?alpha=SQL%20server%202014%20service%20pack)提供 SQL Server 2014 和 SP 的詳細資訊**</span><span class="sxs-lookup"><span data-stu-id="990a0-161">**SQL Server 2014 and SPs as detailed [here](https://support.microsoft.com/en-in/lifecycle/search?alpha=SQL%20server%202014%20service%20pack)**</span></span> | <span data-ttu-id="990a0-162">Y</span><span class="sxs-lookup"><span data-stu-id="990a0-162">Y</span></span>
-<span data-ttu-id="990a0-163">**[這裡](https://support.microsoft.com/en-in/lifecycle/search?alpha=SQL%20server%202016%20service%20pack)提供 SQL Server 2016 和 SP 的詳細資訊**</span><span class="sxs-lookup"><span data-stu-id="990a0-163">**SQL Server 2016 and SPs as detailed [here](https://support.microsoft.com/en-in/lifecycle/search?alpha=SQL%20server%202016%20service%20pack)**</span></span> | <span data-ttu-id="990a0-164">Y</span><span class="sxs-lookup"><span data-stu-id="990a0-164">Y</span></span>
-
-## <a name="net-requirements"></a><span data-ttu-id="990a0-165">.NET 需求</span><span class="sxs-lookup"><span data-stu-id="990a0-165">.Net requirements</span></span>
-
-<span data-ttu-id="990a0-166">所有 Orchestrator 伺服器角色都需要 .NET 3.5 SP1 才能執行安裝程式。</span><span class="sxs-lookup"><span data-stu-id="990a0-166">All Orchestrator server roles require .Net 3.5 SP1 in order to run the setup program.</span></span> <span data-ttu-id="990a0-167">Orchestrator Web 服務需要 .NET 4.5 和 WCF 啟動。</span><span class="sxs-lookup"><span data-stu-id="990a0-167">The Orchestrator Web Service requires .Net 4.5 with WCF Activation.</span></span>
-
-<span data-ttu-id="990a0-168">您可以下載在.Net 3.5 SP1:</span><span class="sxs-lookup"><span data-stu-id="990a0-168">You can download .Net 3.5 SP1 at:</span></span>  
-
-### <a name="to-turn-on-wcf-activation"></a><span data-ttu-id="990a0-169">開啟 WCF 啟動</span><span class="sxs-lookup"><span data-stu-id="990a0-169">To turn on WCF activation</span></span>
-
-1. <span data-ttu-id="990a0-170">在 Windows [開始] 畫面中，按一下 [伺服器管理員] 磚。</span><span class="sxs-lookup"><span data-stu-id="990a0-170">On the Windows Start screen, click the **Server Manager** tile.</span></span>
-2.  <span data-ttu-id="990a0-171">在伺服器管理員主控台的 [管理]  功能表中按一下 [新增角色及功能] 。</span><span class="sxs-lookup"><span data-stu-id="990a0-171">On the **Manage** menu in the Server Manager console, click **Add Roles and Features**.</span></span>
-3.  <span data-ttu-id="990a0-172">逐一完成精靈中的作業，直到進入 [功能]  頁面。</span><span class="sxs-lookup"><span data-stu-id="990a0-172">Go through the wizard until you reach the **Features** page.</span></span>
-4.  <span data-ttu-id="990a0-173">展開 [.NET Framework 4.5 功能] 。</span><span class="sxs-lookup"><span data-stu-id="990a0-173">Expand **.NET Framework 4.5 Features**.</span></span>
-5.  <span data-ttu-id="990a0-174">如果尚未選取 [.NET Framework 4.5]  ，請選取。</span><span class="sxs-lookup"><span data-stu-id="990a0-174">Select **.NET Framework 4.5** if it isn’t already selected.</span></span>
-6.  <span data-ttu-id="990a0-175">展開 [WCF 服務] 。</span><span class="sxs-lookup"><span data-stu-id="990a0-175">Expand **WCF Services**.</span></span>
-7.  <span data-ttu-id="990a0-176">選取 [HTTP 啟用]  \(如果尚未選取)。</span><span class="sxs-lookup"><span data-stu-id="990a0-176">Select **HTTP Activation** if it isn’t already selected.</span></span>
-8.  <span data-ttu-id="990a0-177">按 [下一步]  ，並遵照提示完成安裝。</span><span class="sxs-lookup"><span data-stu-id="990a0-177">Click **Next** and follow the prompts to finish the installation.</span></span> <span data-ttu-id="990a0-178">如果您有任何問題，請查閱 [Troubleshoot Your Orchestrator Installation](https://technet.microsoft.com/library/hh546549.aspx)中涵蓋的問題。</span><span class="sxs-lookup"><span data-stu-id="990a0-178">If you have problems, check the issues covered in [Troubleshoot Your Orchestrator Installation](https://technet.microsoft.com/library/hh546549.aspx).</span></span>
-
-
-## <a name="virtualization"></a><span data-ttu-id="990a0-179">虛擬化</span><span class="sxs-lookup"><span data-stu-id="990a0-179">Virtualization</span></span>
-
-<span data-ttu-id="990a0-180">完整支援在虛擬化作業系統上部署及執行 Orchestrator。</span><span class="sxs-lookup"><span data-stu-id="990a0-180">Deploying and running Orchestrator on a virtualized operating system is fully supported.</span></span> <span data-ttu-id="990a0-181">其軟體需求與上述需求相同。</span><span class="sxs-lookup"><span data-stu-id="990a0-181">The software requirements are the same as those listed above.</span></span> <span data-ttu-id="990a0-182">在 Microsoft Azure 中執行的虛擬化伺服器上也可以執行任何 Orchestrator 角色。</span><span class="sxs-lookup"><span data-stu-id="990a0-182">Any of the Orchestrator roles can also be run on a virtualized server running in Microsoft Azure.</span></span>
+- [<span data-ttu-id="ea896-188">Video Player Demos (sample)</span><span class="sxs-lookup"><span data-stu-id="ea896-188">Video Player Demos (sample)</span></span>](https://developer.xamarin.com/samples/xamarin-forms/customrenderers/VideoPlayerDemos/)
