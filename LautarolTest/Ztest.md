@@ -11,6 +11,15 @@ ms.date: 02/12/2018
 
 # <span data-ttu-id="ea896-103">Custom video transport controls</span><span class="sxs-lookup"><span data-stu-id="ea896-103">Custom video transport controls</span></span>
 
+<span data-ttu-id="4548f-129">Öffnen Sie die Datei in Ihrem Webbrowser, und zeigen Sie die gerenderte Karte an.</span><span class="sxs-lookup"><span data-stu-id="4548f-129">Open the file in your web browser and view the rendered map.</span></span> <span data-ttu-id="4548f-130">Die Anzeige sollte folgendermaßen aussehen:</span><span class="sxs-lookup"><span data-stu-id="4548f-130">It should look like the following:</span></span>
+
+    <iframe height="700" style="width: 100%;" scrolling="no" title="Verwenden des Kartensteuerelements" src="//codepen.io/azuremaps/embed/yZpEYL/?height=557&theme-id=0&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+<span data-ttu-id="4548f-132">Weitere Informationen finden Sie unter dem Pen <a href='https://codepen.io/azuremaps/pen/yZpEYL/'>Verwenden des Kartensteuerelements</a> von Azure Maps (<a href='https://codepen.io/azuremaps'>@azuremaps</a>) bei <a href='https://codepen.io'>CodePen</a>.</span><span class="sxs-lookup"><span data-stu-id="4548f-132">See the Pen <a href='https://codepen.io/azuremaps/pen/yZpEYL/'>How to use the map control</a> by Azure Maps (<a href='https://codepen.io/azuremaps'>@azuremaps</a>) on <a href='https://codepen.io'>CodePen</a>.</span></span>
+    </iframe>
+
+## <a name="next-steps"></a><span data-ttu-id="4548f-133">Nächste Schritte</span><span class="sxs-lookup"><span data-stu-id="4548f-133">Next steps</span></span>
+
+
 [![D<span data-ttu-id="ea896-104">ownload Sample]</span><span class="sxs-lookup"><span data-stu-id="ea896-104">ownload Sample]</span></span>(~/media/shared/download.png) <span data-ttu-id="ea896-105">Download the sample</span><span class="sxs-lookup"><span data-stu-id="ea896-105">Download the sample</span></span>](https://developer.xamarin.com/samples/xamarin-forms/customrenderers/VideoPlayerDemos/)
 
 <span data-ttu-id="ea896-106">The transport controls of a video player include the buttons that perform the functions **Play**, **Pause**, and **Stop**.</span><span class="sxs-lookup"><span data-stu-id="ea896-106">The transport controls of a video player include the buttons that perform the functions **Play**, **Pause**, and **Stop**.</span></span> <span data-ttu-id="ea896-107">These buttons are generally identified with familiar icons rather than text, and the **Play** and **Pause** functions are generally combined into one button.</span><span class="sxs-lookup"><span data-stu-id="ea896-107">These buttons are generally identified with familiar icons rather than text, and the **Play** and **Pause** functions are generally combined into one button.</span></span>
