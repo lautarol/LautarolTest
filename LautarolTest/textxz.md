@@ -1,178 +1,67 @@
 ---
-title: How to use the Azure Maps Map Control | Microsoft Docs
-description: Learn how to use the Azure Maps Map Control client-side Javascript library.
-author: dsk-2015
-ms.author: dkshir
-ms.date: 10/08/2018
+title: Paper entity attributes - Academic Knowledge API
+titlesuffix: Azure Cognitive Services
+description: Learn the attributes you can use with the Paper entity in the Academic Knowledge API.
+services: cognitive-services
+author: alch-msft
+manager: nitinme
+ms.service: cognitive-services
+ms.subservice: academic-knowledge
 ms.topic: conceptual
-ms.service: azure-maps
-services: azure-maps
-manager: timlt
+ms.date: 03/31/2017
+ms.author: alch
 ---
 
-# <a name="use-the-azure-maps-map-control"></a><span data-ttu-id="551ff-103">Use the Azure Maps Map Control</span><span class="sxs-lookup"><span data-stu-id="551ff-103">Use the Azure Maps Map Control</span></span>
+# <a name="paper-entity"></a><span data-ttu-id="7bf9f-103">Paper Entity</span><span class="sxs-lookup"><span data-stu-id="7bf9f-103">Paper Entity</span></span>
 
-<span data-ttu-id="551ff-104">The Map Control client-side Javascript library allows you to render maps and embedded Azure Maps functionality into your web or mobile application.</span><span class="sxs-lookup"><span data-stu-id="551ff-104">The Map Control client-side Javascript library allows you to render maps and embedded Azure Maps functionality into your web or mobile application.</span></span>
+<span data-ttu-id="7bf9f-104"><sub> \*Below attributes are specific to paper entity. (Ty = '0') </sub></span><span class="sxs-lookup"><span data-stu-id="7bf9f-104"><sub> \*Below attributes are specific to paper entity. (Ty = '0') </sub></span></span>
 
-## <a name="create-a-new-map-in-a-web-page"></a><span data-ttu-id="551ff-105">Create a new map in a web page</span><span class="sxs-lookup"><span data-stu-id="551ff-105">Create a new map in a web page</span></span>
 
-<span data-ttu-id="551ff-106">You can embed a map in a web page by using the Map Control client-side Javascript library.</span><span class="sxs-lookup"><span data-stu-id="551ff-106">You can embed a map in a web page by using the Map Control client-side Javascript library.</span></span>
+<span data-ttu-id="7bf9f-105">Name</span><span class="sxs-lookup"><span data-stu-id="7bf9f-105">Name</span></span>    |<span data-ttu-id="7bf9f-106">Description</span><span class="sxs-lookup"><span data-stu-id="7bf9f-106">Description</span></span>                                        |<span data-ttu-id="7bf9f-107">Type</span><span class="sxs-lookup"><span data-stu-id="7bf9f-107">Type</span></span>       | <span data-ttu-id="7bf9f-108">Operations</span><span class="sxs-lookup"><span data-stu-id="7bf9f-108">Operations</span></span>
+------- | ------------------------------------------------- | --------- | ----------------------------
+<span data-ttu-id="7bf9f-109">Id</span><span class="sxs-lookup"><span data-stu-id="7bf9f-109">Id</span></span>      |<span data-ttu-id="7bf9f-110">Entity ID</span><span class="sxs-lookup"><span data-stu-id="7bf9f-110">Entity ID</span></span>                                          |<span data-ttu-id="7bf9f-111">Int64</span><span class="sxs-lookup"><span data-stu-id="7bf9f-111">Int64</span></span>      |<span data-ttu-id="7bf9f-112">Equals</span><span class="sxs-lookup"><span data-stu-id="7bf9f-112">Equals</span></span>
+<span data-ttu-id="7bf9f-113">Ti</span><span class="sxs-lookup"><span data-stu-id="7bf9f-113">Ti</span></span>      |<span data-ttu-id="7bf9f-114">Paper title</span><span class="sxs-lookup"><span data-stu-id="7bf9f-114">Paper title</span></span>                                        |<span data-ttu-id="7bf9f-115">String</span><span class="sxs-lookup"><span data-stu-id="7bf9f-115">String</span></span>     |<span data-ttu-id="7bf9f-116">Equals,</span><span class="sxs-lookup"><span data-stu-id="7bf9f-116">Equals,</span></span><br/><span data-ttu-id="7bf9f-117">StartsWith</span><span class="sxs-lookup"><span data-stu-id="7bf9f-117">StartsWith</span></span>
+<span data-ttu-id="7bf9f-118">L</span><span class="sxs-lookup"><span data-stu-id="7bf9f-118">L</span></span>       |<span data-ttu-id="7bf9f-119">Paper language code separated by "\@@@"</span><span class="sxs-lookup"><span data-stu-id="7bf9f-119">Paper language code separated by "\@@@"</span></span>            |<span data-ttu-id="7bf9f-120">String</span><span class="sxs-lookup"><span data-stu-id="7bf9f-120">String</span></span>     |<span data-ttu-id="7bf9f-121">Equals</span><span class="sxs-lookup"><span data-stu-id="7bf9f-121">Equals</span></span>
+<span data-ttu-id="7bf9f-122">Y</span><span class="sxs-lookup"><span data-stu-id="7bf9f-122">Y</span></span>       |<span data-ttu-id="7bf9f-123">Paper year</span><span class="sxs-lookup"><span data-stu-id="7bf9f-123">Paper year</span></span>                                         |<span data-ttu-id="7bf9f-124">Int32</span><span class="sxs-lookup"><span data-stu-id="7bf9f-124">Int32</span></span>      |<span data-ttu-id="7bf9f-125">Equals,</span><span class="sxs-lookup"><span data-stu-id="7bf9f-125">Equals,</span></span><br/><span data-ttu-id="7bf9f-126">IsBetween</span><span class="sxs-lookup"><span data-stu-id="7bf9f-126">IsBetween</span></span>
+<span data-ttu-id="7bf9f-127">D</span><span class="sxs-lookup"><span data-stu-id="7bf9f-127">D</span></span>       |<span data-ttu-id="7bf9f-128">Paper date</span><span class="sxs-lookup"><span data-stu-id="7bf9f-128">Paper date</span></span>                                         |<span data-ttu-id="7bf9f-129">Date</span><span class="sxs-lookup"><span data-stu-id="7bf9f-129">Date</span></span>       |<span data-ttu-id="7bf9f-130">Equals,</span><span class="sxs-lookup"><span data-stu-id="7bf9f-130">Equals,</span></span><br/><span data-ttu-id="7bf9f-131">IsBetween</span><span class="sxs-lookup"><span data-stu-id="7bf9f-131">IsBetween</span></span>
+<span data-ttu-id="7bf9f-132">CC</span><span class="sxs-lookup"><span data-stu-id="7bf9f-132">CC</span></span>      |<span data-ttu-id="7bf9f-133">Citation count</span><span class="sxs-lookup"><span data-stu-id="7bf9f-133">Citation count</span></span>                                     |<span data-ttu-id="7bf9f-134">Int32</span><span class="sxs-lookup"><span data-stu-id="7bf9f-134">Int32</span></span>      |<span data-ttu-id="7bf9f-135">none</span><span class="sxs-lookup"><span data-stu-id="7bf9f-135">none</span></span>  
+<span data-ttu-id="7bf9f-136">ECC</span><span class="sxs-lookup"><span data-stu-id="7bf9f-136">ECC</span></span>     |<span data-ttu-id="7bf9f-137">Estimated citation Count</span><span class="sxs-lookup"><span data-stu-id="7bf9f-137">Estimated citation Count</span></span>                           |<span data-ttu-id="7bf9f-138">Int32</span><span class="sxs-lookup"><span data-stu-id="7bf9f-138">Int32</span></span>      |<span data-ttu-id="7bf9f-139">none</span><span class="sxs-lookup"><span data-stu-id="7bf9f-139">none</span></span>
+<span data-ttu-id="7bf9f-140">AA.AuN</span><span class="sxs-lookup"><span data-stu-id="7bf9f-140">AA.AuN</span></span>  |<span data-ttu-id="7bf9f-141">Author name</span><span class="sxs-lookup"><span data-stu-id="7bf9f-141">Author name</span></span>                                        |<span data-ttu-id="7bf9f-142">String</span><span class="sxs-lookup"><span data-stu-id="7bf9f-142">String</span></span>     |<span data-ttu-id="7bf9f-143">Equals,</span><span class="sxs-lookup"><span data-stu-id="7bf9f-143">Equals,</span></span><br/><span data-ttu-id="7bf9f-144">StartsWith</span><span class="sxs-lookup"><span data-stu-id="7bf9f-144">StartsWith</span></span>
+<span data-ttu-id="7bf9f-145">AA.AuId</span><span class="sxs-lookup"><span data-stu-id="7bf9f-145">AA.AuId</span></span> |<span data-ttu-id="7bf9f-146">Author ID</span><span class="sxs-lookup"><span data-stu-id="7bf9f-146">Author ID</span></span>                                          |<span data-ttu-id="7bf9f-147">Int64</span><span class="sxs-lookup"><span data-stu-id="7bf9f-147">Int64</span></span>      |<span data-ttu-id="7bf9f-148">Equals</span><span class="sxs-lookup"><span data-stu-id="7bf9f-148">Equals</span></span>
+<span data-ttu-id="7bf9f-149">AA.AfN</span><span class="sxs-lookup"><span data-stu-id="7bf9f-149">AA.AfN</span></span>  |<span data-ttu-id="7bf9f-150">Author affiliation name</span><span class="sxs-lookup"><span data-stu-id="7bf9f-150">Author affiliation name</span></span>                            |<span data-ttu-id="7bf9f-151">String</span><span class="sxs-lookup"><span data-stu-id="7bf9f-151">String</span></span>     |<span data-ttu-id="7bf9f-152">Equals,</span><span class="sxs-lookup"><span data-stu-id="7bf9f-152">Equals,</span></span><br/><span data-ttu-id="7bf9f-153">StartsWith</span><span class="sxs-lookup"><span data-stu-id="7bf9f-153">StartsWith</span></span>
+<span data-ttu-id="7bf9f-154">AA.AfId</span><span class="sxs-lookup"><span data-stu-id="7bf9f-154">AA.AfId</span></span> |<span data-ttu-id="7bf9f-155">Author affiliation ID</span><span class="sxs-lookup"><span data-stu-id="7bf9f-155">Author affiliation ID</span></span>                              |<span data-ttu-id="7bf9f-156">Int64</span><span class="sxs-lookup"><span data-stu-id="7bf9f-156">Int64</span></span>      |<span data-ttu-id="7bf9f-157">Equals</span><span class="sxs-lookup"><span data-stu-id="7bf9f-157">Equals</span></span>
+<span data-ttu-id="7bf9f-158">AA.S</span><span class="sxs-lookup"><span data-stu-id="7bf9f-158">AA.S</span></span>    |<span data-ttu-id="7bf9f-159">Author order for the paper</span><span class="sxs-lookup"><span data-stu-id="7bf9f-159">Author order for the paper</span></span>                         |<span data-ttu-id="7bf9f-160">Int32</span><span class="sxs-lookup"><span data-stu-id="7bf9f-160">Int32</span></span>      |<span data-ttu-id="7bf9f-161">Equals</span><span class="sxs-lookup"><span data-stu-id="7bf9f-161">Equals</span></span>
+<span data-ttu-id="7bf9f-162">F.FN</span><span class="sxs-lookup"><span data-stu-id="7bf9f-162">F.FN</span></span>    |<span data-ttu-id="7bf9f-163">Field of study name</span><span class="sxs-lookup"><span data-stu-id="7bf9f-163">Field of study name</span></span>                                |<span data-ttu-id="7bf9f-164">String</span><span class="sxs-lookup"><span data-stu-id="7bf9f-164">String</span></span>     |<span data-ttu-id="7bf9f-165">Equals,</span><span class="sxs-lookup"><span data-stu-id="7bf9f-165">Equals,</span></span><br/><span data-ttu-id="7bf9f-166">StartsWith</span><span class="sxs-lookup"><span data-stu-id="7bf9f-166">StartsWith</span></span>
+<span data-ttu-id="7bf9f-167">F.FId</span><span class="sxs-lookup"><span data-stu-id="7bf9f-167">F.FId</span></span>   |<span data-ttu-id="7bf9f-168">Field of study ID</span><span class="sxs-lookup"><span data-stu-id="7bf9f-168">Field of study ID</span></span>                                  |<span data-ttu-id="7bf9f-169">Int64</span><span class="sxs-lookup"><span data-stu-id="7bf9f-169">Int64</span></span>      |<span data-ttu-id="7bf9f-170">Equals</span><span class="sxs-lookup"><span data-stu-id="7bf9f-170">Equals</span></span>
+<span data-ttu-id="7bf9f-171">J.JN</span><span class="sxs-lookup"><span data-stu-id="7bf9f-171">J.JN</span></span>    |<span data-ttu-id="7bf9f-172">Journal name</span><span class="sxs-lookup"><span data-stu-id="7bf9f-172">Journal name</span></span>                                       |<span data-ttu-id="7bf9f-173">String</span><span class="sxs-lookup"><span data-stu-id="7bf9f-173">String</span></span>     |<span data-ttu-id="7bf9f-174">Equals,</span><span class="sxs-lookup"><span data-stu-id="7bf9f-174">Equals,</span></span><br/><span data-ttu-id="7bf9f-175">StartsWith</span><span class="sxs-lookup"><span data-stu-id="7bf9f-175">StartsWith</span></span>
+<span data-ttu-id="7bf9f-176">J.JId</span><span class="sxs-lookup"><span data-stu-id="7bf9f-176">J.JId</span></span>   |<span data-ttu-id="7bf9f-177">Journal ID</span><span class="sxs-lookup"><span data-stu-id="7bf9f-177">Journal ID</span></span>                                         |<span data-ttu-id="7bf9f-178">Int64</span><span class="sxs-lookup"><span data-stu-id="7bf9f-178">Int64</span></span>      |<span data-ttu-id="7bf9f-179">Equals</span><span class="sxs-lookup"><span data-stu-id="7bf9f-179">Equals</span></span>
+<span data-ttu-id="7bf9f-180">C.CN</span><span class="sxs-lookup"><span data-stu-id="7bf9f-180">C.CN</span></span>    |<span data-ttu-id="7bf9f-181">Conference series name</span><span class="sxs-lookup"><span data-stu-id="7bf9f-181">Conference series name</span></span>                             |<span data-ttu-id="7bf9f-182">String</span><span class="sxs-lookup"><span data-stu-id="7bf9f-182">String</span></span>     |<span data-ttu-id="7bf9f-183">Equals,</span><span class="sxs-lookup"><span data-stu-id="7bf9f-183">Equals,</span></span><br/><span data-ttu-id="7bf9f-184">StartsWith</span><span class="sxs-lookup"><span data-stu-id="7bf9f-184">StartsWith</span></span>
+<span data-ttu-id="7bf9f-185">C.CId</span><span class="sxs-lookup"><span data-stu-id="7bf9f-185">C.CId</span></span>   |<span data-ttu-id="7bf9f-186">Conference series ID</span><span class="sxs-lookup"><span data-stu-id="7bf9f-186">Conference series ID</span></span>                               |<span data-ttu-id="7bf9f-187">Int64</span><span class="sxs-lookup"><span data-stu-id="7bf9f-187">Int64</span></span>      |<span data-ttu-id="7bf9f-188">Equals</span><span class="sxs-lookup"><span data-stu-id="7bf9f-188">Equals</span></span>
+<span data-ttu-id="7bf9f-189">RId</span><span class="sxs-lookup"><span data-stu-id="7bf9f-189">RId</span></span>     |<span data-ttu-id="7bf9f-190">Referenced papers' ID</span><span class="sxs-lookup"><span data-stu-id="7bf9f-190">Referenced papers' ID</span></span>                              |<span data-ttu-id="7bf9f-191">Int64[]</span><span class="sxs-lookup"><span data-stu-id="7bf9f-191">Int64[]</span></span>    |<span data-ttu-id="7bf9f-192">Equals</span><span class="sxs-lookup"><span data-stu-id="7bf9f-192">Equals</span></span>
+<span data-ttu-id="7bf9f-193">W</span><span class="sxs-lookup"><span data-stu-id="7bf9f-193">W</span></span>       |<span data-ttu-id="7bf9f-194">Words from paper title and Abstract</span><span class="sxs-lookup"><span data-stu-id="7bf9f-194">Words from paper title and Abstract</span></span>                |<span data-ttu-id="7bf9f-195">String[]</span><span class="sxs-lookup"><span data-stu-id="7bf9f-195">String[]</span></span>   |<span data-ttu-id="7bf9f-196">Equals</span><span class="sxs-lookup"><span data-stu-id="7bf9f-196">Equals</span></span>
+<span data-ttu-id="7bf9f-197">E</span><span class="sxs-lookup"><span data-stu-id="7bf9f-197">E</span></span>       |<span data-ttu-id="7bf9f-198">Extended metadata (see table below)</span><span class="sxs-lookup"><span data-stu-id="7bf9f-198">Extended metadata (see table below)</span></span>                |<span data-ttu-id="7bf9f-199">String</span><span class="sxs-lookup"><span data-stu-id="7bf9f-199">String</span></span>     |<span data-ttu-id="7bf9f-200">none</span><span class="sxs-lookup"><span data-stu-id="7bf9f-200">none</span></span>  
+        
 
-1. <span data-ttu-id="551ff-107">Create a new HTML file.</span><span class="sxs-lookup"><span data-stu-id="551ff-107">Create a new HTML file.</span></span>
 
-2. <span data-ttu-id="551ff-108">Load in the Azure Maps Web SDK.</span><span class="sxs-lookup"><span data-stu-id="551ff-108">Load in the Azure Maps Web SDK.</span></span> <span data-ttu-id="551ff-109">This can be done using one of two options;</span><span class="sxs-lookup"><span data-stu-id="551ff-109">This can be done using one of two options;</span></span>
+## <a name="extended-metadata-attributes"></a><span data-ttu-id="7bf9f-201">Extended Metadata Attributes</span><span class="sxs-lookup"><span data-stu-id="7bf9f-201">Extended Metadata Attributes</span></span> ##
 
-    <span data-ttu-id="551ff-110">a.</span><span class="sxs-lookup"><span data-stu-id="551ff-110">a.</span></span> <span data-ttu-id="551ff-111">Use the globally hosted CDN version of the Azure Maps Web SDK by adding the URL endpoints to the stylesheet and script references in the `<head>` element of the file:</span><span class="sxs-lookup"><span data-stu-id="551ff-111">Use the globally hosted CDN version of the Azure Maps Web SDK by adding the URL endpoints to the stylesheet and script references in the `<head>` element of the file:</span></span>
-
-    ```HTML
-    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css">
-    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
-    ```
-
-    <span data-ttu-id="551ff-112">b.</span><span class="sxs-lookup"><span data-stu-id="551ff-112">b.</span></span> <span data-ttu-id="551ff-113">Alternatively, load the Azure Maps Web SDK source code locally using the [azure-maps-control](https://www.npmjs.com/package/azure-maps-control) NPM package and host it with your app.</span><span class="sxs-lookup"><span data-stu-id="551ff-113">Alternatively, load the Azure Maps Web SDK source code locally using the [azure-maps-control](https://www.npmjs.com/package/azure-maps-control) NPM package and host it with your app.</span></span> <span data-ttu-id="551ff-114">This package also includes TypeScript definitions.</span><span class="sxs-lookup"><span data-stu-id="551ff-114">This package also includes TypeScript definitions.</span></span>
-
-    > <span data-ttu-id="551ff-115">npm install azure-maps-control</span><span class="sxs-lookup"><span data-stu-id="551ff-115">npm install azure-maps-control</span></span>
-
-    <span data-ttu-id="551ff-116">Then add references to the Azure Maps stylesheet and script source references to the `<head>` element of the file:</span><span class="sxs-lookup"><span data-stu-id="551ff-116">Then add references to the Azure Maps stylesheet and script source references to the `<head>` element of the file:</span></span>
-
-    ```HTML
-    <link rel="stylesheet" href="node_modules/azure-maps-control/dist/css/atlas.min.css" type="text/css">
-    <script src="node_modules/azure-maps-control/dist/js/atlas.min.js"></script>
-    ```
-
-3. <span data-ttu-id="551ff-117">To render the map so that it fills the full body of the page, add the following `<style>` element to the `<head>` element.</span><span class="sxs-lookup"><span data-stu-id="551ff-117">To render the map so that it fills the full body of the page, add the following `<style>` element to the `<head>` element.</span></span>
-
-    ```HTML
-    <style>
-        html, body {
-            margin: 0;
-        }
-
-        #myMap {
-            height: 100vh;
-            width: 100vw;
-        }
-    </style>
-    ```
-
-4. <span data-ttu-id="551ff-118">In the body of the page, add a `<div>` element and give it an `id` of **myMap**.</span><span class="sxs-lookup"><span data-stu-id="551ff-118">In the body of the page, add a `<div>` element and give it an `id` of **myMap**.</span></span>
-
-    ```HTML
-    <body>
-        <div id="myMap"></div>
-    </body>
-    ```
-
-5. <span data-ttu-id="551ff-119">To initialize the map control, define a new section in the html body and create a script.</span><span class="sxs-lookup"><span data-stu-id="551ff-119">To initialize the map control, define a new section in the html body and create a script.</span></span> <span data-ttu-id="551ff-120">Use your own Azure Maps account key or Azure Active Directory (AAD) credentials to authenticate the map using [authentication options](https://docs.microsoft.com/javascript/api/azure-maps-control/atlas.authenticationoptions).</span><span class="sxs-lookup"><span data-stu-id="551ff-120">Use your own Azure Maps account key or Azure Active Directory (AAD) credentials to authenticate the map using [authentication options](https://docs.microsoft.com/javascript/api/azure-maps-control/atlas.authenticationoptions).</span></span> <span data-ttu-id="551ff-121">If you need to create an account or find your key, see [How to manage your Azure Maps account and keys](how-to-manage-account-keys.md).</span><span class="sxs-lookup"><span data-stu-id="551ff-121">If you need to create an account or find your key, see [How to manage your Azure Maps account and keys](how-to-manage-account-keys.md).</span></span> <span data-ttu-id="551ff-122">The **language** option specifies the language to be used for map labels and controls.</span><span class="sxs-lookup"><span data-stu-id="551ff-122">The **language** option specifies the language to be used for map labels and controls.</span></span> <span data-ttu-id="551ff-123">For more information on supported languages, see [supported languages](supported-languages.md).</span><span class="sxs-lookup"><span data-stu-id="551ff-123">For more information on supported languages, see [supported languages](supported-languages.md).</span></span> <span data-ttu-id="551ff-124">If using a subscription key for authentication.</span><span class="sxs-lookup"><span data-stu-id="551ff-124">If using a subscription key for authentication.</span></span>
-
-    ```HTML
-    <script type="text/javascript">
-        var map = new atlas.Map('myMap', {
-            center: [-122.33, 47.6],
-            zoom: 12,
-            language: 'en-US',
-            authOptions: {
-                authType: 'subscriptionKey',
-                subscriptionKey: '<Your Azure Maps Key>'
-            }
-        });
-    </script>
-    ```
-
-    <span data-ttu-id="551ff-125">If using Azure Active Directory (AAD) for authentication:</span><span class="sxs-lookup"><span data-stu-id="551ff-125">If using Azure Active Directory (AAD) for authentication:</span></span>
-
-    ```HTML
-    <script type="text/javascript">
-        var map = new atlas.Map('myMap', {
-            center: [-122.33, 47.6],
-            zoom: 12,
-            language: 'en-US',
-            authOptions: {
-                authType: 'aad',
-                clientId: '<Your AAD Client Id>',
-                aadAppId: '<Your AAD App Id>',
-                aadTenant: 'msft.ccsctp.net'
-            }
-        });
-    </script>
-    ```
-
-    <span data-ttu-id="551ff-126">For more information, see [Authentication with Azure Maps](azure-maps-authentication.md) for more details.</span><span class="sxs-lookup"><span data-stu-id="551ff-126">For more information, see [Authentication with Azure Maps](azure-maps-authentication.md) for more details.</span></span>
-
-6. <span data-ttu-id="551ff-127">Optionally, you may find adding the following meta tag elements to the head of your page helpful:</span><span class="sxs-lookup"><span data-stu-id="551ff-127">Optionally, you may find adding the following meta tag elements to the head of your page helpful:</span></span>
-
-    ```HTML
-    <!-- Ensures that IE and Edge uses the latest version and doesn't emulate an older version -->
-    <meta http-equiv="x-ua-compatible" content="IE=Edge">
-
-    <!-- Ensures the web page looks good on all screen sizes. -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    ```
-
-7. <span data-ttu-id="551ff-128">Putting it all together your HTML file should look something like the following code:</span><span class="sxs-lookup"><span data-stu-id="551ff-128">Putting it all together your HTML file should look something like the following code:</span></span>
-
-    ```HTML
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title></title>
-
-        <meta charset="utf-8">
-
-        <!-- Ensures that IE and Edge uses the latest version and doesn't emulate an older version -->
-        <meta http-equiv="x-ua-compatible" content="IE=Edge">
-
-        <!-- Ensures the web page looks good on all screen sizes. -->
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <!-- Add references to the Azure Maps Map control JavaScript and CSS files. -->
-        <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css">
-        <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
-
-        <style>
-            html, body {
-                margin: 0;
-            }
-
-            #myMap {
-                height: 100vh;
-                width: 100vw;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="myMap"></div>
-
-        <script type="text/javascript">
-            //Create an instance of the map control and set some options.
-            var map = new atlas.Map('myMap', {
-                center: [-122.33, 47.6],
-                zoom: 12,
-                language: 'en-US',
-                authOptions: {
-                    authType: 'subscriptionKey',
-                    subscriptionKey: '<Your Azure Maps Key>'
-                }
-            });
-        </script>
-    </body>
-    </html>
-    ```
-
-8. <span data-ttu-id="551ff-129">Open the file in your web browser and view the rendered map.</span><span class="sxs-lookup"><span data-stu-id="551ff-129">Open the file in your web browser and view the rendered map.</span></span> <span data-ttu-id="551ff-130">It should look like the following code:</span><span class="sxs-lookup"><span data-stu-id="551ff-130">It should look like the following code:</span></span>
-
-    <iframe height="700" style="width: 100%;" scrolling="no" title="How to use the map control" src="//codepen.io/azuremaps/embed/yZpEYL/?height=557&theme-id=0&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-<span data-ttu-id="551ff-132">See the Pen <a href='https://codepen.io/azuremaps/pen/yZpEYL/'>How to use the map control</a> by Azure Maps (<a href='https://codepen.io/azuremaps'>@azuremaps</a>) on <a href='https://codepen.io'>CodePen</a>.</span><span class="sxs-lookup"><span data-stu-id="551ff-132">See the Pen <a href='https://codepen.io/azuremaps/pen/yZpEYL/'>How to use the map control</a> by Azure Maps (<a href='https://codepen.io/azuremaps'>@azuremaps</a>) on <a href='https://codepen.io'>CodePen</a>.</span></span>
-    </iframe>
-
-## <a name="next-steps"></a><span data-ttu-id="551ff-133">Next steps</span><span class="sxs-lookup"><span data-stu-id="551ff-133">Next steps</span></span>
-
-<span data-ttu-id="551ff-134">Learn how to create and interact with a map:</span><span class="sxs-lookup"><span data-stu-id="551ff-134">Learn how to create and interact with a map:</span></span>
-
-> [!div class="nextstepaction"]
-> [<span data-ttu-id="551ff-135">Create a map</span><span class="sxs-lookup"><span data-stu-id="551ff-135">Create a map</span></span>](map-create.md)
-
-<span data-ttu-id="551ff-136">Learn how to style a map:</span><span class="sxs-lookup"><span data-stu-id="551ff-136">Learn how to style a map:</span></span>
-
-> [!div class="nextstepaction"]
-> [<span data-ttu-id="551ff-137">Choose a map style</span><span class="sxs-lookup"><span data-stu-id="551ff-137">Choose a map style</span></span>](choose-map-style.md)
+<span data-ttu-id="7bf9f-202">Name</span><span class="sxs-lookup"><span data-stu-id="7bf9f-202">Name</span></span>    | <span data-ttu-id="7bf9f-203">Description</span><span class="sxs-lookup"><span data-stu-id="7bf9f-203">Description</span></span>               
+--------|---------------------------    
+<span data-ttu-id="7bf9f-204">DN</span><span class="sxs-lookup"><span data-stu-id="7bf9f-204">DN</span></span>      | <span data-ttu-id="7bf9f-205">Display Name of the paper</span><span class="sxs-lookup"><span data-stu-id="7bf9f-205">Display Name of the paper</span></span> 
+<span data-ttu-id="7bf9f-206">S</span><span class="sxs-lookup"><span data-stu-id="7bf9f-206">S</span></span>       | <span data-ttu-id="7bf9f-207">Sources - list of web sources of the paper, sorted by static rank</span><span class="sxs-lookup"><span data-stu-id="7bf9f-207">Sources - list of web sources of the paper, sorted by static rank</span></span>
+<span data-ttu-id="7bf9f-208">S.Ty</span><span class="sxs-lookup"><span data-stu-id="7bf9f-208">S.Ty</span></span>    | <span data-ttu-id="7bf9f-209">Source Type (1:HTML, 2:Text, 3:PDF, 4:DOC, 5:PPT, 6:XLS, 7:PS)</span><span class="sxs-lookup"><span data-stu-id="7bf9f-209">Source Type (1:HTML, 2:Text, 3:PDF, 4:DOC, 5:PPT, 6:XLS, 7:PS)</span></span>
+<span data-ttu-id="7bf9f-210">S.U</span><span class="sxs-lookup"><span data-stu-id="7bf9f-210">S.U</span></span>     | <span data-ttu-id="7bf9f-211">Source URL</span><span class="sxs-lookup"><span data-stu-id="7bf9f-211">Source URL</span></span>
+<span data-ttu-id="7bf9f-212">VFN</span><span class="sxs-lookup"><span data-stu-id="7bf9f-212">VFN</span></span>     | <span data-ttu-id="7bf9f-213">Venue Full Name - full name of the Journal or Conference</span><span class="sxs-lookup"><span data-stu-id="7bf9f-213">Venue Full Name - full name of the Journal or Conference</span></span>
+<span data-ttu-id="7bf9f-214">VSN</span><span class="sxs-lookup"><span data-stu-id="7bf9f-214">VSN</span></span>     | <span data-ttu-id="7bf9f-215">Venue Short Name - short name of the Journal or Conference</span><span class="sxs-lookup"><span data-stu-id="7bf9f-215">Venue Short Name - short name of the Journal or Conference</span></span>
+<span data-ttu-id="7bf9f-216">V</span><span class="sxs-lookup"><span data-stu-id="7bf9f-216">V</span></span>       | <span data-ttu-id="7bf9f-217">Volume - journal volume</span><span class="sxs-lookup"><span data-stu-id="7bf9f-217">Volume - journal volume</span></span>
+<span data-ttu-id="7bf9f-218">BV</span><span class="sxs-lookup"><span data-stu-id="7bf9f-218">BV</span></span>      | <span data-ttu-id="7bf9f-219">Journal Name</span><span class="sxs-lookup"><span data-stu-id="7bf9f-219">Journal Name</span></span>
+<span data-ttu-id="7bf9f-220">BT</span><span class="sxs-lookup"><span data-stu-id="7bf9f-220">BT</span></span>      | 
+<span data-ttu-id="7bf9f-221">PB</span><span class="sxs-lookup"><span data-stu-id="7bf9f-221">PB</span></span>      | <span data-ttu-id="7bf9f-222">Journal Abbreviations</span><span class="sxs-lookup"><span data-stu-id="7bf9f-222">Journal Abbreviations</span></span>
+<span data-ttu-id="7bf9f-223">I</span><span class="sxs-lookup"><span data-stu-id="7bf9f-223">I</span></span>       | <span data-ttu-id="7bf9f-224">Issue - journal issue</span><span class="sxs-lookup"><span data-stu-id="7bf9f-224">Issue - journal issue</span></span>
+<span data-ttu-id="7bf9f-225">FP</span><span class="sxs-lookup"><span data-stu-id="7bf9f-225">FP</span></span>      | <span data-ttu-id="7bf9f-226">FirstPage - first page of paper</span><span class="sxs-lookup"><span data-stu-id="7bf9f-226">FirstPage - first page of paper</span></span>
+<span data-ttu-id="7bf9f-227">LP</span><span class="sxs-lookup"><span data-stu-id="7bf9f-227">LP</span></span>      | <span data-ttu-id="7bf9f-228">LastPage - last page of paper</span><span class="sxs-lookup"><span data-stu-id="7bf9f-228">LastPage - last page of paper</span></span>
+<span data-ttu-id="7bf9f-229">DOI</span><span class="sxs-lookup"><span data-stu-id="7bf9f-229">DOI</span></span>     | <span data-ttu-id="7bf9f-230">Digital Object Identifier</span><span class="sxs-lookup"><span data-stu-id="7bf9f-230">Digital Object Identifier</span></span>
+<span data-ttu-id="7bf9f-231">CC</span><span class="sxs-lookup"><span data-stu-id="7bf9f-231">CC</span></span>      | <span data-ttu-id="7bf9f-232">Citation Contexts – List of referenced paper ID’s and the corresponding context in the paper (e.g. [{123:[“brown foxes are known for jumping as referenced in paper 123”, “the lazy dogs are a historical misnomer as shown in paper 123”]})</span><span class="sxs-lookup"><span data-stu-id="7bf9f-232">Citation Contexts – List of referenced paper ID’s and the corresponding context in the paper (e.g. [{123:[“brown foxes are known for jumping as referenced in paper 123”, “the lazy dogs are a historical misnomer as shown in paper 123”]})</span></span>
+<span data-ttu-id="7bf9f-233">IA</span><span class="sxs-lookup"><span data-stu-id="7bf9f-233">IA</span></span>      | <span data-ttu-id="7bf9f-234">Inverted Abstract</span><span class="sxs-lookup"><span data-stu-id="7bf9f-234">Inverted Abstract</span></span>
+<span data-ttu-id="7bf9f-235">IA.IndexLength</span><span class="sxs-lookup"><span data-stu-id="7bf9f-235">IA.IndexLength</span></span>| <span data-ttu-id="7bf9f-236">Number of items in the index (abstract's word count)</span><span class="sxs-lookup"><span data-stu-id="7bf9f-236">Number of items in the index (abstract's word count)</span></span>
+<span data-ttu-id="7bf9f-237">IA.InvertedIndex</span><span class="sxs-lookup"><span data-stu-id="7bf9f-237">IA.InvertedIndex</span></span>| <span data-ttu-id="7bf9f-238">List of abstract words and their corresponding position in the original abstract (e.g. [{“the”:[0, 15, 30]}, {“brown”:[1]}, {“fox”:[2]}])</span><span class="sxs-lookup"><span data-stu-id="7bf9f-238">List of abstract words and their corresponding position in the original abstract (e.g. [{“the”:[0, 15, 30]}, {“brown”:[1]}, {“fox”:[2]}])</span></span>
