@@ -1,347 +1,612 @@
 ---
-title: Configure failover cluster instance storage SMB - SQL Server on Linux | Microsoft Docs
-description: 
-author: MikeRayMSFT 
-ms.author: mikeray 
-manager: craigg
-ms.date: 08/28/2017
-ms.topic: conceptual
+title: "High Availability and Disaster Recovery for Master Data Services | Microsoft Docs"
+ms.custom: ""
+ms.date: "07/28/2017"
 ms.prod: sql
-ms.custom: "sql-linux"
-ms.technology: linux
+ms.prod_service: "mds"
+ms.reviewer: ""
+ms.technology: high-availability
+ms.topic: conceptual
+ms.assetid: ""
+author: leolimsft
+ms.author: lle
+manager: craigg
 ---
-# Configure failover cluster instance - SMB - SQL Server on Linux
 
 
-This article explains how to configure SMB storage for a failover cluster instance (FCI) on Linux. 
+
+# High Availability and Disaster Recovery for Master Data Services
+
+
+**Summary:** This article describes a solution for Master Data Service
+(MDS) hosted on AlwaysOn Availability Group configuration. The article
+describes how to install and configure SQL 2016 Master Data Services on
+a SQL 2016 AlwaysOn Availability group (AG). The main purpose of this
+solution is to improve high availability and disaster recovery of MDS
+backend data hosted on a SQL Server database.
+
+## Introduction
+
+
+This article describes a solution for Master Data Service (MDS) hosted
+on an AlwaysOn Availability Group configuration. The article describes
+how to install and configure SQL 2016 MDS on an SQL 2016 AlwaysOn
+Availability group (AG). The main purpose of this solution is to improve
+high availability and disaster recovery of MDS backend data hosted on a
+SQL Server database.
+
+To implement the solution, you need to complete the following tasks
+covered in this article.
+
+1.  [Install and set up Windows Server Failover Custer
+    (WSFC)](#windows-server-failover-cluster-wsfc).
+
+2.  [Set up AlwaysOn AG](#sql-server-alwayson-availability-group).
+
+3.  [Configure MDS to run on an WSFC
+    node](#configure-mds-to-run-on-an-wsfc-node).
+
+The above sections will briefly introduce the technologies, followed by
+instructions. For detailed information about the technologies, please
+review the documents linked to in each section.
+
+This solution described in this article is built on top of SQL Server
+AlwaysOn AG, in which each database has multiple synchronous or
+asynchronous replicas. Only one replica accepts the transaction (accepts
+user requests). This is the primary replica.
+
+Each replica has its own storage, so there is no centralized shared
+storage in this solution. When there is a software failure or a hardware
+failure affecting the primary replica, the primary replica can be failed
+over to a synchronous or asynchronous replica either automatically or
+manually based on the configuration and situations. This guarantees high
+availability of the database with minimum interruption to the users.
+
+Asynchronous replicas are usually hosted on a data center that is remote
+from the primary replica data center. In case of disaster scenarios, the
+primary replica can be failed over to another data center. This
+guarantees disaster recovery of the database.
+
+For demonstration purpose, the solution described in this article uses
+the following versions of software. Older versions should work the same
+with potentially minor differences.
+
+-   Windows Server 2012R2 with Server Failover cluster
+
+-   SQL Server 2016 with Master Data Service feature
+
+Also, the solution uses two VMs, **MDS-HA1** and **MDS-HA2**, to host
+two replicas. As long as it is supported by SQL Server AlwaysOn AG, MDS
+does not limit how many replicas you can use.
+
+This article assumes that you have basic knowledge about Windows Server,
+Windows Server Failover Cluster, SQL Server AlwaysOn, and SQL Server
+MDS.
+
+## What is not covered
+
+This document does not cover the following:
+
+-   How to make IIS, the web server hosting the Master data service UI,
+    highly available and recoverable after a disaster. MDS does not
+    impose any particular requirement on IIS, so the standard
+    techniques to make IIS highly available and load balancing can
+    work here as well.
+
+-   How to use SQL Server AlwaysOn failover (FCI) cluster to support
+    high availability (HA) on the MDS backend. SQL Server failover
+    clustering is a different HA solution and is officially supported
+    by SQL Server, and it does work with MDS.
+
+-   How to use a hybrid solution of SQL Server failover cluster (FCI)
+    and AlwaysOn AG to support HA on the MDS backend. The hybrid
+    solution does work with MDS.
+
+## Design Consideration
+
+Figure 1 shows a typical configuration used mostly in AlwaysOn AG. In
+the primary data center, there are two replicas with a synchronous
+commit relationship, and both replicas have the VOTE privilege. This is
+mainly used to improve HA in case the primary replica fails.
+
+In the Disaster Recovery Data Center, there is a secondary replica with
+an asynchronous commit relationship with the primary. This data center
+is usually in a Geo Region different than the primary data center. The
+secondary replica does not have VOTE privilege.
+
+This configuration is used to achieve recovery in case the primary data
+center is in a disaster, such as a fire, earthquake, etc. The
+configuration achieves both HA and disaster recover with relatively low
+cost.
+
+![Typical configuration for AlwaysOn Availability Group](media/Fig1_TypicalConfig.png)
+
+Figure 1. A Typical AlwaysOn Availability Group Configuration
+
+If you don't need to consider disaster recovery, you don't need to have
+a replica in a second data center. If you need to improve HA, then you
+could have more synchronous replicas in the same primary data center
+with.
+
+So it is important to consider your scenarios and requirements, and
+choose how many asynchronous and synchronous replicas you need, and
+which data center you should put them in.
+
+## Windows Server Failover Cluster (WSFC)
+
+This section covers the following tasks.
+
+1.  [Install Windows Failover Cluster
+    feature](#install-failover-cluster-feature).
+
+2.  [Create a Windows Server Failover
+    Cluster](#create-a-windows-server-failover-cluster).
+
+As shown in Figure 1 in the previous section, the solution described in
+this article includes Windows Server Failover Cluster (WSFC). We need to
+setup WSFC because SQL AlwaysOn depends on WFSC for failure detection
+and failover.
+
+WSFC is a feature to improve high availability of applications and
+services. It consists of a group of independent windows server instances
+with Microsoft Failover Cluster Service running on those instances. The
+windows server instances (or nodes as they are called sometimes) are
+connected so that they can communicate with each other, and the failure
+detection is possible. WSFC provide failure detection and failover
+functionalities. If a node or a service fails in the cluster, then the
+failure is detected, and another node automatically or manually begins
+to provide the services hosted on the failed node. As such, users only
+experience minimum disruptions in services, and service availability is
+improved.  
+
+### Prerequisites
+
+The Windows Server operating system is installed on all instances, and
+all updates are patched.
+
+>[!NOTE] 
+>It is **highly recommended** that you install the same Windows
+>version and the same feature set on all the instances to avoid any
+>potential incompatibility issues.
+
+### Install Failover Cluster Feature
+
+Complete the following steps for each Windows Server instance to install
+the WSFC feature on each instance. You need administrator permissions.
+
+1.  Open **Server Manager** in Windows Server, and click **Add Roles and
+    Features** in the right pane. This will launch the **Add Roles and
+    Feature Wizard**.
+
+2.  Click **Next** until you get to the **Features** page.
+
+3.  Select the **Failover Clustering** checkbox, and then click **Next**
+    to finish the installation. See Figure 2.
+
+    If you're asked for confirmation to **Add features that are required
+for Failover clustering**, click **Add Features**. See Figure 3.
+
+    ![Add Roles and Features Wizard, Failover Clustering](media/Fig2_SelectFeatures.png)
+
+    Figure 2
+
+    ![Add Roles and Features Wizard, required for failover cluster](media/Fig3_RequiredFeaturesFailover.png)
+
+    Figure 3
+
+4.  On the **Confirmation** page, click **Install** to install the
+    failover clustering feature.
+
+5.  On the **Result** page, make sure everything has been installed
+    successfully without errors and warnings.
+
+### Create a Windows Server Failover Cluster
+
+After the WSFC feature is installed on all instances, you can configure
+WSFC. You should only need to do this on one node.
+
+1.  Open **Server Manager** in Windows Server, and click **Failover
+    Cluster Manager** on the **Tool** menu at the top right corner to
+    launch the manager.
+
+2.  In **Failover Cluster Manager**, click **Validate Configuration** in
+    the right pane. See Figure 4.
+
+    ![Failover Cluster Manager, Validate Configuration](media/Fig4_ValidateConfig.png)
+
+    Figure 4
+
+3.  In the **Validate a Configuration** **Wizard**, click **Next**.
+
+4.  In the **Select Servers or a Cluster** dialog box, add the server
+    names that will host SQL Server, and then click **Next**. See
+    Figure 5.
+
+    In this example we added two instances, MDS-HA1 and MDS-HA2.
+
+    ![Validate a Configuration Wizard, Select Servers or a Cluster page](media/Fig5_AddServer.png)
+
+    Figure 5
+
+5.  On the **Testing Options** page, click **Run all tests**, and then
+    click **Next**.
+
+6.  Click **Next** to finish the validation.
+
+    The **Validating** page shows you the progress, and the **Summary**
+page shows you the validation summary. See Figures 6 and 7.
+
+7.  On the **Summary** page, check for any warning or error messages.
+
+    Errors must be fixed. However, warnings may not be an issue. A warning
+message means that "the tested item might meet the requirement, but
+there is something you should check". For example, figure 7 shows a
+"validate disk access latency" warning, that may be due to the disk
+being busy on other tasks temporarily, and you may ignore it. You
+should check the online document for each warning and error message
+for more details. See Figure 7.
  
-In the non-Windows world, SMB is often referred to as a Common Internet File System (CIFS) share and implemented via Samba. In the Windows world, accessing an SMB share is done this way: \\SERVERNAME\SHARENAME. For Linux-based SQL Server installations, the SMB share must be mounted as a folder.
+    ![Validate Configuration Wizard, Validating page](media/Fig6_ValidationTests.png)
 
-## Important source and server information
+    Figure 6
 
-Here are some tips and notes for successfully using SMB:
-- The SMB share can be on Windows, Linux, or even from an appliance as long as it is using SMB 3.0 or higher. For more information on Samba and SMB 3.0, see [SMB 3.0](https://wiki.samba.org/index.php/Samba3/SMB2#SMB_3.0) to see if your Samba implementation is compliant with SMB 3.0.
-- The SMB share should be highly available.
-- Security must be set properly on the SMB share. Below is an example from /etc/samba/smb.conf, where SQLData1 is the name of the share.
+    ![Validate a Configuration Wizard, Summary page](media/Fig7_ValidationSummary.png)
 
-![05-smbsource][1]
+    Figure 7
 
-## Instructions
+8.  On the **Summary** page, confirm that the **Create the cluster now
+    using the validated nodes** checkbox is selected, and then click
+    **Finish** to start the **Create Cluster** **Wizard**.
 
-1.	Choose one of the servers that will participate in the FCI configuration. It does not matter which one.
+9.  In the **Create Cluster** **Wizard**, click **Next**.
 
-2.	Get information about the mssql user.
+10. On the **Access Point for Administering the Cluster** page, enter
+   the WSFC cluster name, and then click **Next**. In this example,
+   we use "MDS-HA" as the cluster name. See Figure 8.
 
-   ```bash
-   sudo id mssql
-   ```
-   
-   Note the uid, gid, and groups. 
+    ![Enter the Cluster name](media/Fig8_EnterClusterName.png)
 
-3. Execute `sudo smbclient -L //NameOrIP/ShareName -U User`.
+    Figure 8
 
-   \<NameOrIP> is the DNS name or IP address of the server hosting the SMB share.
+11. Continue to click **Next** to finish creating the cluster. The
+   **Summary of Cluster MDS-HA** section displays the cluster
+   information. See Figure 9.
 
-   \<ShareName> is the name of the SMB share. 
+    ![View summary information for the Cluster](media/Fig9_ClusterSummary.png)
 
-4. For system databases or anything stored in the default data location follow these steps. Otherwise skip to step 5. 
+    Figure 9
 
-   *	Ensure that SQL Server is stopped on the server that you are working on.
-   ```bash
-   sudo systemctl stop mssql-server
-   sudo systemctl status mssql-server
-   ```
+    If you need to add a node later, click **Add Node** action in the right
+pane in **Failover Cluster Manager**.
 
-   *	Switch fully to be the superuser. You will not receive any acknowledgement if successful.
+Notes:
 
-   ```bash
-   sudo -i
-   ```
+-   The WSFC feature may not be available on all Windows Server
+    editions. Make sure that your edition has this feature.
 
-   *	Switch to be the mssql user. You will not receive any acknowledgement if successful.
+-   Make sure you have the proper permissions to setup WSFC in the
+    active directory. If there are any issue, see [Failover Cluster
+    Step-by-Step Guide: Configure Accounts in Active
+    Directory](https://technet.microsoft.com/library/cc731002(v=ws.10).aspx).
 
-   ```bash
-   su mssql
-   ```
+For more detailed information about WSFC, see [Failover
+Clusters](https://technet.microsoft.com/library/cc732488(v=ws.10).aspx).
 
-   *	Create a temporary directory to store the SQL Server data and log files. You will not receive any acknowledgement if successful.
+## SQL Server AlwaysOn Availability Group
 
-   ```bash
-   mkdir <TempDir>
-   ```
+This section covers the following tasks.
 
-   <TempDir> is the name of the folder. The following example creates a folder named /var/opt/mssql/tmp.
+1.  [Enable SQL Server AlwaysOn Availability
+    Group](#enable-sql-server-alwayson-availability-group-on-every-sql-server-instance).
 
-   ```bash
-   mkdir /var/opt/mssql/tmp
-   ```
+2.  [Create an Availability Group](#create-an-availability-group).
 
-   *	Copy the SQL Server data and log files to the temporary directory. You will not receive any acknowledgement if successful.
+3.  [Validate and Test the Availability
+    Group](#validation-and-test-the-availability-group).
 
-   ```bash
-   cp /var/opt/mssql/data/* <TempDir>
-   ```
+SQLServer AlwaysOn solutions provide high availability and disaster
+recovery for SQLServer databases. AlwaysOn has two possible solutions.
+Both are built on top of WSFC.
 
-   \<TempDir> is the name of the folder from the previous step.
-   
-   *	Verify that the files are in the directory.
+-   AlwaysOn Availability Groups (AG)
 
-   ```bash
-   ls <TempDir>
-   ```
+-   AlwaysOn Failover Cluster Instances (FCI).
 
-   \<TempDir> is the name of the folder from Step d.
-   
-   *	Delete the files from the existing SQL Server data directory. You will not receive any acknowledgement if successful.
- 
-   ```bash
-   rm - f /var/opt/mssql/data/*
-   ```
+AG enhances the database-level high availability. The AG (a set of user
+databases) and its virtual network name are registered as resources in
+WSFC.
 
-   *	Verify that the files have been deleted. 
+FCI enhances the instance-level high availability. SQL Server service
+and the related services are registered as resources in WSFC. Also, the
+FCI solution requires symmetrical shared disk storage, such as SAN or
+SMB file shares, which must be available to all nodes in the WFC
+cluster.
 
-   ```bash
-   ls /var/opt/mssql/data
-   ```
- 
-   *	Type exit to switch back to the root user.
 
-   *	Mount the SMB share in the SQL Server data folder. You will not receive any acknowledgement if successful. This example shows the syntax for connecting to a Windows Server-based SMB 3.0 share.
+### Prerequisites
 
-   ```bash
-   Mount -t cifs //<ServerName>/<ShareName> /var/opt/mssql/data -o vers=3.0,username=<UserName>,password=<Password>,domain=<domain>,uid=<mssqlUID>,gid=<mssqlGID>,file_mode=0777,dir_mode=0777
-   ```
+-   Install SQL Server on all nodes. For more information, see [Install
+    SQL Server 2016](https://docs.microsoft.com/sql/database-engine/install-windows/install-sql-server).
 
-   \<ServerName> is the name of the server with the SMB share
-   
-   \<ShareName> is the name of the share
+-   (Recommended) Install the exact same SQL Server feature set and
+    version on every node. In particular, MDS must be installed.
 
-   \<UserName> is the name of the user to access the share
+-   (Recommended) Use the same configuration on every SQL Server
+    instance. In particular, the same server collation must be
+    configured on all SQL Server instances.
 
-   \<Password> is the password for the user
+-   (Recommended) Use the same service account to run every SQL Server
+    instance. Otherwise, you will have to grant permission on each SQL
+    Server instance to make sure the SQL Server instances can
+    communicate with each other.
 
-   \<domain> is the name of Active Directory
+-   Confirm that the Windows firewall setting allows the SQL Server
+    instances to communicate with each other.
 
-   \<mssqlUID> is the UID of the mssql user 
- 
-   \<mssqlGID> is the GID of the mssql user
- 
-   *	Check to see that the mount was successful by issuing mount with no switches.
+### Enable SQL Server AlwaysOn Availability Group on Every SQL Server Instance
 
-   ```bash
-   mount
-   ```
-   *	Mount the SMB share in the SQL Server data folder. You will not receive any acknowledgement if successful. This example shows the syntax for connecting to a Windows Server-based SMB 3.0 share.
+1.  In the **SQL Server Configuration Manager** click **SQL Server
+    service** in the left pane, right-click **SQL Server** in the
+    right pane, and then click **Properties**. See Figure 10.
 
-   ```bash
-   Mount -t cifs //<ServerName>/<ShareName> /var/opt/mssql/data -o vers=3.0,username=<UserName>,password=<Password>,domain=<domain>,uid=<mssqlUID>,gid=<mssqlGID>,file_mode=0777,dir_mode=0777
-   ```
+    ![SQL Server Properties window](media/Fig10_SQLServerProperties.png)
 
-   \<ServerName> is the name of the server with the SMB share
-   
-   \<ShareName> is the name of the share
+    Figure 10
 
-   \<UserName> is the name of the user to access the share
+2.  In the **SQL Server (MSSQLSERVER)** **Properties** dialog box, click
+    the **AlwaysOn High Availability** tab, and then select the
+    **Enable AlwaysOn Availability Groups** check box. When a value
+    displays in the **Windows failover cluster name** text box, click
+    **OK** to continue. See Figure 11.
 
-   \<Password> is the password for the user
+    ![Enable AlwaysOn Availability Groups option](media/Fig11_EnableAlwaysOn.png)
 
-   \<domain> is the name of Active Directory
+    Figure 11
 
-   \<mssqlUID> is the UID of the mssql user 
- 
-   \<mssqlGID> is the GID of the mssql user
- 
-   *	Check t   *	Check to see that the mount was successful by issuing mount with no switches.
+3.  When a warning page displays, click **OK** to continue. See
+    Figure 12.
 
-   ```bash
-   mount
-   ```
-   *	Mount the SMB share in the SQL Server data folder. You will not receive any acknowledgement if successful. This example shows the syntax for connecting to a Windows Server-based SMB 3.0 share.
+    ![Confirm to stop and restart service](media/Fig12_WarningServiceStopStart.png)
 
-   ```bash
-   Mount -t cifs //<ServerName>/<ShareName> /var/opt/mssql/data -o vers=3.0,username=<UserName>,password=<Password>,domain=<domain>,uid=<mssqlUID>,gid=<mssqlGID>,file_mode=0777,dir_mode=0777
-   ```
+    Figure 12
 
-   \<ServerName> is the name of the server with the SMB share
-   
-   \<ShareName> is the name of the share
+4.  Click **Restart**, to restart the **SQL Server** service and make
+    this change effective. See Figure 10.
 
-   \<UserName> is the name of the user to access the share
+>[!NOTE] 
+>You can change the service account running the SQL Server service
+>using the **SQL Server Configuration Manager**. Click the **Log On** tab
+>in the **SQL Server (MSSQLSERVER)** **Properties** dialog box. See
+>Figure 11.
 
-   \<Password> is the password for the user
+### Create an Availability Group
 
-   \<domain> is the name of Active Directory
+After the AlwaysOn feature is enabled in all SQL Server instances, you
+create a new AG that contains the MDS database on one node.
 
-   \<mssqlUID> is the UID of the mssql user 
- 
-   \<mssqlGID> is the GID of the mssql user
- 
-   *	Check to see that the mount was successful by issuing mount with no switches.
+AG can only be created on existing databases. So either you create a MDS
+database on one node, or create a temporary database and then drop the
+temporary database. In this example, we create an emptyMDS database and
+create an AG on this MDS database.
 
-   ```bash
-   mount
-   ```
- 
-   *	Switch to the mssql user. You will not receive any acknowledgement if successful.
+1.  Launch **SQL Server Management Studio** (**SSMS**) on a node, and
+    connect to the local SQL Server instance with appropriate
+    credentials.
 
-   ```bash
-   su mssql
-   ```
+2.  In SSMS, open a **new query** window and run the following script to
+    create an empty database. Replace C:\\temp with the location you
+    want to use to perform a full backup.
 
-   *	Copy the files from the temporary directory /var/opt/mssql/data. You will not receive any acknowledgement if successful.
+    ```
+    CREATE DATABASE MDS\_Sample
+    GO
+    BACKUP DATABASE MDS\_Sample TO DISK='C:\\temp'
+    GO
+    ```
 
-   ```bash
-   cp /var/opt/mssql/tmp/* /var/opt/mssql/data
-   ```
+    >[!NOTE] 
+    >A full database backup is necessary for creating the AG on this
+    >database.
 
-   *	Verify the files are there.
+3.  In the **Object Explorer**, expand the **AlwaysOn High
+    Availability** folder and click **New Availability Group Wizard**
+    to launch the **New Availability Group Wizard**. See Figure 13.
 
-   ```bash
-   ls /var/opt/mssql/datao see that the mount was successful by issuing mount with no switches.
+    ![Launch New Availability Group wizard](media/Fig13_AvailabilityGroupsFolder.png)
 
-   ```bash
-   mount
-   ```
- 
-   *	Switch to the mssql user. You will not receive any acknowledgement if successful.
+    Figure 13
 
-   ```bash
-   su mssql
-   ```
+4.  In the **New Availability Group** wizard, click **Next** to display
+    the **Specify Name** page. Type a name for the AG, and then click
+    **Next**. See Figure 14.
 
-   *	Copy the files from the temporary directory /var/opt/mssql/data. You will not receive any acknowledgement if successful.
+    ![Enter the name of the Availability Group](media/Fig14_AvailabilityGroupName.png)
 
-   ```bash
-   cp /var/opt/mssql/tmp/* /var/opt/mssql/data
-   ```
+    Figure 14
 
-   *	Verify the files are there.
+5.  Click the database you just created on the **Select Database** page,
+    and then click **Next**. See Figure 15.
 
-   ```bash
-   ls /var/opt/mssql/data
-   ```
+    ![Select the database](media/Fig15_AvailabilityGroupSelectDatabase.png)
 
-   *	Enter exit to not be mssql 
+    Figure 15
 
- 
-   *	Switch to the mssql user. You will not receive any acknowledgement if successful.
+6.  On the **Specify Replicas** page, add another replica by clicking
+    **Add Replica**. This page already lists the current, local SQL
+    Server instances as a replica. See Figure 16.
 
-   ```bash
-   su mssql
-   ```
+7.  In the **Connect to Server** dialog box, add the appropriate
+    credentials and click **Connect**.
 
-   *	Copy the files from the temporary directory /var/opt/mssql/data. You will not receive any acknowledgement if successful.
+    ![Connect to a SQL Server instance](media/Fig16_AddReplicaConnectServer.png)
 
-   ```bash
-   cp /var/opt/mssql/tmp/* /var/opt/mssql/data
-   ```
+    Figure 16
 
-   *	Verify the files are there.
+    Now you should see two replicas in the list. Repeat this step to add
+other nodes as replicas. See Figure 17.
 
-   ```bash
-   ls /var/opt/mssql/data
-   ```
+    ![View list of replicas](media/Fig17_AvailabilityGroupSQLReplicas.png)
 
-   *	Enter exit to not be mssql 
+    Figure 17
 
-   *	Enter exit to not be root
+    For each replica, configure the following **Synchronous Commit**,
+**Automatic Failover**, and **Readable Secondary** settings. See Figure 17.
 
-   *	Start SQL Server. If everything was copied correctly and security applied correctly, SQL Server should show as started.
+    **Synchronous Commit**: This guarantees that if a transaction is
+committed on the primary replica of a database, then the transaction
+is also committed on all other synchronous replicas. Asynchronous
+commit does not guarantee this, and it may lag behind the primary
+replica.
 
-   ```bash
-   sudo systemctl start mssql-server
-   sudo systemctl status mssql-server
-   ```
- 
-   *	To test further, create a database to ensure the permissions are fine. The following example uses Transact-SQL; you can use SSMS.
+    You should usually enable synchronous commit only when the two nodes
+are in the same data center. If they are in different data centers,
+synchronous commit may slow down the database performance.
 
-   ![10_testcreatedb][2] 
-  
-   *	Stop SQL Server and verify it is shut down. If you are going to be adding or testing other disks, do not shut down SQL Server until those are added and tested.
+    If this checkbox is not selected, then asynchronous commit is used.
 
-   ```bash
-   sudo systemctl stop mssql-server
-   sudo systemctl status mssql-server
-   ```
+    **Automatic Failover:** When the primary replica is down, the AG will
+automatically failover to its secondary replica when automatic
+failover is selected. This can only be enabled on the replicas with
+synchronous commits.
 
-   *	Only if finished, unmount the share. If not, unmount after finishing testing/adding any additional disks.
+    **Readable Secondary:** By default, users cannot connect to any
+secondary replicas. This will enable users to connect to the secondary
+replica with read-only access.
 
-   ```bash
-   sudo umount //<IPAddressorServerName>/<ShareName /<FolderMountedIn>
-   ```
+8.  On the **Specify Replicas** page, click the **Listener** tab and do
+    the following. See Figure 18.
 
-   \<IPAddressOrServerName> is the IP address or name of the SMB host
+    a.  Click **Create an availability group listener** to set up an
+        availability group listener for the MDS database connection.
 
-   \<ShareName> is the name of the share
-   
-   \<FolderMountedIn> is the name of the folder where SMB is mounted
+    b.  Enter a **listener DNS Name**, such as MDSSQLServer.
 
-5.	For things other than system databases, such as user databases or backups, follow these steps. If only using the default location, skip to Step 14.
-   
-   *	Switch to be the superuser. You will not receive any acknowledgement if successful.
+    c.  Enter the default SQL port,1433, in the **Port** text box.
 
-   ```bash
-   sudo -i
-   ```
-   
-   *	Create a folder that will be used by SQL Server. 
+    d.  Enter DHCP in the **Network Mode** text box, and then click **Next** to continue.
 
-   ```bash
-   mkdir <FolderName>
-   ```
+    >[!NOTE] 
+    >Optionally, you can choose "Static IP" as the **Network Mode**
+    >and enter a static IP. You can also enter a port other than 1433. 
 
-   \<FolderName> is the name of the folder. The folder's full path needs to be specified if not in the right location. The following example creates a folder named /var/opt/mssql/userdata.
+    ![Configure the Listener](media/Fig18_AvailabilityGroupCreateListener.png)
 
-   ```bash
-   mkdir /var/opt/mssql/userdata
-   ```
+    Figure 18
 
-   *	Mount the SMB share in the SQL Server data folder. You will not receive any acknowledgement if successful. This example shows the syntax for connecting to a Samba-based SMB 3.0 share.
+9.  On the **Select Data Synchronization** page, click **Full**, and
+    specify a network share that every node can access. Click **Next**
+    to continue. See Figure 19.
 
-   ```bash
-   Mount -t cifs //<ServerName>/<ShareName> <FolderName> -o vers=3.0,username=<UserName>,password=<Password>,uid=<mssqlUID>,gid=<mssqlGID>,file_mode=0777,dir_mode=0777
-   ```
+    This network share will be used to store the database backup to create
+secondary replicas. If this is not available for your organization,
+choose another data synchronization preference. Refer to [SQL Server
+2016 AlwaysOn Availability Group](https://docs.microsoft.com/sql/database-engine/availability-groups/windows/always-on-availability-groups-sql-server) on how to use other options to create secondary replicas. The figure 17 also
+lists other options.
 
-   \<ServerName> is the name of the server with the SMB share
+    ![Configure data synchronization](media/Fig19_AvailabilityGroupDataSync.png)
 
-   \<ShareName> is the name of the share
+    Figure 19 
 
-   \<FolderName> is the name of the folder created in the last step  
+10. On the **Validation** page, make sure all validations pass
+    successfully, and correct any errors. Click **Next** to continue.
 
-   \<UserName> is the name of the user to access the share
+11. On the **Summary** page, review all the configuration settings and
+    click **Finish**. This will create the availability group and
+    configure it.
 
-   \<Password> is the password for the user
+12. On the **Result** page, confirm that all necessary steps were
+    completed.
 
-   \<mssqlUID> is the UID of the mssql user
+### Validation and Test the Availability Group
 
-   \<mssqlGID> is the GID of the mssql user.
- 
-   * Check to see that the mount was successful by issuing mount with no switches.
- 
-   * Type exit to no longer be the superuser.
+1.  Open SSMS and connect to the listener DNS name you just created in
+    the [Create an Availability Group](#create-an-availability-group)
+    section. In this example, it is MDSSQLServer.
 
-   * To test, create a database in that folder. The following example uses sqlcmd to create a database, switch context to it, verify the files exist at the OS level, and then deletes the temporary location. You can use SSMS.
- 
-   * Unmount the share 
+2.  In **Object Explorer**, expand the **AlwaysOn High Availability**
+    folder, right click the AG you just created in the [Create an
+    Availability Group](#create-an-availability-group) section, and
+    then click **Show Dashboard**. See Figure 20. The status of the
+    new AG and its replicas appears.
 
-   ```bash
-   sudo umount //<IPAddressorServerName>/<ShareName> /<FolderMountedIn>
-   ```
-   
-   \<IPAddressOrServerName> is the IP address or name of the SMB host
- 
-   \<ShareName> is the name of the share
- 
-   \<FolderMountedIn> is the name of the folder where SMB is mounted.
- 
-6.	Repeat the steps on the other node(s).
+    ![View the dashboard](media/Fig20_ShowDashboard.png)
 
-You are now ready to configure the FCI.
+    Figure 20 
 
-## Next steps
+3.  Click **Failover** to do a failover to a synchronous replica and an
+    asynchronous replica. This is to verify that failover happens
+    correctly without issues.
 
-[Configure failover cluster instance - SQL Server on Linux](sql-server-linux-shared-disk-cluster-configure.md)
+ The AlwaysOn setup is completed.
 
-<!--Image references-->
-[1]: ./media/sql-server-linux-shared-disk-cluster-configure-smb/05-smbsource.png 
-[2]: ./media/sql-server-linux-shared-disk-cluster-configure-smb/10-testcreatedb.png 
+For more information about AlwaysOn Availability Group, see [SQL Server
+2016 AlwaysOn Availability Group](https://docs.microsoft.com/sql/database-engine/availability-groups/windows/always-on-availability-groups-sql-server).
+
+## Configure MDS to Run on an WSFC Node
+
+This solution presented in this article only requires the MDS backend
+database running on WSFC. Other parts of MDS, such as web applications
+and MDS configuration manager, can be run either on the node in WSFC or
+outside WSFC, as long as MDS can connect to the AG.
+
+1.  Open **Master Data Service Configuration Manager** on one node,
+    click **Database Configuration**, and then click **Create
+    Database** to launch the **Create Database Wizard**.
+
+2.  On the **Database Server** page, type the AG listener DNS name in
+    the **SQL Server instance** text box, click **Test Connection**,
+    and then click **Next**. See Figure 21.
+
+    ![Configure database server with AG listener](media/Fig21_MDSDatabaseServerListener.png)
+
+    Figure 21
+
+3.  On the **Database** page, type the name of the database that you
+    created in the [Create an Availability
+    Group](#create-an-availability-group) section, and then click
+    **Next**. See Figure 22.
+
+    ![Create and configure the database](media/Fig22_MDSCreateDatabase.png)
+
+    Figure 22
+
+4.  Complete the **Create Database** **Wizard**. For more information,
+    see [Master Data Services Installation and Configuration](https://docs.microsoft.com/sql/master-data-services/master-data-services-installation-and-configuration).
+
+5.  Click **Web Applications** in **Master Data Service Configuration
+    Manager** to configure the Web Application, and then click
+    **Apply** to apply the settings to MDS. See Figure 23. For more
+    information, see [Master Data Services Installation and Configuration](https://docs.microsoft.com/sql/master-data-services/master-data-services-installation-and-configuration).
+
+    ![Configure the Web application](media/Fig23_MDSWebApplication.png)
+
+    Figure 23
+
+    The MDS setup is completed. You can repeat the above steps to set up
+MDS to run on all nodes. The backend database is the same on the same
+AG.
+
+6.  If previously you created a temporary database (see [Create an
+    Availability Group](#create-an-availability-group) section) to
+    create AlwaysOn AG, then you should drop the temporary database
+
+    For more information about Master Data Service, refer to [Master Data
+Services](https://docs.microsoft.com/sql/master-data-services/master-data-services-overview-mds).
+
+## Conclusion
+
+In this white paper, we have seen how to set up and configure the Master
+Data Services backend database on top of SQL Server AlwaysOn
+Availability Group. This configuration provides high availability and
+disaster recovery on the Master Data Services backend database. To
+implement this configuration, you need to install and configure Windows
+Server Failover Cluster, SQL Server AlwaysOn Availability Group, and
+Master Data Services.
+
+## Feedback
+
+Did this paper help you? Please give us your feedback by clicking **Comments** at the top of the article. 
+
+Your feedback will help us improve the quality of white papers we
+release. 
+
