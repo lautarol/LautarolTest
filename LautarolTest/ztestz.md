@@ -17,7 +17,6 @@ ms.author: mathoma
 manager: craigg
 ---
 # <a name="use-the-always-on-availability-group-dashboard-sql-server-management-studio"></a><span data-ttu-id="fbd15-102">Use the Always On Availability Group dashboard (SQL Server Management Studio)</span><span class="sxs-lookup"><span data-stu-id="fbd15-102">Use the Always On Availability Group dashboard (SQL Server Management Studio)</span></span>
-[!INCLUDE[appliesto-ss-xxxx-xxxx-xxx-md](../../../includes/appliesto-ss-xxxx-xxxx-xxx-md.md)]
 
   <span data-ttu-id="fbd15-103">Database administrators use the Always On Availability Group dashboard to obtain an at-a-glance view the health of an availability group and its availability replicas and databases in [!INCLUDE[ssCurrent](../../../includes/sscurrent-md.md)].</span><span class="sxs-lookup"><span data-stu-id="fbd15-103">Database administrators use the Always On Availability Group dashboard to obtain an at-a-glance view the health of an availability group and its availability replicas and databases in [!INCLUDE[ssCurrent](../../../includes/sscurrent-md.md)].</span></span> <span data-ttu-id="fbd15-104">Some of the typical uses for the availability group dashboard are:</span><span class="sxs-lookup"><span data-stu-id="fbd15-104">Some of the typical uses for the availability group dashboard are:</span></span>  
   
