@@ -1,67 +1,348 @@
 ---
-title: Paper entity attributes - Academic Knowledge API
-titlesuffix: Azure Cognitive Services
-description: Learn the attributes you can use with the Paper entity in the Academic Knowledge API.
-services: cognitive-services
-author: alch-msft
-manager: nitinme
-ms.service: cognitive-services
-ms.subservice: academic-knowledge
+title: Configure failover cluster instance storage SMB - SQL Server on Linux | Microsoft Docs
+description: 
+author: MikeRayMSFT 
+ms.author: mikeray 
+manager: craigg
+ms.date: 08/28/2017
 ms.topic: conceptual
-ms.date: 03/31/2017
-ms.author: alch
+ms.prod: sql
+ms.custom: "sql-linux"
+ms.technology: linux
 ---
+# Configure failover cluster instance - SMB - SQL Server on Linux
 
-# <a name="paper-entity"></a><span data-ttu-id="bf421-103">Paper Entity</span><span class="sxs-lookup"><span data-stu-id="bf421-103">Paper Entity</span></span>
+[!INCLUDE[appliesto-ss-xxxx-xxxx-xxx-md-linuxonly](../includes/appliesto-ss-xxxx-xxxx-xxx-md-linuxonly.md)]
 
-<span data-ttu-id="bf421-104"><sub> \*Below attributes are specific to paper entity. (Ty = '0') </sub></span><span class="sxs-lookup"><span data-stu-id="bf421-104"><sub> \*Below attributes are specific to paper entity. (Ty = '0') </sub></span></span>
+This article explains how to configure SMB storage for a failover cluster instance (FCI) on Linux. 
+ 
+In the non-Windows world, SMB is often referred to as a Common Internet File System (CIFS) share and implemented via Samba. In the Windows world, accessing an SMB share is done this way: \\SERVERNAME\SHARENAME. For Linux-based SQL Server installations, the SMB share must be mounted as a folder.
 
+## Important source and server information
 
-<span data-ttu-id="bf421-105">Name</span><span class="sxs-lookup"><span data-stu-id="bf421-105">Name</span></span>    |<span data-ttu-id="bf421-106">Description</span><span class="sxs-lookup"><span data-stu-id="bf421-106">Description</span></span>                                        |<span data-ttu-id="bf421-107">Type</span><span class="sxs-lookup"><span data-stu-id="bf421-107">Type</span></span>       | <span data-ttu-id="bf421-108">Operations</span><span class="sxs-lookup"><span data-stu-id="bf421-108">Operations</span></span>
-------- | ------------------------------------------------- | --------- | ----------------------------
-<span data-ttu-id="bf421-109">Id</span><span class="sxs-lookup"><span data-stu-id="bf421-109">Id</span></span>      |<span data-ttu-id="bf421-110">Entity ID</span><span class="sxs-lookup"><span data-stu-id="bf421-110">Entity ID</span></span>                                          |<span data-ttu-id="bf421-111">Int64</span><span class="sxs-lookup"><span data-stu-id="bf421-111">Int64</span></span>      |<span data-ttu-id="bf421-112">Equals</span><span class="sxs-lookup"><span data-stu-id="bf421-112">Equals</span></span>
-<span data-ttu-id="bf421-113">Ti</span><span class="sxs-lookup"><span data-stu-id="bf421-113">Ti</span></span>      |<span data-ttu-id="bf421-114">Paper title</span><span class="sxs-lookup"><span data-stu-id="bf421-114">Paper title</span></span>                                        |<span data-ttu-id="bf421-115">String</span><span class="sxs-lookup"><span data-stu-id="bf421-115">String</span></span>     |<span data-ttu-id="bf421-116">Equals,</span><span class="sxs-lookup"><span data-stu-id="bf421-116">Equals,</span></span><br/><span data-ttu-id="bf421-117">StartsWith</span><span class="sxs-lookup"><span data-stu-id="bf421-117">StartsWith</span></span>
-<span data-ttu-id="bf421-118">L</span><span class="sxs-lookup"><span data-stu-id="bf421-118">L</span></span>       |<span data-ttu-id="bf421-119">Paper language code separated by "\@\@\@"</span><span class="sxs-lookup"><span data-stu-id="bf421-119">Paper language code separated by "\@\@\@"</span></span>          |<span data-ttu-id="bf421-120">String</span><span class="sxs-lookup"><span data-stu-id="bf421-120">String</span></span>     |<span data-ttu-id="bf421-121">Equals</span><span class="sxs-lookup"><span data-stu-id="bf421-121">Equals</span></span>
-<span data-ttu-id="bf421-122">Y</span><span class="sxs-lookup"><span data-stu-id="bf421-122">Y</span></span>       |<span data-ttu-id="bf421-123">Paper year</span><span class="sxs-lookup"><span data-stu-id="bf421-123">Paper year</span></span>                                         |<span data-ttu-id="bf421-124">Int32</span><span class="sxs-lookup"><span data-stu-id="bf421-124">Int32</span></span>      |<span data-ttu-id="bf421-125">Equals,</span><span class="sxs-lookup"><span data-stu-id="bf421-125">Equals,</span></span><br/><span data-ttu-id="bf421-126">IsBetween</span><span class="sxs-lookup"><span data-stu-id="bf421-126">IsBetween</span></span>
-<span data-ttu-id="bf421-127">D</span><span class="sxs-lookup"><span data-stu-id="bf421-127">D</span></span>       |<span data-ttu-id="bf421-128">Paper date</span><span class="sxs-lookup"><span data-stu-id="bf421-128">Paper date</span></span>                                         |<span data-ttu-id="bf421-129">Date</span><span class="sxs-lookup"><span data-stu-id="bf421-129">Date</span></span>       |<span data-ttu-id="bf421-130">Equals,</span><span class="sxs-lookup"><span data-stu-id="bf421-130">Equals,</span></span><br/><span data-ttu-id="bf421-131">IsBetween</span><span class="sxs-lookup"><span data-stu-id="bf421-131">IsBetween</span></span>
-<span data-ttu-id="bf421-132">CC</span><span class="sxs-lookup"><span data-stu-id="bf421-132">CC</span></span>      |<span data-ttu-id="bf421-133">Citation count</span><span class="sxs-lookup"><span data-stu-id="bf421-133">Citation count</span></span>                                     |<span data-ttu-id="bf421-134">Int32</span><span class="sxs-lookup"><span data-stu-id="bf421-134">Int32</span></span>      |<span data-ttu-id="bf421-135">none</span><span class="sxs-lookup"><span data-stu-id="bf421-135">none</span></span>  
-<span data-ttu-id="bf421-136">ECC</span><span class="sxs-lookup"><span data-stu-id="bf421-136">ECC</span></span>     |<span data-ttu-id="bf421-137">Estimated citation Count</span><span class="sxs-lookup"><span data-stu-id="bf421-137">Estimated citation Count</span></span>                           |<span data-ttu-id="bf421-138">Int32</span><span class="sxs-lookup"><span data-stu-id="bf421-138">Int32</span></span>      |<span data-ttu-id="bf421-139">none</span><span class="sxs-lookup"><span data-stu-id="bf421-139">none</span></span>
-<span data-ttu-id="bf421-140">AA.AuN</span><span class="sxs-lookup"><span data-stu-id="bf421-140">AA.AuN</span></span>  |<span data-ttu-id="bf421-141">Author name</span><span class="sxs-lookup"><span data-stu-id="bf421-141">Author name</span></span>                                        |<span data-ttu-id="bf421-142">String</span><span class="sxs-lookup"><span data-stu-id="bf421-142">String</span></span>     |<span data-ttu-id="bf421-143">Equals,</span><span class="sxs-lookup"><span data-stu-id="bf421-143">Equals,</span></span><br/><span data-ttu-id="bf421-144">StartsWith</span><span class="sxs-lookup"><span data-stu-id="bf421-144">StartsWith</span></span>
-<span data-ttu-id="bf421-145">AA.AuId</span><span class="sxs-lookup"><span data-stu-id="bf421-145">AA.AuId</span></span> |<span data-ttu-id="bf421-146">Author ID</span><span class="sxs-lookup"><span data-stu-id="bf421-146">Author ID</span></span>                                          |<span data-ttu-id="bf421-147">Int64</span><span class="sxs-lookup"><span data-stu-id="bf421-147">Int64</span></span>      |<span data-ttu-id="bf421-148">Equals</span><span class="sxs-lookup"><span data-stu-id="bf421-148">Equals</span></span>
-<span data-ttu-id="bf421-149">AA.AfN</span><span class="sxs-lookup"><span data-stu-id="bf421-149">AA.AfN</span></span>  |<span data-ttu-id="bf421-150">Author affiliation name</span><span class="sxs-lookup"><span data-stu-id="bf421-150">Author affiliation name</span></span>                            |<span data-ttu-id="bf421-151">String</span><span class="sxs-lookup"><span data-stu-id="bf421-151">String</span></span>     |<span data-ttu-id="bf421-152">Equals,</span><span class="sxs-lookup"><span data-stu-id="bf421-152">Equals,</span></span><br/><span data-ttu-id="bf421-153">StartsWith</span><span class="sxs-lookup"><span data-stu-id="bf421-153">StartsWith</span></span>
-<span data-ttu-id="bf421-154">AA.AfId</span><span class="sxs-lookup"><span data-stu-id="bf421-154">AA.AfId</span></span> |<span data-ttu-id="bf421-155">Author affiliation ID</span><span class="sxs-lookup"><span data-stu-id="bf421-155">Author affiliation ID</span></span>                              |<span data-ttu-id="bf421-156">Int64</span><span class="sxs-lookup"><span data-stu-id="bf421-156">Int64</span></span>      |<span data-ttu-id="bf421-157">Equals</span><span class="sxs-lookup"><span data-stu-id="bf421-157">Equals</span></span>
-<span data-ttu-id="bf421-158">AA.S</span><span class="sxs-lookup"><span data-stu-id="bf421-158">AA.S</span></span>    |<span data-ttu-id="bf421-159">Author order for the paper</span><span class="sxs-lookup"><span data-stu-id="bf421-159">Author order for the paper</span></span>                         |<span data-ttu-id="bf421-160">Int32</span><span class="sxs-lookup"><span data-stu-id="bf421-160">Int32</span></span>      |<span data-ttu-id="bf421-161">Equals</span><span class="sxs-lookup"><span data-stu-id="bf421-161">Equals</span></span>
-<span data-ttu-id="bf421-162">F.FN</span><span class="sxs-lookup"><span data-stu-id="bf421-162">F.FN</span></span>    |<span data-ttu-id="bf421-163">Field of study name</span><span class="sxs-lookup"><span data-stu-id="bf421-163">Field of study name</span></span>                                |<span data-ttu-id="bf421-164">String</span><span class="sxs-lookup"><span data-stu-id="bf421-164">String</span></span>     |<span data-ttu-id="bf421-165">Equals,</span><span class="sxs-lookup"><span data-stu-id="bf421-165">Equals,</span></span><br/><span data-ttu-id="bf421-166">StartsWith</span><span class="sxs-lookup"><span data-stu-id="bf421-166">StartsWith</span></span>
-<span data-ttu-id="bf421-167">F.FId</span><span class="sxs-lookup"><span data-stu-id="bf421-167">F.FId</span></span>   |<span data-ttu-id="bf421-168">Field of study ID</span><span class="sxs-lookup"><span data-stu-id="bf421-168">Field of study ID</span></span>                                  |<span data-ttu-id="bf421-169">Int64</span><span class="sxs-lookup"><span data-stu-id="bf421-169">Int64</span></span>      |<span data-ttu-id="bf421-170">Equals</span><span class="sxs-lookup"><span data-stu-id="bf421-170">Equals</span></span>
-<span data-ttu-id="bf421-171">J.JN</span><span class="sxs-lookup"><span data-stu-id="bf421-171">J.JN</span></span>    |<span data-ttu-id="bf421-172">Journal name</span><span class="sxs-lookup"><span data-stu-id="bf421-172">Journal name</span></span>                                       |<span data-ttu-id="bf421-173">String</span><span class="sxs-lookup"><span data-stu-id="bf421-173">String</span></span>     |<span data-ttu-id="bf421-174">Equals,</span><span class="sxs-lookup"><span data-stu-id="bf421-174">Equals,</span></span><br/><span data-ttu-id="bf421-175">StartsWith</span><span class="sxs-lookup"><span data-stu-id="bf421-175">StartsWith</span></span>
-<span data-ttu-id="bf421-176">J.JId</span><span class="sxs-lookup"><span data-stu-id="bf421-176">J.JId</span></span>   |<span data-ttu-id="bf421-177">Journal ID</span><span class="sxs-lookup"><span data-stu-id="bf421-177">Journal ID</span></span>                                         |<span data-ttu-id="bf421-178">Int64</span><span class="sxs-lookup"><span data-stu-id="bf421-178">Int64</span></span>      |<span data-ttu-id="bf421-179">Equals</span><span class="sxs-lookup"><span data-stu-id="bf421-179">Equals</span></span>
-<span data-ttu-id="bf421-180">C.CN</span><span class="sxs-lookup"><span data-stu-id="bf421-180">C.CN</span></span>    |<span data-ttu-id="bf421-181">Conference series name</span><span class="sxs-lookup"><span data-stu-id="bf421-181">Conference series name</span></span>                             |<span data-ttu-id="bf421-182">String</span><span class="sxs-lookup"><span data-stu-id="bf421-182">String</span></span>     |<span data-ttu-id="bf421-183">Equals,</span><span class="sxs-lookup"><span data-stu-id="bf421-183">Equals,</span></span><br/><span data-ttu-id="bf421-184">StartsWith</span><span class="sxs-lookup"><span data-stu-id="bf421-184">StartsWith</span></span>
-<span data-ttu-id="bf421-185">C.CId</span><span class="sxs-lookup"><span data-stu-id="bf421-185">C.CId</span></span>   |<span data-ttu-id="bf421-186">Conference series ID</span><span class="sxs-lookup"><span data-stu-id="bf421-186">Conference series ID</span></span>                               |<span data-ttu-id="bf421-187">Int64</span><span class="sxs-lookup"><span data-stu-id="bf421-187">Int64</span></span>      |<span data-ttu-id="bf421-188">Equals</span><span class="sxs-lookup"><span data-stu-id="bf421-188">Equals</span></span>
-<span data-ttu-id="bf421-189">RId</span><span class="sxs-lookup"><span data-stu-id="bf421-189">RId</span></span>     |<span data-ttu-id="bf421-190">Referenced papers' ID</span><span class="sxs-lookup"><span data-stu-id="bf421-190">Referenced papers' ID</span></span>                              |<span data-ttu-id="bf421-191">Int64[]</span><span class="sxs-lookup"><span data-stu-id="bf421-191">Int64[]</span></span>    |<span data-ttu-id="bf421-192">Equals</span><span class="sxs-lookup"><span data-stu-id="bf421-192">Equals</span></span>
-<span data-ttu-id="bf421-193">W</span><span class="sxs-lookup"><span data-stu-id="bf421-193">W</span></span>       |<span data-ttu-id="bf421-194">Words from paper title and Abstract</span><span class="sxs-lookup"><span data-stu-id="bf421-194">Words from paper title and Abstract</span></span>                |<span data-ttu-id="bf421-195">String[]</span><span class="sxs-lookup"><span data-stu-id="bf421-195">String[]</span></span>   |<span data-ttu-id="bf421-196">Equals</span><span class="sxs-lookup"><span data-stu-id="bf421-196">Equals</span></span>
-<span data-ttu-id="bf421-197">E</span><span class="sxs-lookup"><span data-stu-id="bf421-197">E</span></span>       |<span data-ttu-id="bf421-198">Extended metadata (see table below)</span><span class="sxs-lookup"><span data-stu-id="bf421-198">Extended metadata (see table below)</span></span>                |<span data-ttu-id="bf421-199">String</span><span class="sxs-lookup"><span data-stu-id="bf421-199">String</span></span>     |<span data-ttu-id="bf421-200">none</span><span class="sxs-lookup"><span data-stu-id="bf421-200">none</span></span>  
-        
+Here are some tips and notes for successfully using SMB:
+- The SMB share can be on Windows, Linux, or even from an appliance as long as it is using SMB 3.0 or higher. For more information on Samba and SMB 3.0, see [SMB 3.0](https://wiki.samba.org/index.php/Samba3/SMB2#SMB_3.0) to see if your Samba implementation is compliant with SMB 3.0.
+- The SMB share should be highly available.
+- Security must be set properly on the SMB share. Below is an example from /etc/samba/smb.conf, where SQLData1 is the name of the share.
 
+![05-smbsource][1]
 
-## <a name="extended-metadata-attributes"></a><span data-ttu-id="bf421-201">Extended Metadata Attributes</span><span class="sxs-lookup"><span data-stu-id="bf421-201">Extended Metadata Attributes</span></span> ##
+## Instructions
 
-<span data-ttu-id="bf421-202">Name</span><span class="sxs-lookup"><span data-stu-id="bf421-202">Name</span></span>    | <span data-ttu-id="bf421-203">Description</span><span class="sxs-lookup"><span data-stu-id="bf421-203">Description</span></span>               
---------|---------------------------    
-<span data-ttu-id="bf421-204">DN</span><span class="sxs-lookup"><span data-stu-id="bf421-204">DN</span></span>      | <span data-ttu-id="bf421-205">Display Name of the paper</span><span class="sxs-lookup"><span data-stu-id="bf421-205">Display Name of the paper</span></span> 
-<span data-ttu-id="bf421-206">S</span><span class="sxs-lookup"><span data-stu-id="bf421-206">S</span></span>       | <span data-ttu-id="bf421-207">Sources - list of web sources of the paper, sorted by static rank</span><span class="sxs-lookup"><span data-stu-id="bf421-207">Sources - list of web sources of the paper, sorted by static rank</span></span>
-<span data-ttu-id="bf421-208">S.Ty</span><span class="sxs-lookup"><span data-stu-id="bf421-208">S.Ty</span></span>    | <span data-ttu-id="bf421-209">Source Type (1:HTML, 2:Text, 3:PDF, 4:DOC, 5:PPT, 6:XLS, 7:PS)</span><span class="sxs-lookup"><span data-stu-id="bf421-209">Source Type (1:HTML, 2:Text, 3:PDF, 4:DOC, 5:PPT, 6:XLS, 7:PS)</span></span>
-<span data-ttu-id="bf421-210">S.U</span><span class="sxs-lookup"><span data-stu-id="bf421-210">S.U</span></span>     | <span data-ttu-id="bf421-211">Source URL</span><span class="sxs-lookup"><span data-stu-id="bf421-211">Source URL</span></span>
-<span data-ttu-id="bf421-212">VFN</span><span class="sxs-lookup"><span data-stu-id="bf421-212">VFN</span></span>     | <span data-ttu-id="bf421-213">Venue Full Name - full name of the Journal or Conference</span><span class="sxs-lookup"><span data-stu-id="bf421-213">Venue Full Name - full name of the Journal or Conference</span></span>
-<span data-ttu-id="bf421-214">VSN</span><span class="sxs-lookup"><span data-stu-id="bf421-214">VSN</span></span>     | <span data-ttu-id="bf421-215">Venue Short Name - short name of the Journal or Conference</span><span class="sxs-lookup"><span data-stu-id="bf421-215">Venue Short Name - short name of the Journal or Conference</span></span>
-<span data-ttu-id="bf421-216">V</span><span class="sxs-lookup"><span data-stu-id="bf421-216">V</span></span>       | <span data-ttu-id="bf421-217">Volume - journal volume</span><span class="sxs-lookup"><span data-stu-id="bf421-217">Volume - journal volume</span></span>
-<span data-ttu-id="bf421-218">BV</span><span class="sxs-lookup"><span data-stu-id="bf421-218">BV</span></span>      | <span data-ttu-id="bf421-219">Journal Name</span><span class="sxs-lookup"><span data-stu-id="bf421-219">Journal Name</span></span>
-<span data-ttu-id="bf421-220">BT</span><span class="sxs-lookup"><span data-stu-id="bf421-220">BT</span></span>      | 
-<span data-ttu-id="bf421-221">PB</span><span class="sxs-lookup"><span data-stu-id="bf421-221">PB</span></span>      | <span data-ttu-id="bf421-222">Journal Abbreviations</span><span class="sxs-lookup"><span data-stu-id="bf421-222">Journal Abbreviations</span></span>
-<span data-ttu-id="bf421-223">I</span><span class="sxs-lookup"><span data-stu-id="bf421-223">I</span></span>       | <span data-ttu-id="bf421-224">Issue - journal issue</span><span class="sxs-lookup"><span data-stu-id="bf421-224">Issue - journal issue</span></span>
-<span data-ttu-id="bf421-225">FP</span><span class="sxs-lookup"><span data-stu-id="bf421-225">FP</span></span>      | <span data-ttu-id="bf421-226">FirstPage - first page of paper</span><span class="sxs-lookup"><span data-stu-id="bf421-226">FirstPage - first page of paper</span></span>
-<span data-ttu-id="bf421-227">LP</span><span class="sxs-lookup"><span data-stu-id="bf421-227">LP</span></span>      | <span data-ttu-id="bf421-228">LastPage - last page of paper</span><span class="sxs-lookup"><span data-stu-id="bf421-228">LastPage - last page of paper</span></span>
-<span data-ttu-id="bf421-229">DOI</span><span class="sxs-lookup"><span data-stu-id="bf421-229">DOI</span></span>     | <span data-ttu-id="bf421-230">Digital Object Identifier</span><span class="sxs-lookup"><span data-stu-id="bf421-230">Digital Object Identifier</span></span>
-<span data-ttu-id="bf421-231">CC</span><span class="sxs-lookup"><span data-stu-id="bf421-231">CC</span></span>      | <span data-ttu-id="bf421-232">Citation Contexts – List of referenced paper ID’s and the corresponding context in the paper (e.g. [{123:[“brown foxes are known for jumping as referenced in paper 123”, “the lazy dogs are a historical misnomer as shown in paper 123”]})</span><span class="sxs-lookup"><span data-stu-id="bf421-232">Citation Contexts – List of referenced paper ID’s and the corresponding context in the paper (e.g. [{123:[“brown foxes are known for jumping as referenced in paper 123”, “the lazy dogs are a historical misnomer as shown in paper 123”]})</span></span>
-<span data-ttu-id="bf421-233">IA</span><span class="sxs-lookup"><span data-stu-id="bf421-233">IA</span></span>      | <span data-ttu-id="bf421-234">Inverted Abstract</span><span class="sxs-lookup"><span data-stu-id="bf421-234">Inverted Abstract</span></span>
-<span data-ttu-id="bf421-235">IA.IndexLength</span><span class="sxs-lookup"><span data-stu-id="bf421-235">IA.IndexLength</span></span>| <span data-ttu-id="bf421-236">Number of items in the index (abstract's word count)</span><span class="sxs-lookup"><span data-stu-id="bf421-236">Number of items in the index (abstract's word count)</span></span>
-<span data-ttu-id="bf421-237">IA.InvertedIndex</span><span class="sxs-lookup"><span data-stu-id="bf421-237">IA.InvertedIndex</span></span>| <span data-ttu-id="bf421-238">List of abstract words and their corresponding position in the original abstract (e.g. [{“the”:[0, 15, 30]}, {“brown”:[1]}, {“fox”:[2]}])</span><span class="sxs-lookup"><span data-stu-id="bf421-238">List of abstract words and their corresponding position in the original abstract (e.g. [{“the”:[0, 15, 30]}, {“brown”:[1]}, {“fox”:[2]}])</span></span>
+1.	Choose one of the servers that will participate in the FCI configuration. It does not matter which one.
+
+2.	Get information about the mssql user.
+
+   ```bash
+   sudo id mssql
+   ```
+   
+   Note the uid, gid, and groups. 
+
+3. Execute `sudo smbclient -L //NameOrIP/ShareName -U User`.
+
+   \<NameOrIP> is the DNS name or IP address of the server hosting the SMB share.
+
+   \<ShareName> is the name of the SMB share. 
+
+4. For system databases or anything stored in the default data location follow these steps. Otherwise skip to step 5. 
+
+   *	Ensure that SQL Server is stopped on the server that you are working on.
+   ```bash
+   sudo systemctl stop mssql-server
+   sudo systemctl status mssql-server
+   ```
+
+   *	Switch fully to be the superuser. You will not receive any acknowledgement if successful.
+
+   ```bash
+   sudo -i
+   ```
+
+   *	Switch to be the mssql user. You will not receive any acknowledgement if successful.
+
+   ```bash
+   su mssql
+   ```
+
+   *	Create a temporary directory to store the SQL Server data and log files. You will not receive any acknowledgement if successful.
+
+   ```bash
+   mkdir <TempDir>
+   ```
+
+   <TempDir> is the name of the folder. The following example creates a folder named /var/opt/mssql/tmp.
+
+   ```bash
+   mkdir /var/opt/mssql/tmp
+   ```
+
+   *	Copy the SQL Server data and log files to the temporary directory. You will not receive any acknowledgement if successful.
+
+   ```bash
+   cp /var/opt/mssql/data/* <TempDir>
+   ```
+
+   \<TempDir> is the name of the folder from the previous step.
+   
+   *	Verify that the files are in the directory.
+
+   ```bash
+   ls <TempDir>
+   ```
+
+   \<TempDir> is the name of the folder from Step d.
+   
+   *	Delete the files from the existing SQL Server data directory. You will not receive any acknowledgement if successful.
+ 
+   ```bash
+   rm - f /var/opt/mssql/data/*
+   ```
+
+   *	Verify that the files have been deleted. 
+
+   ```bash
+   ls /var/opt/mssql/data
+   ```
+ 
+   *	Type exit to switch back to the root user.
+
+   *	Mount the SMB share in the SQL Server data folder. You will not receive any acknowledgement if successful. This example shows the syntax for connecting to a Windows Server-based SMB 3.0 share.
+
+   ```bash
+   Mount -t cifs //<ServerName>/<ShareName> /var/opt/mssql/data -o vers=3.0,username=<UserName>,password=<Password>,domain=<domain>,uid=<mssqlUID>,gid=<mssqlGID>,file_mode=0777,dir_mode=0777
+   ```
+
+   \<ServerName> is the name of the server with the SMB share
+   
+   \<ShareName> is the name of the share
+
+   \<UserName> is the name of the user to access the share
+
+   \<Password> is the password for the user
+
+   \<domain> is the name of Active Directory
+
+   \<mssqlUID> is the UID of the mssql user 
+ 
+   \<mssqlGID> is the GID of the mssql user
+ 
+   *	Check to see that the mount was successful by issuing mount with no switches.
+
+   ```bash
+   mount
+   ```
+   *	Mount the SMB share in the SQL Server data folder. You will not receive any acknowledgement if successful. This example shows the syntax for connecting to a Windows Server-based SMB 3.0 share.
+
+   ```bash
+   Mount -t cifs //<ServerName>/<ShareName> /var/opt/mssql/data -o vers=3.0,username=<UserName>,password=<Password>,domain=<domain>,uid=<mssqlUID>,gid=<mssqlGID>,file_mode=0777,dir_mode=0777
+   ```
+
+   \<ServerName> is the name of the server with the SMB share
+   
+   \<ShareName> is the name of the share
+
+   \<UserName> is the name of the user to access the share
+
+   \<Password> is the password for the user
+
+   \<domain> is the name of Active Directory
+
+   \<mssqlUID> is the UID of the mssql user 
+ 
+   \<mssqlGID> is the GID of the mssql user
+ 
+   *	Check t   *	Check to see that the mount was successful by issuing mount with no switches.
+
+   ```bash
+   mount
+   ```
+   *	Mount the SMB share in the SQL Server data folder. You will not receive any acknowledgement if successful. This example shows the syntax for connecting to a Windows Server-based SMB 3.0 share.
+
+   ```bash
+   Mount -t cifs //<ServerName>/<ShareName> /var/opt/mssql/data -o vers=3.0,username=<UserName>,password=<Password>,domain=<domain>,uid=<mssqlUID>,gid=<mssqlGID>,file_mode=0777,dir_mode=0777
+   ```
+
+   \<ServerName> is the name of the server with the SMB share
+   
+   \<ShareName> is the name of the share
+
+   \<UserName> is the name of the user to access the share
+
+   \<Password> is the password for the user
+
+   \<domain> is the name of Active Directory
+
+   \<mssqlUID> is the UID of the mssql user 
+ 
+   \<mssqlGID> is the GID of the mssql user
+ 
+   *	Check to see that the mount was successful by issuing mount with no switches.
+
+   ```bash
+   mount
+   ```
+ 
+   *	Switch to the mssql user. You will not receive any acknowledgement if successful.
+
+   ```bash
+   su mssql
+   ```
+
+   *	Copy the files from the temporary directory /var/opt/mssql/data. You will not receive any acknowledgement if successful.
+
+   ```bash
+   cp /var/opt/mssql/tmp/* /var/opt/mssql/data
+   ```
+
+   *	Verify the files are there.
+
+   ```bash
+   ls /var/opt/mssql/datao see that the mount was successful by issuing mount with no switches.
+
+   ```bash
+   mount
+   ```
+ 
+   *	Switch to the mssql user. You will not receive any acknowledgement if successful.
+
+   ```bash
+   su mssql
+   ```
+
+   *	Copy the files from the temporary directory /var/opt/mssql/data. You will not receive any acknowledgement if successful.
+
+   ```bash
+   cp /var/opt/mssql/tmp/* /var/opt/mssql/data
+   ```
+
+   *	Verify the files are there.
+
+   ```bash
+   ls /var/opt/mssql/data
+   ```
+
+   *	Enter exit to not be mssql 
+
+ 
+   *	Switch to the mssql user. You will not receive any acknowledgement if successful.
+
+   ```bash
+   su mssql
+   ```
+
+   *	Copy the files from the temporary directory /var/opt/mssql/data. You will not receive any acknowledgement if successful.
+
+   ```bash
+   cp /var/opt/mssql/tmp/* /var/opt/mssql/data
+   ```
+
+   *	Verify the files are there.
+
+   ```bash
+   ls /var/opt/mssql/data
+   ```
+
+   *	Enter exit to not be mssql 
+
+   *	Enter exit to not be root
+
+   *	Start SQL Server. If everything was copied correctly and security applied correctly, SQL Server should show as started.
+
+   ```bash
+   sudo systemctl start mssql-server
+   sudo systemctl status mssql-server
+   ```
+ 
+   *	To test further, create a database to ensure the permissions are fine. The following example uses Transact-SQL; you can use SSMS.
+
+   ![10_testcreatedb][2] 
+  
+   *	Stop SQL Server and verify it is shut down. If you are going to be adding or testing other disks, do not shut down SQL Server until those are added and tested.
+
+   ```bash
+   sudo systemctl stop mssql-server
+   sudo systemctl status mssql-server
+   ```
+
+   *	Only if finished, unmount the share. If not, unmount after finishing testing/adding any additional disks.
+
+   ```bash
+   sudo umount //<IPAddressorServerName>/<ShareName /<FolderMountedIn>
+   ```
+
+   \<IPAddressOrServerName> is the IP address or name of the SMB host
+
+   \<ShareName> is the name of the share
+   
+   \<FolderMountedIn> is the name of the folder where SMB is mounted
+
+5.	For things other than system databases, such as user databases or backups, follow these steps. If only using the default location, skip to Step 14.
+   
+   *	Switch to be the superuser. You will not receive any acknowledgement if successful.
+
+   ```bash
+   sudo -i
+   ```
+   
+   *	Create a folder that will be used by SQL Server. 
+
+   ```bash
+   mkdir <FolderName>
+   ```
+
+   \<FolderName> is the name of the folder. The folder's full path needs to be specified if not in the right location. The following example creates a folder named /var/opt/mssql/userdata.
+
+   ```bash
+   mkdir /var/opt/mssql/userdata
+   ```
+
+   *	Mount the SMB share in the SQL Server data folder. You will not receive any acknowledgement if successful. This example shows the syntax for connecting to a Samba-based SMB 3.0 share.
+
+   ```bash
+   Mount -t cifs //<ServerName>/<ShareName> <FolderName> -o vers=3.0,username=<UserName>,password=<Password>,uid=<mssqlUID>,gid=<mssqlGID>,file_mode=0777,dir_mode=0777
+   ```
+
+   \<ServerName> is the name of the server with the SMB share
+
+   \<ShareName> is the name of the share
+
+   \<FolderName> is the name of the folder created in the last step  
+
+   \<UserName> is the name of the user to access the share
+
+   \<Password> is the password for the user
+
+   \<mssqlUID> is the UID of the mssql user
+
+   \<mssqlGID> is the GID of the mssql user.
+ 
+   * Check to see that the mount was successful by issuing mount with no switches.
+ 
+   * Type exit to no longer be the superuser.
+
+   * To test, create a database in that folder. The following example uses sqlcmd to create a database, switch context to it, verify the files exist at the OS level, and then deletes the temporary location. You can use SSMS.
+ 
+   * Unmount the share 
+
+   ```bash
+   sudo umount //<IPAddressorServerName>/<ShareName> /<FolderMountedIn>
+   ```
+   
+   \<IPAddressOrServerName> is the IP address or name of the SMB host
+ 
+   \<ShareName> is the name of the share
+ 
+   \<FolderMountedIn> is the name of the folder where SMB is mounted.
+ 
+6.	Repeat the steps on the other node(s).
+
+You are now ready to configure the FCI.
+
+## Next steps
+
+[Configure failover cluster instance - SQL Server on Linux](sql-server-linux-shared-disk-cluster-configure.md)
+
+<!--Image references-->
+[1]: ./media/sql-server-linux-shared-disk-cluster-configure-smb/05-smbsource.png 
+[2]: ./media/sql-server-linux-shared-disk-cluster-configure-smb/10-testcreatedb.png 
