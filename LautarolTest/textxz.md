@@ -18,6 +18,5 @@ ms.author: alch
 <!-- [download-center]: TODO -->
 
 [releases]: https://github.com/PowerShell/PowerShell/releases
-[ssh-remoting]: ../core-powershell/SSH-Remoting-in-PowerShell-Core.md
-[wsman-remoting]: ../core-powershell/WSMan-Remoting-in-PowerShell-Core.md
-[AppVeyor]: https://ci.appveyor.com/project/PowerShell/powershell
+[test]: ../core-powershell/SSH-Remoting-in-PowerShell-Core.md
+
